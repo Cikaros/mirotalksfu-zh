@@ -286,7 +286,7 @@ var createRNNWasmModuleSync = (() => {
                 if (readBinary) {
                     return readBinary(file);
                 } else {
-                    throw "sync fetching of the wasm failed: you can preload it to Module['wasmBinary'] manually, or emcc.py will do that for you when generating HTML (but not JS)";
+                    throw "wasm的同步获取失败：您可以手动将它预加载到Module['wasmBinary']中，或者在生成HTML时（但不是JS时）由emcc.py为您完成此操作";
                 }
             } catch (err) {
                 abort(err);
@@ -303,10 +303,10 @@ var createRNNWasmModuleSync = (() => {
                 instance = new WebAssembly.Instance(module, info);
             } catch (e) {
                 var str = e.toString();
-                err('failed to compile wasm module: ' + str);
+                err('编译wasm模块失败： ' + str);
                 if (str.includes('imported Memory') || str.includes('memory import')) {
                     err(
-                        'Memory size incompatibility issues may be due to changing INITIAL_MEMORY at runtime to something too large. Use ALLOW_MEMORY_GROWTH to allow any size memory (and also make sure not to set INITIAL_MEMORY at runtime to something smaller than it was at compile time).'
+                        '内存大小不兼容问题可能是由于在运行时将INITIAL_MEMORY更改为过大值所致。请使用ALLOW_MEMORY_GROWTH来允许任意大小的内存（同时确保在运行时不要将INITIAL_MEMORY设置为小于编译时的值）。'
                     );
                 }
                 throw e;
@@ -333,7 +333,7 @@ var createRNNWasmModuleSync = (() => {
                     var exports = Module['instantiateWasm'](info, receiveInstance);
                     return exports;
                 } catch (e) {
-                    err('Module.instantiateWasm callback failed with error: ' + e);
+                    err('Module.instantiateWasm 回调失败，错误：' + e);
                     return false;
                 }
             }
@@ -466,7 +466,7 @@ var createRNNWasmModuleSync = (() => {
                 }
                 return bytes;
             } catch (_) {
-                throw new Error('Converting base64 string to bytes failed.');
+                throw new Error('将base64字符串转换为字节失败。');
             }
         }
 

@@ -18,14 +18,14 @@ class IframeApi {
 
     constructor(domain, options = {}) {
         if (!domain) {
-            throw new Error('Domain is required');
+            throw new Error('域名是必需的');
         }
 
         this.domain = domain;
         this.options = { ...IframeApi.DEFAULT_OPTIONS, ...options };
 
         if (!this.isValidParentNode()) {
-            throw new Error('Invalid parent node provided');
+            throw new Error('提供的父节点无效');
         }
 
         this.init();

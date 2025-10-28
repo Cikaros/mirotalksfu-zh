@@ -3,7 +3,7 @@
 if (location.href.substr(0, 5) !== 'https') location.href = 'https' + location.href.substr(4, location.href.length - 4);
 
 /**
- * MiroTalk SFU - Room component
+ * MiroTalk SFU - 房间组件
  *
  * @link    GitHub: https://github.com/miroslavpejic85/mirotalksfu
  * @link    Official Live demo: https://sfu.mirotalk.com
@@ -16,7 +16,7 @@ if (location.href.substr(0, 5) !== 'https') location.href = 'https' + location.h
  */
 
 // ####################################################
-// STATIC SETTINGS
+// 静态设置
 // ####################################################
 
 console.log('Window Location', window.location);
@@ -36,14 +36,14 @@ const isEmbedded = window.self !== window.top;
 const showDocumentPipBtn = !isEmbedded && 'documentPictureInPicture' in window;
 
 /**
- * Initializes a Socket.IO client instance with custom connection and reconnection options.
+ * 使用自定义连接和重连选项初始化Socket.IO客户端实例。
  *
- * @property {string[]} transports - The transport mechanisms to use. Default: ['polling', 'websocket']. Here, only ['websocket'] is used.
- * @property {boolean} reconnection - Whether to automatically reconnect if connection is lost. Default: true.
- * @property {number} reconnectionAttempts - Maximum number of reconnection attempts before giving up. Default: Infinity. Here, set to 10.
- * @property {number} reconnectionDelay - How long to initially wait before attempting a new reconnection (in ms). Default: 1000. Here, set to 3000.
- * @property {number} reconnectionDelayMax - Maximum amount of time to wait between reconnections (in ms). Default: 5000. Here, set to 15000.
- * @property {number} timeout - Connection timeout before an error is emitted (in ms). Default: 20000.
+ * @property {string[]} transports - 要使用的传输机制。默认值：['polling', 'websocket']。此处仅使用['websocket']。
+ * @property {boolean} reconnection - 如果连接丢失是否自动重连。默认值：true。
+ * @property {number} reconnectionAttempts - 放弃之前的最大重连尝试次数。默认值：Infinity。此处设置为10。
+ * @property {number} reconnectionDelay - 初始等待时间（以毫秒为单位），然后尝试新的重连。默认值：1000。此处设置为3000。
+ * @property {number} reconnectionDelayMax - 重连之间等待的最大时间（以毫秒为单位）。默认值：5000。此处设置为15000。
+ * @property {number} timeout - 发出错误之前的连接超时时间（以毫秒为单位）。默认值：20000。
  */
 const socket = io({
     transports: ['websocket'],
@@ -109,7 +109,7 @@ const swalImageUrl = '../images/pricing-illustration.svg';
 const sinkId = 'sinkId' in HTMLMediaElement.prototype;
 
 // ####################################################
-// LOCAL STORAGE
+// 本地存储
 // ####################################################
 
 const lS = new LocalStorage();
@@ -127,7 +127,7 @@ console.log('LOCAL_STORAGE', {
 });
 
 // ####################################################
-// THEME CUSTOM COLOR - PICKER
+// 主题自定义颜色 - 选择器
 // ####################################################
 
 const themeCustom = {
@@ -192,7 +192,7 @@ const pickr = Pickr.create({
     });
 
 // ####################################################
-// ENUMERATE DEVICES SELECTS
+// 列出设备选择
 // ####################################################
 
 const videoSelect = getId('videoSelect');
@@ -207,7 +207,7 @@ const speakerSelect = getId('speakerSelect');
 const initSpeakerSelect = getId('initSpeakerSelect');
 
 // ####################################################
-// VIRTUAL BACKGROUND DEFAULT IMAGES AND INIT CLASS
+// 虚拟背景默认图片和INIT类
 // ####################################################
 
 const virtualBackgrounds = Object.values(image.virtualBackground);
@@ -217,7 +217,7 @@ const virtualBackground = new VirtualBackground();
 const isMediaStreamTrackAndTransformerSupported = virtualBackground.checkSupport();
 
 // ####################################################
-// DYNAMIC SETTINGS
+// 动态设置
 // ####################################################
 
 let preventExit = false;
@@ -319,7 +319,7 @@ let showFreeAvatars = true;
 let quill = null;
 
 // ####################################################
-// INIT ROOM
+// 初始化房间
 // ####################################################
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -335,108 +335,108 @@ function initClient() {
 
     if (!isMobileDevice) {
         refreshMainButtonsToolTipPlacement();
-        setTippy('mySettingsCloseBtn', 'Close', 'bottom');
+        setTippy('mySettingsCloseBtn', '关闭', 'bottom');
         setTippy(
             'switchDominantSpeakerFocus',
-            'If Active, When a participant speaks, their video will be focused and enlarged',
+            '如果启用，当参与者发言时，他们的视频将会被聚焦并放大',
             'right'
         );
         setTippy(
             'switchNoiseSuppression',
-            'If Active, the audio will be processed to reduce background noise, making the voice clearer',
+            '如果启用，音频将被处理以减少背景噪音，使声音更清晰',
             'right'
         );
         setTippy(
             'switchPushToTalk',
-            'If Active, When SpaceBar keydown the microphone will be resumed, on keyup will be paused, like a walkie-talkie',
+            '如果启用，当按下空格键时麦克风将恢复录制，松开时将暂停录制，类似于对讲机',
             'right'
         );
-        setTippy('lobbyAcceptAllBtn', 'Accept', 'top');
-        setTippy('lobbyRejectAllBtn', 'Reject', 'top');
-        setTippy(
+        setTippy('lobbyAcceptAllBtn', '接受', 'top');
+        setTippy('lobbyRejectAllBtn', '拒绝', 'top');
+setTippy(
             'switchBroadcasting',
-            'Broadcasting is the dissemination of audio or video content to a large audience (one to many)',
+            '广播是向大量受众传播音频或视频内容（一对一）',
             'right'
         );
         setTippy(
             'switchLobby',
-            'Lobby mode lets you protect your meeting by only allowing people to enter after a formal approval by a moderator',
+            '大厅模式允许您通过仅在主持人正式批准后才允许人员进入来保护您的会议',
             'right'
         );
-        setTippy('initVideoAudioRefreshButton', 'Refresh audio/video devices', 'top');
+        setTippy('initVideoAudioRefreshButton', '刷新音频/视频设备', 'top');
         setTippy(
             'screenOptimizationLabel',
-            'Detail: For high fidelity (screen sharing with text/graphics)<br />Motion: For high frame rate (video playback, game streaming',
+            '细节：用于高保真度（带文本/图形的屏幕共享）<br />动作：用于高帧率（视频回放、游戏流媒体',
             'right',
             true
         );
-        setTippy('switchPitchBar', 'Toggle audio pitch bar', 'right');
-        setTippy('switchSounds', 'Toggle the sounds notifications', 'right');
-        setTippy('switchShare', "Show 'Share Room' popup on join", 'right');
-        setTippy('switchKeepButtonsVisible', 'Keep buttons always visible', 'right');
-        setTippy('roomId', 'Room name (click to copy)', 'right');
-        setTippy('sessionTime', 'Session time', 'right');
-        setTippy('recordingImage', 'Toggle recording', 'right');
+        setTippy('switchPitchBar', '切换音频音调栏', 'right');
+        setTippy('switchSounds', '切换声音通知', 'right');
+        setTippy('switchShare', "加入时显示'分享房间'弹窗", 'right');
+        setTippy('switchKeepButtonsVisible', '保持按钮始终可见', 'right');
+        setTippy('roomId', '房间名称（点击复制）', 'right');
+        setTippy('sessionTime', '会话时间', 'right');
+        setTippy('recordingImage', '切换录制', 'right');
         setTippy(
             'switchHostOnlyRecording',
-            'Only the host (presenter) has the capability to record the meeting',
+            '只有主持人（演示者）有能力录制会议',
             'right'
         );
-        setTippy('refreshVideoFiles', 'Refresh', 'left');
-        setTippy('switchServerRecording', 'The recording will be stored on the server rather than locally', 'right');
-        setTippy('whiteboardGhostButton', 'Toggle transparent background', 'bottom');
-        setTippy('whiteboardGridBtn', 'Toggle whiteboard grid', 'bottom');
-        setTippy('wbBackgroundColorEl', 'Background color', 'bottom');
-        setTippy('wbDrawingColorEl', 'Drawing color', 'bottom');
-        setTippy('whiteboardPencilBtn', 'Drawing mode', 'bottom');
-        setTippy('whiteboardObjectBtn', 'Object mode', 'bottom');
-        setTippy('whiteboardUndoBtn', 'Undo', 'bottom');
-        setTippy('whiteboardRedoBtn', 'Redo', 'bottom');
-        setTippy('whiteboardLockBtn', 'Toggle Lock whiteboard', 'right');
-        setTippy('whiteboardUnlockBtn', 'Toggle Lock whiteboard', 'right');
-        setTippy('whiteboardCloseBtn', 'Close', 'right');
-        setTippy('chatCleanTextButton', 'Clean', 'top');
-        setTippy('chatPasteButton', 'Paste', 'top');
-        setTippy('chatSendButton', 'Send', 'top');
-        setTippy('showChatOnMsg', 'Show chat on new message comes', 'bottom');
-        setTippy('speechIncomingMsg', 'Speech the incoming messages', 'bottom');
-        setTippy('chatSpeechStartButton', 'Start speech recognition', 'top');
-        setTippy('chatSpeechStopButton', 'Stop speech recognition', 'top');
-        setTippy('chatEmojiButton', 'Emoji', 'top');
+        setTippy('refreshVideoFiles', '刷新', 'left');
+        setTippy('switchServerRecording', '录制将存储在服务器上而不是本地', 'right');
+        setTippy('whiteboardGhostButton', '切换透明背景', 'bottom');
+        setTippy('whiteboardGridBtn', '切换白板网格', 'bottom');
+        setTippy('wbBackgroundColorEl', '背景颜色', 'bottom');
+        setTippy('wbDrawingColorEl', '绘制颜色', 'bottom');
+        setTippy('whiteboardPencilBtn', '绘制模式', 'bottom');
+        setTippy('whiteboardObjectBtn', '对象模式', 'bottom');
+        setTippy('whiteboardUndoBtn', '撤销', 'bottom');
+        setTippy('whiteboardRedoBtn', '重做', 'bottom');
+        setTippy('whiteboardLockBtn', '切换锁定白板', 'right');
+        setTippy('whiteboardUnlockBtn', '切换锁定白板', 'right');
+        setTippy('whiteboardCloseBtn', '关闭', 'right');
+        setTippy('chatCleanTextButton', '清理', 'top');
+        setTippy('chatPasteButton', '粘贴', 'top');
+        setTippy('chatSendButton', '发送', 'top');
+        setTippy('showChatOnMsg', '新消息到达时显示聊天', 'bottom');
+        setTippy('speechIncomingMsg', '语音播报收到的消息', 'bottom');
+        setTippy('chatSpeechStartButton', '开始语音识别', 'top');
+        setTippy('chatSpeechStopButton', '停止语音识别', 'top');
+        setTippy('chatEmojiButton', '表情符号', 'top');
         setTippy('chatMarkdownButton', 'Markdown', 'top');
-        setTippy('chatCloseButton', 'Close', 'bottom');
-        setTippy('chatTogglePin', 'Toggle pin', 'bottom');
-        setTippy('chatHideParticipantsList', 'Hide', 'bottom');
-        setTippy('chatShowParticipantsList', 'Toggle participants list', 'bottom');
-        setTippy('chatMaxButton', 'Maximize', 'bottom');
-        setTippy('chatMinButton', 'Minimize', 'bottom');
-        setTippy('pollTogglePin', 'Toggle pin', 'bottom');
-        setTippy('pollMaxButton', 'Maximize', 'bottom');
-        setTippy('pollMinButton', 'Minimize', 'bottom');
-        setTippy('pollSaveButton', 'Save results', 'bottom');
-        setTippy('pollCloseBtn', 'Close', 'bottom');
-        setTippy('editorLockBtn', 'Toggle Lock editor', 'bottom');
-        setTippy('editorUnlockBtn', 'Toggle Lock editor', 'bottom');
-        setTippy('editorTogglePin', 'Toggle pin', 'bottom');
-        setTippy('editorUndoBtn', 'Undo', 'bottom');
-        setTippy('editorRedoBtn', 'Redo', 'bottom');
-        setTippy('editorCopyBtn', 'Copy', 'bottom');
-        setTippy('editorSaveBtn', 'Save', 'bottom');
-        setTippy('editorCloseBtn', 'Close', 'bottom');
-        setTippy('editorCleanBtn', 'Clean', 'bottom');
-        setTippy('pollAddOptionBtn', 'Add option', 'top');
-        setTippy('pollDelOptionBtn', 'Delete option', 'top');
-        setTippy('participantsSaveBtn', 'Save participants info', 'bottom');
-        setTippy('participantsRaiseHandBtn', 'Toggle raise hands', 'bottom');
-        setTippy('participantsUnreadMessagesBtn', 'Toggle unread messages', 'bottom');
-        setTippy('transcriptionCloseBtn', 'Close', 'bottom');
-        setTippy('transcriptionTogglePinBtn', 'Toggle pin', 'bottom');
-        setTippy('transcriptionMaxBtn', 'Maximize', 'bottom');
-        setTippy('transcriptionMinBtn', 'Minimize', 'bottom');
-        setTippy('transcriptionSpeechStatus', 'Status', 'bottom');
-        setTippy('transcriptShowOnMsg', 'Show transcript on new message comes', 'bottom');
-        setTippy('transcriptionSpeechStart', 'Start transcription', 'top');
-        setTippy('transcriptionSpeechStop', 'Stop transcription', 'top');
+        setTippy('chatCloseButton', '关闭', 'bottom');
+        setTippy('chatTogglePin', '切换固定', 'bottom');
+        setTippy('chatHideParticipantsList', '隐藏', 'bottom');
+        setTippy('chatShowParticipantsList', '切换参与者列表', 'bottom');
+        setTippy('chatMaxButton', '最大化', 'bottom');
+        setTippy('chatMinButton', '最小化', 'bottom');
+        setTippy('pollTogglePin', '切换固定', 'bottom');
+        setTippy('pollMaxButton', '最大化', 'bottom');
+        setTippy('pollMinButton', '最小化', 'bottom');
+        setTippy('pollSaveButton', '保存结果', 'bottom');
+        setTippy('pollCloseBtn', '关闭', 'bottom');
+        setTippy('editorLockBtn', '切换锁定编辑器', 'bottom');
+        setTippy('editorUnlockBtn', '切换锁定编辑器', 'bottom');
+        setTippy('editorTogglePin', '切换固定', 'bottom');
+        setTippy('editorUndoBtn', '撤销', 'bottom');
+        setTippy('editorRedoBtn', '重做', 'bottom');
+        setTippy('editorCopyBtn', '复制', 'bottom');
+        setTippy('editorSaveBtn', '保存', 'bottom');
+        setTippy('editorCloseBtn', '关闭', 'bottom');
+        setTippy('editorCleanBtn', '清理', 'bottom');
+        setTippy('pollAddOptionBtn', '添加选项', 'top');
+        setTippy('pollDelOptionBtn', '删除选项', 'top');
+        setTippy('participantsSaveBtn', '保存参与者信息', 'bottom');
+        setTippy('participantsRaiseHandBtn', '切换举手', 'bottom');
+        setTippy('participantsUnreadMessagesBtn', '切换未读消息', 'bottom');
+        setTippy('transcriptionCloseBtn', '关闭', 'bottom');
+        setTippy('transcriptionTogglePinBtn', '切换固定', 'bottom');
+        setTippy('transcriptionMaxBtn', '最大化', 'bottom');
+        setTippy('transcriptionMinBtn', '最小化', 'bottom');
+        setTippy('transcriptionSpeechStatus', '状态', 'bottom');
+        setTippy('transcriptShowOnMsg', '新消息到达时显示转录', 'bottom');
+        setTippy('transcriptionSpeechStart', '开始转录', 'top');
+        setTippy('transcriptionSpeechStop', '停止转录', 'top');
     }
     setupWhiteboard();
     initEnumerateDevices();
@@ -454,41 +454,41 @@ function refreshMainButtonsToolTipPlacement() {
         const placement = position == 'vertical' ? 'right' : 'top';
         const bPlacement = position == 'vertical' ? 'top' : 'right';
 
-        // Control buttons
-        setTippy('shareButton', 'Share room', placement);
-        setTippy('hideMeButton', 'Toggle hide self view', placement);
-        setTippy('startRecButton', 'Start recording', placement);
-        setTippy('stopRecButton', 'Stop recording', placement);
-        setTippy('fullScreenButton', 'Toggle full screen', placement);
-        setTippy('emojiRoomButton', 'Toggle emoji reaction', placement);
-        setTippy('pollButton', 'Toggle the poll', placement);
-        setTippy('editorButton', 'Toggle the editor', placement);
-        setTippy('transcriptionButton', 'Toggle transcription', placement);
-        setTippy('whiteboardButton', 'Toggle the whiteboard', placement);
-        setTippy('documentPiPButton', 'Toggle Document picture in picture', placement);
-        setTippy('snapshotRoomButton', 'Snapshot screen, window, or tab', placement);
-        setTippy('restartICEButton', 'Restart ICE', placement);
-        setTippy('aboutButton', 'About this project', placement);
+        // 控制按钮
+        setTippy('shareButton', '分享房间', placement);
+        setTippy('hideMeButton', '切换隐藏自我视图', placement);
+        setTippy('startRecButton', '开始录制', placement);
+        setTippy('stopRecButton', '停止录制', placement);
+        setTippy('fullScreenButton', '切换全屏', placement);
+        setTippy('emojiRoomButton', '切换表情反应', placement);
+        setTippy('pollButton', '切换投票', placement);
+        setTippy('editorButton', '切换编辑器', placement);
+        setTippy('transcriptionButton', '切换转录', placement);
+        setTippy('whiteboardButton', '切换白板', placement);
+        setTippy('documentPiPButton', '切换文档画中画', placement);
+        setTippy('snapshotRoomButton', '截图屏幕、窗口或标签页', placement);
+        setTippy('restartICEButton', '重启ICE', placement);
+        setTippy('aboutButton', '关于此项目', placement);
 
-        // Bottom buttons
-        setTippy('toggleExtraButton', 'Toggle extra buttons', bPlacement);
-        setTippy('startAudioButton', 'Start the audio', bPlacement);
-        setTippy('stopAudioButton', 'Stop the audio', bPlacement);
-        setTippy('startVideoButton', 'Start the video', bPlacement);
-        setTippy('stopVideoButton', 'Stop the video', bPlacement);
-        setTippy('swapCameraButton', 'Swap the camera', bPlacement);
-        setTippy('startScreenButton', 'Start screen share', bPlacement);
-        setTippy('stopScreenButton', 'Stop screen share', bPlacement);
-        setTippy('raiseHandButton', 'Raise your hand', bPlacement);
-        setTippy('lowerHandButton', 'Lower your hand', bPlacement);
-        setTippy('chatButton', 'Toggle the chat', bPlacement);
-        setTippy('settingsButton', 'Toggle the settings', bPlacement);
-        setTippy('exitButton', 'Leave room', bPlacement);
+        // 底部按钮
+        setTippy('toggleExtraButton', '切换额外按钮', bPlacement);
+        setTippy('startAudioButton', '开始音频', bPlacement);
+        setTippy('stopAudioButton', '停止音频', bPlacement);
+        setTippy('startVideoButton', '开始视频', bPlacement);
+        setTippy('stopVideoButton', '停止视频', bPlacement);
+        setTippy('swapCameraButton', '切换摄像头', bPlacement);
+        setTippy('startScreenButton', '开始屏幕共享', bPlacement);
+        setTippy('stopScreenButton', '停止屏幕共享', bPlacement);
+        setTippy('raiseHandButton', '举手', bPlacement);
+        setTippy('lowerHandButton', '放下手', bPlacement);
+        setTippy('chatButton', '切换聊天', bPlacement);
+        setTippy('settingsButton', '切换设置', bPlacement);
+        setTippy('exitButton', '离开房间', bPlacement);
     }
 }
 
 // ####################################################
-// HANDLE TOOLTIP
+// 处理提示
 // ####################################################
 
 function setTippy(elem, content, placement, allowHTML = false) {
@@ -512,7 +512,7 @@ function setTippy(elem, content, placement, allowHTML = false) {
 }
 
 // ####################################################
-// HELPERS
+// 助手函数
 // ####################################################
 
 function getQueryParam(param) {
@@ -521,7 +521,7 @@ function getQueryParam(param) {
 }
 
 // ####################################################
-// GET ROOM ID
+// 获取房间ID
 // ####################################################
 
 function getRoomId() {
@@ -546,7 +546,7 @@ function makeId(length) {
 }
 
 // ####################################################
-// INIT ROOM
+// 初始化房间
 // ####################################################
 
 async function initRoom() {
@@ -562,7 +562,7 @@ async function initRoom() {
 }
 
 // ####################################################
-// ENUMERATE DEVICES
+// 列出设备
 // ####################################################
 
 async function initEnumerateDevices() {
@@ -722,7 +722,7 @@ async function addChild(device, els) {
 }
 
 // ####################################################
-// INIT AUDIO/VIDEO/SCREEN BUTTONS
+// 初始化音频/视频/屏幕按钮
 // ####################################################
 
 function setupInitButtons() {
@@ -757,7 +757,7 @@ function setupInitButtons() {
 }
 
 // ####################################################
-// MICROPHONE VOLUME INDICATOR
+// 麦克风音量指示器
 // ####################################################
 
 async function getMicrophoneVolumeIndicator(stream) {
@@ -842,7 +842,7 @@ function hasVideoTrack(mediaStream) {
 }
 
 // ####################################################
-// QUERY PARAMS CHECK
+// 查询参数检查
 // ####################################################
 
 function getScreen() {
@@ -985,8 +985,8 @@ function getRoomDuration() {
             Swal.fire({
                 background: swalBackground,
                 position: 'center',
-                title: 'Time Limit Reached',
-                text: 'The room has reached its time limit and will close shortly',
+                title: '时间限制已达到',
+                text: '房间已达到其时间限制，将很快关闭',
                 icon: 'warning',
                 timer: 6000, // 6 seconds
                 timerProgressBar: true,
@@ -1236,11 +1236,11 @@ async function whoAreYou() {
         background: swalBackground,
         title: BRAND.app?.name,
         input: 'text',
-        inputPlaceholder: 'Enter your email or name',
+        inputPlaceholder: '输入您的邮箱或姓名',
         inputAttributes: { maxlength: 254, id: 'usernameInput' },
         inputValue: default_name,
         html: initUser, // Inject HTML
-        confirmButtonText: `Join meeting`,
+        confirmButtonText: `加入会议`,
         customClass: { popup: 'init-modal-size' },
         showClass: { popup: 'animate__animated animate__fadeInDown' },
         hideClass: { popup: 'animate__animated animate__fadeOutUp' },
@@ -1249,15 +1249,15 @@ async function whoAreYou() {
         },
         inputValidator: (name) => {
             if (isVideoAllowed && !isInitVideoLoaded) {
-                return 'Please wait for video to initialize...';
+                return '请等待视频初始化...';
             }
-            if (!name) return 'Please enter your email or name';
+            if (!name) return '请输入您的邮箱或姓名';
             const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(name);
             if ((isEmail && name.length > 254) || (!isEmail && name.length > 32)) {
-                return isEmail ? 'Email must be max 254 char' : 'Name must be max 32 char';
+                return isEmail ? '邮件长度必须不超过254个字符' : '名称必须为32个字符以内';
             }
             name = filterXSS(name);
-            if (isHtml(name)) return 'Invalid name!';
+            if (isHtml(name)) return '无效名称！';
             if (!getCookie(room_id + '_name')) {
                 window.localStorage.peer_name = name;
             }
@@ -1428,7 +1428,7 @@ async function shareRoom(useNavigator = false) {
     if (navigator.share && useNavigator) {
         try {
             await navigator.share({ url: RoomURL });
-            userLog('info', 'Room Shared successfully', 'top-end');
+            userLog('info', '房间共享成功', 'top-end');
         } catch (err) {
             share();
         }
@@ -1441,22 +1441,22 @@ async function shareRoom(useNavigator = false) {
         Swal.fire({
             background: swalBackground,
             position: 'center',
-            title: 'Share the room',
+            title: '共享房间',
             html: `
             <div id="qrRoomContainer">
                 <canvas id="qrRoom"></canvas>
             </div>
             <br/>
-            <p style="background:transparent; color:rgb(8, 189, 89);">Join from your mobile device</p>
-            <p style="background:transparent; color:white; font-family: Arial, Helvetica, sans-serif;">No need for apps, simply capture the QR code with your mobile camera Or Invite someone else to join by sending them the following URL</p>
+            <p style="background:transparent; color:rgb(8, 189, 89);">从您的移动设备加入</p>
+            <p style="background:transparent; color:white; font-family: Arial, Helvetica, sans-serif;">无需安装应用，只需用手机相机扫描二维码 或者 发送以下链接给其他人让他们加入</p>
             <p style="background:transparent; color:rgb(8, 189, 89);">${RoomURL}</p>`,
             showDenyButton: true,
             showCancelButton: true,
             cancelButtonColor: 'red',
             denyButtonColor: 'green',
-            confirmButtonText: `Copy URL`,
-            denyButtonText: `Email invite`,
-            cancelButtonText: `Close`,
+            confirmButtonText: `复制链接`,
+            denyButtonText: `电子邮件邀请`,
+            cancelButtonText: `关闭`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         }).then((result) => {
@@ -1506,7 +1506,7 @@ function copyRoomURL() {
     tmpInput.setSelectionRange(0, 99999); // For mobile devices
     navigator.clipboard.writeText(tmpInput.value);
     document.body.removeChild(tmpInput);
-    userLog('info', 'Meeting URL copied to clipboard 👍', 'top-end');
+    userLog('info', '会议链接已复制到剪贴板 👍', 'top-end');
 }
 
 function copyToClipboard(txt, showTxt = true) {
@@ -1518,8 +1518,8 @@ function copyToClipboard(txt, showTxt = true) {
     navigator.clipboard.writeText(tmpInput.value);
     document.body.removeChild(tmpInput);
     showTxt
-        ? userLog('info', `${txt} copied to clipboard 👍`, 'top-end')
-        : userLog('info', `Copied to clipboard 👍`, 'top-end');
+        ? userLog('info', `${txt} 复制到剪贴板 👍`, 'top-end')
+        : userLog('info', `复制到剪贴板 👍`, 'top-end');
 }
 
 function shareRoomByEmail() {
@@ -1529,10 +1529,10 @@ function shareRoomByEmail() {
         background: swalBackground,
         imageUrl: image.email,
         position: 'center',
-        title: 'Select a Date and Time',
+        title: '选择日期和时间',
         html: '<input type="text" id="datetimePicker" class="flatpickr" />',
         showCancelButton: true,
-        confirmButtonText: 'OK',
+        confirmButtonText: '确定',
         cancelButtonColor: 'red',
         showClass: { popup: 'animate__animated animate__fadeInDown' },
         hideClass: { popup: 'animate__animated animate__fadeOutUp' },
@@ -1544,8 +1544,8 @@ function shareRoomByEmail() {
                     ? 'Password: ' + (room_password || rc.RoomPassword) + newLine
                     : '';
             const email = '';
-            const emailSubject = `Please join our ${BRAND.app.name} Video Chat Meeting`;
-            const emailBody = `The meeting is scheduled at: ${newLine} DateTime: ${selectedDateTime} ${newLine}${roomPassword}Click to join: ${RoomURL} ${newLine}`;
+            const emailSubject = `请加入我们的 ${BRAND.app.name} 视频聊天会议`;
+            const emailBody = `会议安排在: ${newLine} 时间: ${selectedDateTime} ${newLine}${roomPassword}点击加入: ${RoomURL} ${newLine}`;
             document.location = 'mailto:' + email + '?subject=' + emailSubject + '&body=' + emailBody;
         },
     });
@@ -1746,7 +1746,7 @@ function roomIsReady() {
 }
 
 // ####################################################
-// UTILS
+// 工具
 // ####################################################
 
 function elemDisplay(elem, display, mode = 'block') {
@@ -1809,7 +1809,7 @@ function elementNotFound(element) {
 }
 
 // ####################################################
-// SESSION TIMER
+// 会话计时器
 // ####################################################
 
 function startSessionTimer() {
@@ -1835,7 +1835,7 @@ function getTimeToString(time) {
 }
 
 // ####################################################
-// RECORDING TIMER
+// 录音计时器
 // ####################################################
 
 function secondsToHms(d) {
@@ -1908,7 +1908,7 @@ function handleButtons() {
     };
     hideMeButton.onclick = (e) => {
         if (isHideALLVideosActive) {
-            return userLog('warning', 'To use this feature, please toggle video focus mode', 'top-end', 6000);
+            return userLog('warning', '要使用此功能，请切换视频对焦模式', 'top-end', 6000);
         }
         isHideMeActive = !isHideMeActive;
         rc.handleHideMe();
@@ -1941,7 +1941,7 @@ function handleButtons() {
     };
     refreshVideoFiles.onclick = () => {
         rc.getRTMP();
-        userLog('info', 'Refreshed video files', 'top-end');
+        userLog('info', '刷新视频文件', 'top-end');
     };
     tabAspectBtn.onclick = (e) => {
         rc.openTab(e, 'tabAspect');
@@ -1991,11 +1991,11 @@ function handleButtons() {
     };
     refreshVideoDevices.onclick = async () => {
         await refreshMyVideoDevices();
-        userLog('info', 'Refreshed video devices', 'top-end');
+        userLog('info', '刷新视频设备', 'top-end');
     };
     refreshAudioDevices.onclick = async () => {
         await refreshMyAudioDevices();
-        userLog('info', 'Refreshed audio devices', 'top-end');
+        userLog('info', '刷新音频设备', 'top-end');
     };
     speakerTestBtn.onclick = () => {
         sound('ring', true);
@@ -2208,7 +2208,7 @@ function handleButtons() {
     startAudioButton.onclick = async () => {
         const moderator = rc.getModerator();
         if (moderator.audio_cant_unmute) {
-            return userLog('warning', 'The moderator does not allow you to unmute', 'top-end', 6000);
+            return userLog('warning', '主持人不允许你解除静音', 'top-end', 6000);
         }
         if (isPushToTalkActive) return;
         setAudioButtonsDisabled(true);
@@ -2239,7 +2239,7 @@ function handleButtons() {
     startVideoButton.onclick = async () => {
         const moderator = rc.getModerator();
         if (moderator.video_cant_unhide) {
-            return userLog('warning', 'The moderator does not allow you to unhide', 'top-end', 6000);
+            return userLog('warning', '主持人不允许你取消隐藏', 'top-end', 6000);
         }
         setVideoButtonsDisabled(true);
         if (!isEnumerateVideoDevices) await initEnumerateVideoDevices();
@@ -2254,7 +2254,7 @@ function handleButtons() {
     startScreenButton.onclick = async () => {
         const moderator = rc.getModerator();
         if (moderator.screen_cant_share) {
-            return userLog('warning', 'The moderator does not allow you to share the screen', 'top-end', 6000);
+            return userLog('warning', '主持人不允许你共享屏幕', 'top-end', 6000);
         }
         await rc.produce(RoomClient.mediaType.screen);
     };
@@ -2266,7 +2266,7 @@ function handleButtons() {
     };
     startRtmpButton.onclick = () => {
         if (rc.selectedRtmpFilename == '') {
-            userLog('warning', 'Please select the Video file to stream', 'top-end', 6000);
+            userLog('warning', '请选择视频文件', 'top-end', 6000);
             return;
         }
         rc.startRTMP();
@@ -2294,7 +2294,7 @@ function handleButtons() {
     };
     videoCloseBtn.onclick = () => {
         if (rc._moderator.media_cant_sharing) {
-            return userLog('warning', 'The moderator does not allow you close this media', 'top-end', 6000);
+            return userLog('warning', '主持人不允许你关闭此媒体', 'top-end', 6000);
         }
         rc.closeVideo(true);
     };
@@ -2397,19 +2397,19 @@ function handleButtons() {
 }
 
 // ####################################################
-// HANDLE INIT USER
+// 初始化用户
 // ####################################################
 
 function setButtonsInit() {
     if (!isMobileDevice) {
-        setTippy('initAudioButton', 'Toggle the audio', 'top');
-        setTippy('initVideoButton', 'Toggle the video', 'top');
-        setTippy('initAudioVideoButton', 'Toggle the audio & video', 'top');
-        setTippy('initStartScreenButton', 'Toggle screen sharing', 'top');
-        setTippy('initStopScreenButton', 'Toggle screen sharing', 'top');
-        setTippy('initVideoMirrorButton', 'Toggle video mirror', 'top');
-        setTippy('initVirtualBackgroundButton', 'Set Virtual Background or Blur', 'top');
-        setTippy('initUsernameEmojiButton', 'Toggle username emoji', 'top');
+        setTippy('initAudioButton', '切换音频', 'top');
+        setTippy('initVideoButton', '切换视频', 'top');
+        setTippy('initAudioVideoButton', '切换音频和视频', 'top');
+        setTippy('initStartScreenButton', '切换屏幕共享', 'top');
+        setTippy('initStopScreenButton', '切换屏幕共享', 'top');
+        setTippy('initVideoMirrorButton', '切换视频镜像', 'top');
+        setTippy('initVirtualBackgroundButton', '设置虚拟背景或模糊效果', 'top');
+        setTippy('initUsernameEmojiButton', '切换用户名表情符号', 'top');
     }
     if (!isAudioAllowed) hide(initAudioButton);
     if (!isVideoAllowed) hide(initVideoButton);
@@ -2560,7 +2560,7 @@ function detectCameraFacingMode(stream) {
 }
 
 // ####################################################
-// HANDLE MEDIA ERROR
+// 处理媒体错误
 // ####################################################
 
 function handleMediaError(mediaType, err, redirectURL = false) {
@@ -2572,7 +2572,7 @@ function handleMediaError(mediaType, err, redirectURL = false) {
     switch (err.name) {
         case 'NotFoundError':
         case 'DevicesNotFoundError':
-            errMessage = 'Required track is missing';
+            errMessage = '缺少所需的轨道';
             break;
         case 'NotReadableError':
         case 'TrackStartError':
@@ -2580,17 +2580,17 @@ function handleMediaError(mediaType, err, redirectURL = false) {
             break;
         case 'OverconstrainedError':
         case 'ConstraintNotSatisfiedError':
-            errMessage = 'Constraints cannot be satisfied by available devices';
+            errMessage = '可用设备无法满足限制';
             if (videoQuality.selectedIndex != 0) {
                 videoQuality.selectedIndex = rc.videoQualitySelectedIndex;
             }
             break;
         case 'NotAllowedError':
         case 'PermissionDeniedError':
-            errMessage = 'Permission denied in browser';
+            errMessage = '获取浏览器权限被拒绝';
             break;
         case 'TypeError':
-            errMessage = 'Empty constraints object';
+            errMessage = '空约束对象';
             break;
         default:
             getUserMediaError = false;
@@ -2604,25 +2604,25 @@ function handleMediaError(mediaType, err, redirectURL = false) {
 
     let html = `
     <ul style="text-align: left">
-        <li>Media type: ${mediaType}</li>
-        <li>Error name: ${err.name}</li>
+        <li>媒体类型: ${mediaType}</li>
+        <li>错误名称: ${err.name}</li>
         <li>
-            <p>Error message:</p>
+            <p>错误信息:</p>
             <p style="color: red">${errMessage}</p>
         </li>`;
 
     if (getUserMediaError) {
         html += `
-        <li>Common: <a href="https://blog.addpipe.com/common-getusermedia-errors" target="_blank">getUserMedia errors</a></li>`;
+        <li>普通: <a href="https://blog.addpipe.com/common-getusermedia-errors" target="_blank">getUserMedia 错误</a></li>`;
     }
     html += `
         </ul>
     `;
 
-    popupHtmlMessage(null, image.forbidden, 'Access denied', html, 'center', redirectURL);
+    popupHtmlMessage(null, image.forbidden, '访问被拒绝', html, 'center', redirectURL);
 
     throw new Error(
-        `Access denied for ${mediaType} device [${err.name}]: ${errMessage} check the common getUserMedia errors: https://blog.addpipe.com/common-getusermedia-errors/`
+        `拒绝访问 ${mediaType} 设备 [${err.name}]: ${errMessage} 请检查常见的 getUserMedia 错误: https://blog.addpipe.com/common-getusermedia-errors/`
     );
 }
 
@@ -2826,7 +2826,7 @@ function handleSelects() {
         localStorageSettings.keep_buttons_visible = isButtonsBarOver;
         lS.setSettings(localStorageSettings);
         const status = isButtonsBarOver ? 'enabled' : 'disabled';
-        userLog('info', `Buttons always visible ${status}`, 'top-end');
+        userLog('info', `按钮可见状态：${status}`, 'top-end');
         e.target.blur();
     };
     // recording
@@ -3018,7 +3018,7 @@ function handleSelects() {
 }
 
 // ####################################################
-// KEYBOARD SHORTCUTS
+// 键盘快捷键
 // ####################################################
 
 function handleKeyboardShortcuts() {
@@ -3028,7 +3028,7 @@ function handleKeyboardShortcuts() {
     } else {
         switchShortcuts.onchange = (e) => {
             const status = setKeyboardShortcuts(e.currentTarget.checked);
-            userLog('info', `Keyboard shortcuts ${status}`, 'top-end');
+            userLog('info', `键盘快捷键 ${status}`, 'top-end');
             e.target.blur();
         };
 
@@ -3051,104 +3051,104 @@ function handleKeyboardShortcuts() {
             switch (key) {
                 case 'a':
                     if (notPresenter && !audio && (audio_cant_unmute || !BUTTONS.main.startAudioButton)) {
-                        userLog('warning', 'The presenter has disabled your ability to enable audio', 'top-end');
+                        userLog('warning', '主持人已禁用您启用音频的能力', 'top-end');
                         break;
                     }
                     audio ? stopAudioButton.click() : startAudioButton.click();
                     break;
                 case 'v':
                     if (notPresenter && !video && (video_cant_unhide || !BUTTONS.main.startVideoButton)) {
-                        userLog('warning', 'The presenter has disabled your ability to enable video', 'top-end');
+                        userLog('warning', '主持人已禁用你开启视频的功能', 'top-end');
                         break;
                     }
                     video ? stopVideoButton.click() : startVideoButton.click();
                     break;
                 case 's':
                     if (notPresenter && !screen && (screen_cant_share || !BUTTONS.main.startScreenButton)) {
-                        userLog('warning', 'The presenter has disabled your ability to share the screen', 'top-end');
+                        userLog('warning', '主持人已禁用您共享屏幕的功能', 'top-end');
                         break;
                     }
                     screen ? stopScreenButton.click() : startScreenButton.click();
                     break;
                 case 'h':
                     if (notPresenter && !BUTTONS.main.raiseHandButton) {
-                        userLog('warning', 'The presenter has disabled your ability to raise your hand', 'top-end');
+                        userLog('warning', '主持人已禁用您举手的功能', 'top-end');
                         break;
                     }
                     hand ? lowerHandButton.click() : raiseHandButton.click();
                     break;
                 case 'c':
                     if (notPresenter && !BUTTONS.main.chatButton) {
-                        userLog('warning', 'The presenter has disabled your ability to open the chat', 'top-end');
+                        userLog('warning', '主持人已禁用您打开聊天的功能', 'top-end');
                         break;
                     }
                     chatButton.click();
                     break;
                 case 'o':
                     if (notPresenter && !BUTTONS.main.settingsButton) {
-                        userLog('warning', 'The presenter has disabled your ability to open the settings', 'top-end');
+                        userLog('warning', '主持人已禁用您打开设置的功能', 'top-end');
                         break;
                     }
                     settingsButton.click();
                     break;
                 case 'x':
                     if (notPresenter && !BUTTONS.main.hideMeButton) {
-                        userLog('warning', 'The presenter has disabled your ability to hide yourself', 'top-end');
+                        userLog('warning', '主持人已禁用你隐藏自己的能力', 'top-end');
                         break;
                     }
                     hideMeButton.click();
                     break;
                 case 'r':
                     if (notPresenter && (hostOnlyRecording || !BUTTONS.settings.tabRecording)) {
-                        userLog('warning', 'The presenter has disabled your ability to start recording', 'top-end');
+                        userLog('warning', '主持人已禁用你开始录制的能力', 'top-end');
                         break;
                     }
                     isRecording ? stopRecButton.click() : startRecButton.click();
                     break;
                 case 'j':
                     if (notPresenter && !BUTTONS.main.emojiRoomButton) {
-                        userLog('warning', 'The presenter has disabled your ability to open the room emoji', 'top-end');
+                        userLog('warning', '主持人已禁用您打开房间表情的功能', 'top-end');
                         break;
                     }
                     emojiRoomButton.click();
                     break;
                 case 'k':
                     if (notPresenter && !BUTTONS.main.transcriptionButton) {
-                        userLog('warning', 'The presenter has disabled your ability to start transcription', 'top-end');
+                        userLog('warning', '主持人已禁用您开始转录的能力', 'top-end');
                         break;
                     }
                     transcriptionButton.click();
                     break;
                 case 'p':
                     if (notPresenter && !BUTTONS.main.pollButton) {
-                        userLog('warning', 'The presenter has disabled your ability to start a poll', 'top-end');
+                        userLog('warning', '主持人已禁用您开始投票的功能', 'top-end');
                         break;
                     }
                     pollButton.click();
                     break;
                 case 'e':
                     if (notPresenter && !BUTTONS.main.editorButton) {
-                        userLog('warning', 'The presenter has disabled your ability to open the editor', 'top-end');
+                        userLog('warning', '主持人已禁用您打开编辑器的功能', 'top-end');
                         break;
                     }
                     editorButton.click();
                     break;
                 case 'w':
                     if (notPresenter && !BUTTONS.main.whiteboardButton) {
-                        userLog('warning', 'The presenter has disabled your ability to open the whiteboard', 'top-end');
+                        userLog('warning', '主持人已禁用您打开白板的能力', 'top-end');
                         break;
                     }
                     whiteboardButton.click();
                     break;
                 case 'd':
                     if (!showDocumentPipBtn) {
-                        userLog('warning', 'The document PIP is not supported in this browser', 'top-end');
+                        userLog('warning', '此浏览器不支持文档PIP', 'top-end');
                         break;
                     }
                     if (notPresenter && !BUTTONS.main.documentPiPButton) {
                         userLog(
                             'warning',
-                            'The presenter has disabled your ability to open the document PIP',
+                            '主持人已禁用您打开文档PIP的能力',
                             'top-end'
                         );
                         break;
@@ -3157,14 +3157,14 @@ function handleKeyboardShortcuts() {
                     break;
                 case 't':
                     if (notPresenter && !BUTTONS.main.snapshotRoomButton) {
-                        userLog('warning', 'The presenter has disabled your ability to take a snapshot', 'top-end');
+                        userLog('warning', '主持人已禁用您截屏的功能', 'top-end');
                         break;
                     }
                     snapshotRoomButton.click();
                     break;
                 case 'f':
                     if (notPresenter && !BUTTONS.settings.fileSharing) {
-                        userLog('warning', 'The presenter has disabled your ability to share files', 'top-end');
+                        userLog('warning', '主持人已禁用您分享文件的能力', 'top-end');
                         break;
                     }
                     fileShareButton.click();
@@ -3341,7 +3341,7 @@ function handleRoomEmojiPicker() {
     header.className = 'room-emoji-header';
 
     const title = document.createElement('span');
-    title.textContent = 'Emoji Picker';
+    title.textContent = 'Emoji 选择器';
     title.className = 'room-emoji-title';
 
     const closeBtn = document.createElement('button');
@@ -3355,11 +3355,11 @@ function handleRoomEmojiPicker() {
     tabContainer.className = 'room-emoji-tab-container';
 
     const allTab = document.createElement('button');
-    allTab.textContent = 'All';
+    allTab.textContent = '全部';
     allTab.className = 'room-emoji-tab active';
 
     const soundTab = document.createElement('button');
-    soundTab.textContent = 'Sounds';
+    soundTab.textContent = '声音';
     soundTab.className = 'room-emoji-tab';
 
     tabContainer.appendChild(allTab);
@@ -3451,7 +3451,7 @@ function handleRoomEmojiPicker() {
 }
 
 // ####################################################
-// ROOM EDITOR
+// 房间编辑
 // ####################################################
 
 function handleEditor() {
@@ -3718,7 +3718,7 @@ function handleRoomClientEvents() {
             console.log('Room event: host only recording enabled');
             // Stop recording ...
             if (rc.isRecording() || recordingStatus.innerText != '0s') {
-                rc.saveRecording('Room event: host only recording enabled, going to stop recording');
+                rc.saveRecording('房间事件：仅主持人录制已启用，即将停止录制');
             }
             hide(startRecButton);
             hide(recordingImage);
@@ -3778,7 +3778,7 @@ function handleRoomClientEvents() {
         endRoomSession();
 
         if (rc.isRecording() || recordingStatus.innerText != '0s') {
-            rc.saveRecording('Room event: Client save recording before to exit');
+            rc.saveRecording('房间事件：客户端在退出前将保存录音');
         }
 
         leaveRoom(false); // Don't touch :)
@@ -3786,7 +3786,7 @@ function handleRoomClientEvents() {
 }
 
 // ####################################################
-// UTILITY
+// 实用程序
 // ####################################################
 
 function leaveRoom(allowCancel = true) {
@@ -3805,11 +3805,11 @@ function leaveFeedback(allowCancel) {
         background: swalBackground,
         imageUrl: image.feedback,
         position: 'top',
-        title: 'Leave a feedback',
-        text: 'Do you want to rate your MiroTalk experience?',
-        confirmButtonText: `Yes`,
-        denyButtonText: `No`,
-        cancelButtonText: `Cancel`,
+        title: '反馈',
+        text: '你想评价一下你的MiroTalk体验吗？',
+        confirmButtonText: `想`,
+        denyButtonText: `下一次吧`,
+        cancelButtonText: `取消`,
         showClass: { popup: 'animate__animated animate__fadeInDown' },
         hideClass: { popup: 'animate__animated animate__fadeOutUp' },
     }).then((result) => {
@@ -3981,7 +3981,7 @@ function animateCSS(element, animation, prefix = 'animate__') {
         function handleAnimationEnd(event) {
             event.stopPropagation();
             element.classList.remove(`${prefix}animated`, animationName);
-            resolve('Animation ended');
+            resolve('动画结束');
         }
         element.addEventListener('animationend', handleAnimationEnd, { once: true });
     });
@@ -4102,7 +4102,7 @@ function getId(id) {
 }
 
 // ####################################################
-// HANDLE WHITEBOARD
+// 操作白板
 // ####################################################
 
 function toggleWhiteboard() {
@@ -4231,10 +4231,10 @@ function whiteboardAddObj(type) {
         case 'imgUrl':
             Swal.fire({
                 background: swalBackground,
-                title: 'Image URL',
+                title: '图片URL',
                 input: 'text',
                 showCancelButton: true,
-                confirmButtonText: 'OK',
+                confirmButtonText: '确定',
                 showClass: { popup: 'animate__animated animate__fadeInDown' },
                 hideClass: { popup: 'animate__animated animate__fadeOutUp' },
             }).then((result) => {
@@ -4245,16 +4245,16 @@ function whiteboardAddObj(type) {
                             addWbCanvasObj(myImg);
                         });
                     } else {
-                        userLog('error', 'The URL is not a valid image', 'top-end');
+                        userLog('error', '该URL不是有效的图像', 'top-end');
                     }
                 }
             });
             break;
         case 'imgFile':
-            setupFileSelection('Select the image', wbImageInput, renderImageToCanvas);
+            setupFileSelection('选择图片', wbImageInput, renderImageToCanvas);
             break;
         case 'pdfFile':
-            setupFileSelection('Select the PDF', wbPdfInput, renderPdfToCanvas);
+            setupFileSelection('选择PDF', wbPdfInput, renderPdfToCanvas);
             break;
         case 'text':
             const text = new fabric.IText('Lorem Ipsum', {
@@ -4324,7 +4324,7 @@ function setupFileSelection(title, accept, renderToCanvas) {
         input: 'file',
         html: `
         <div id="dropArea">
-            <p>Drag and drop your file here</p>
+            <p>将您的文件拖放到这里</p>
         </div>
         `,
         inputAttributes: {
@@ -4339,8 +4339,8 @@ function setupFileSelection(title, accept, renderToCanvas) {
             dropArea.addEventListener('drop', handleDrop);
         },
         showDenyButton: true,
-        confirmButtonText: `OK`,
-        denyButtonText: `Cancel`,
+        confirmButtonText: `确定`,
+        denyButtonText: `取消`,
         showClass: { popup: 'animate__animated animate__fadeInDown' },
         hideClass: { popup: 'animate__animated animate__fadeOutUp' },
     }).then((result) => {
@@ -4599,11 +4599,11 @@ function confirmClearBoard() {
         background: swalBackground,
         imageUrl: image.delete,
         position: 'center',
-        title: 'Clean the board',
-        text: 'Are you sure you want to clean the board?',
+        title: '清空白板',
+        text: '你要确定要清空白板吗？',
         showDenyButton: true,
-        confirmButtonText: `Yes`,
-        denyButtonText: `No`,
+        confirmButtonText: `清空`,
+        denyButtonText: `取消`,
         showClass: { popup: 'animate__animated animate__fadeInDown' },
         hideClass: { popup: 'animate__animated animate__fadeOutUp' },
     }).then((result) => {
@@ -4629,7 +4629,7 @@ function toggleLockUnlockWhiteboard() {
     whiteboardAction(getWhiteboardAction(action));
 
     if (wbIsLock) {
-        userLog('info', 'The whiteboard is locked. \n The participants cannot interact with it.', 'top-right');
+        userLog('info', '白板已锁定，无法与其互动。', 'top-right');
         sound('locked');
     }
 }
@@ -4642,7 +4642,7 @@ function whiteboardAction(data, emit = true) {
     } else {
         userLog(
             'info',
-            `${data.peer_name} <i class="fas fa-chalkboard-teacher"></i> whiteboard action: ${data.action}`,
+            `${data.peer_name} <i class="fas fa-chalkboard-teacher"></i> 白板操作: ${data.action}`,
             'top-end'
         );
     }
@@ -4696,7 +4696,7 @@ function wbDrawing(status) {
 }
 
 // ####################################################
-// HANDLE PARTICIPANTS
+// 处理参与者
 // ####################################################
 
 async function getRemotePeerInfo(peer_id) {
@@ -4819,18 +4819,18 @@ function getParticipantsList(peers) {
             </button>
             <ul class="dropdown-menu text-start" aria-labelledby="${socket.id}-chatDropDownMenu">`;
 
-        li += `<li><button class="ml5" id="muteAllParticipantsButton" onclick="rc.peerAction('me','${socket.id}','mute',true,true)">${_PEER.audioOff} Mute all participants</button></li>`;
-        li += `<li><button class="ml5" id="hideAllParticipantsButton" onclick="rc.peerAction('me','${socket.id}','hide',true,true)">${_PEER.videoOff} Hide all participants</button></li>`;
-        li += `<li><button class="ml5" id="stopAllParticipantsButton" onclick="rc.peerAction('me','${socket.id}','stop',true,true)">${_PEER.screenOff} Stop all screens sharing</button></li>`;
+        li += `<li><button class="ml5" id="muteAllParticipantsButton" onclick="rc.peerAction('me','${socket.id}','mute',true,true)">${_PEER.audioOff} 静音所有参与者</button></li>`;
+        li += `<li><button class="ml5" id="hideAllParticipantsButton" onclick="rc.peerAction('me','${socket.id}','hide',true,true)">${_PEER.videoOff} 隐藏所有参与者</button></li>`;
+        li += `<li><button class="ml5" id="stopAllParticipantsButton" onclick="rc.peerAction('me','${socket.id}','stop',true,true)">${_PEER.screenOff} 停止所有屏幕共享</button></li>`;
 
         if (BUTTONS.participantsList.sendFileAllButton) {
-            li += `<li><button class="btn-sm ml5" id="sendAllButton" onclick="rc.selectFileToShare('${socket.id}', true)">${_PEER.sendFile} Share file to all</button></li>`;
+            li += `<li><button class="btn-sm ml5" id="sendAllButton" onclick="rc.selectFileToShare('${socket.id}', true)">${_PEER.sendFile} 分享文件给所有人</button></li>`;
         }
 
-        li += `<li><button class="btn-sm ml5" id="sendVideoToAll" onclick="rc.shareVideo('all');">${_PEER.sendVideo} Share audio/video to all</button></li>`;
+        li += `<li><button class="btn-sm ml5" id="sendVideoToAll" onclick="rc.shareVideo('all');">${_PEER.sendVideo} 分享音频/视频给所有人</button></li>`;
 
         if (BUTTONS.participantsList.ejectAllButton) {
-            li += `<li><button class="btn-sm ml5" id="ejectAllButton" onclick="rc.peerAction('me','${socket.id}','eject',true,true)">${_PEER.ejectPeer} Eject all participants</button></li>`;
+            li += `<li><button class="btn-sm ml5" id="ejectAllButton" onclick="rc.peerAction('me','${socket.id}','eject',true,true)">${_PEER.ejectPeer} 逐出所有参与者</button></li>`;
         }
 
         li += `</ul>
@@ -4904,24 +4904,24 @@ function getParticipantsList(peers) {
                         </button>
                         <ul class="dropdown-menu text-start" aria-labelledby="${peer_id}-chatDropDownMenu">`;
 
-                li += `<li><button class="ml5" id='${peer_id}___pAudioMute' onclick="rc.peerAction('me',this.id,'mute')">${_PEER.audioOn} Toggle audio</button></li>`;
-                li += `<li><button class="ml5" id='${peer_id}___pVideoHide' onclick="rc.peerAction('me',this.id,'hide')">${_PEER.videoOn} Toggle video</button></li>`;
-                li += `<li><button class="ml5" id='${peer_id}___pScreenStop' onclick="rc.peerAction('me',this.id,'stop')">${_PEER.screenOn} Toggle screen</button></li>`;
+                li += `<li><button class="ml5" id='${peer_id}___pAudioMute' onclick="rc.peerAction('me',this.id,'mute')">${_PEER.audioOn} 切换音频</button></li>`;
+                li += `<li><button class="ml5" id='${peer_id}___pVideoHide' onclick="rc.peerAction('me',this.id,'hide')">${_PEER.videoOn} 切换视频</button></li>`;
+                li += `<li><button class="ml5" id='${peer_id}___pScreenStop' onclick="rc.peerAction('me',this.id,'stop')">${_PEER.screenOn} 切换屏幕</button></li>`;
 
                 if (BUTTONS.participantsList.sendFileButton) {
-                    li += `<li><button class="btn-sm ml5" id='${peer_id}___shareFile' onclick="rc.selectFileToShare('${peer_id}', false)">${peer_sendFile} Share file</button></li>`;
+                    li += `<li><button class="btn-sm ml5" id='${peer_id}___shareFile' onclick="rc.selectFileToShare('${peer_id}', false)">${peer_sendFile} 分享文件</button></li>`;
                 }
 
-                li += `<li><button class="btn-sm ml5" id="${peer_id}___sendVideoTo" onclick="rc.shareVideo('${peer_id}');">${_PEER.sendVideo} Share audio/video</button></li>`;
+                li += `<li><button class="btn-sm ml5" id="${peer_id}___sendVideoTo" onclick="rc.shareVideo('${peer_id}');">${_PEER.sendVideo} 分享音频/视频</button></li>`;
 
                 if (BUTTONS.participantsList.geoLocationButton) {
-                    li += `<li><button class="btn-sm ml5" id='${peer_id}___geoLocation' onclick="rc.askPeerGeoLocation(this.id)">${peer_geoLocation} Get geolocation</button></li>`;
+                    li += `<li><button class="btn-sm ml5" id='${peer_id}___geoLocation' onclick="rc.askPeerGeoLocation(this.id)">${peer_geoLocation} 获取地理位置</button></li>`;
                 }
                 if (BUTTONS.participantsList.banButton) {
-                    li += `<li><button class="btn-sm ml5" id='${peer_id}___pBan' onclick="rc.peerAction('me',this.id,'ban')">${peer_ban} Ban participant</button></li>`;
+                    li += `<li><button class="btn-sm ml5" id='${peer_id}___pBan' onclick="rc.peerAction('me',this.id,'ban')">${peer_ban} 禁止参与者</button></li>`;
                 }
                 if (BUTTONS.participantsList.ejectButton) {
-                    li += `<li><button class="btn-sm ml5" id='${peer_id}___pEject' onclick="rc.peerAction('me',this.id,'eject')">${peer_eject} Eject participant</button></li>`;
+                    li += `<li><button class="btn-sm ml5" id='${peer_id}___pEject' onclick="rc.peerAction('me',this.id,'eject')">${peer_eject} 剔除参与者</button></li>`;
                 }
 
                 li += `</ul>
@@ -4984,10 +4984,10 @@ function getParticipantsList(peers) {
                         <ul class="dropdown-menu text-start" aria-labelledby="${peer_id}-chatDropDownMenu">`;
 
                     if (BUTTONS.participantsList.sendFileButton) {
-                        li += `<li><button class="btn-sm ml5" id='${peer_id}___shareFile' onclick="rc.selectFileToShare('${peer_id}', false)">${peer_sendFile} Share file</button></li>`;
+                        li += `<li><button class="btn-sm ml5" id='${peer_id}___shareFile' onclick="rc.selectFileToShare('${peer_id}', false)">${peer_sendFile} 分享文件</button></li>`;
                     }
 
-                    li += `<li><button class="btn-sm ml5" id="${peer_id}___sendVideoTo" onclick="rc.shareVideo('${peer_id}');">${_PEER.sendVideo} Share Audio/Video</button></li>
+                    li += `<li><button class="btn-sm ml5" id="${peer_id}___sendVideoTo" onclick="rc.shareVideo('${peer_id}');">${_PEER.sendVideo} 分享音频/视频</button></li>
                         </ul>
                     </div>
                     `;
@@ -5023,9 +5023,9 @@ function getParticipantsList(peers) {
 function setParticipantsTippy(peers) {
     //
     if (!isMobileDevice) {
-        setTippy('muteAllButton', 'Mute all participants', 'top');
-        setTippy('hideAllButton', 'Hide all participants', 'top');
-        setTippy('stopAllButton', 'Stop screen share to all participants', 'top');
+        setTippy('muteAllButton', '静音所有参与者', 'top');
+        setTippy('hideAllButton', '隐藏所有参与者', 'top');
+        setTippy('stopAllButton', '停止向所有参与者共享屏幕', 'top');
         //
         for (let peer of Array.from(peers.keys())) {
             const peer_info = peers.get(peer).peer_info;
@@ -5035,9 +5035,9 @@ function setParticipantsTippy(peers) {
             const peerVideoBtn = rc.getId(peer_id + '___pVideo');
             const peerScreenBtn = rc.getId(peer_id + '___pScreen');
 
-            if (peerAudioBtn) setTippy(peerAudioBtn.id, 'Mute', 'top');
-            if (peerVideoBtn) setTippy(peerVideoBtn.id, 'Hide', 'top');
-            if (peerScreenBtn) setTippy(peerScreenBtn.id, 'Stop', 'top');
+            if (peerAudioBtn) setTippy(peerAudioBtn.id, '静音', 'top');
+            if (peerVideoBtn) setTippy(peerVideoBtn.id, '隐藏', 'top');
+            if (peerScreenBtn) setTippy(peerScreenBtn.id, '停止', 'top');
         }
     }
 }
@@ -5323,7 +5323,7 @@ function adaptAspectRatio(participantsCount) {
 }
 
 // ####################################################
-// HANDLE INIT VIRTUAL BACKGROUND AND BLUR
+// 初始化虚拟背景和模糊
 // ####################################################
 
 function showImageSelector() {
@@ -5356,18 +5356,18 @@ function showImageSelector() {
     }
 
     // Create clean virtual bg Image
-    createImage('initCleanVbImg', image.user, 'Remove virtual background', 'cleanVb', () =>
+    createImage('initCleanVbImg', image.user, '移除虚拟背景', 'cleanVb', () =>
         handleVirtualBackground(null, null)
     );
 
     // Create High Blur Image
-    createImage('initHighBlurImg', image.blurHigh, 'High Blur', 'high', () => handleVirtualBackground(20));
+    createImage('initHighBlurImg', image.blurHigh, '高模糊', 'high', () => handleVirtualBackground(20));
 
     // Create Low Blur Image
-    createImage('initLowBlurImg', image.blurLow, 'Low Blur', 'low', () => handleVirtualBackground(10));
+    createImage('initLowBlurImg', image.blurLow, '低模糊', 'low', () => handleVirtualBackground(10));
 
     // Create transparent virtual bg Image
-    createImage('initTransparentBg', image.transparentBg, 'Transparent Virtual background', 'transparentVb', () =>
+    createImage('initTransparentBg', image.transparentBg, '透明虚拟背景', 'transparentVb', () =>
         handleVirtualBackground(null, null, true)
     );
 
@@ -5402,7 +5402,7 @@ function showImageSelector() {
             handleFileUpload(event.target.files[0]);
         });
 
-        setupFileUploadButton('initUploadImg', image.upload, 'Upload your custom image', () => fileInput.click());
+        setupFileUploadButton('initUploadImg', image.upload, '上传您的自定义图片', () => fileInput.click());
 
         return fileInput;
     }
@@ -5445,8 +5445,8 @@ function showImageSelector() {
             console.error('Error fetching image:', error);
             // Detect CORS issue and provide a clearer error message
             error.message.includes('Failed to fetch')
-                ? showError(initErrorMessage, 'Error: Unable to fetch image. CORS policy may be blocking the request.')
-                : showError(initErrorMessage, `Error fetching image: ${error.message}`);
+                ? showError(initErrorMessage, '错误：无法获取图像。可能是CORS策略阻止了请求。')
+                : showError(initErrorMessage, `获取图像失败: ${error.message}`);
         }
     }
 
@@ -5480,7 +5480,7 @@ function showImageSelector() {
     createUploadImageButton();
 
     // Upload from URL button
-    setupFileUploadButton('initLinkImage', image.link, 'Upload Image from URL', askForImageURL);
+    setupFileUploadButton('initLinkImage', image.link, '从URL上传图片', askForImageURL);
 
     // Load default virtual backgrounds
     virtualBackgrounds.forEach((imageUrl, index) => {
@@ -5510,7 +5510,7 @@ function showImageSelector() {
 }
 
 // ####################################################
-// VIRTUAL BACKGROUND HELPER
+// 虚拟背景
 // ####################################################
 
 async function applyVirtualBackground(videoElement, stream, blurLevel, backgroundImage, backgroundTransparent) {
@@ -5597,7 +5597,7 @@ const indexedDBHelper = {
 };
 
 // ####################################################
-// VIRTUAL BACKGROUND LOCAL STORAGE SETTINGS
+// 虚拟背景本地存储设置
 // ####################################################
 
 function saveVirtualBackgroundSettings(blurLevel, imageUrl, transparent) {
@@ -5632,7 +5632,7 @@ async function loadVirtualBackgroundSettings() {
 }
 
 // ####################################################
-// HANDLE ERRORS
+// 处理错误
 // ####################################################
 
 function showError(errorElement, message, delay = 5000) {
@@ -5658,7 +5658,7 @@ function showError(errorElement, message, delay = 5000) {
 }
 
 // ####################################################
-// HANDLE SESSION EXIT
+// 处理会话退出
 // ####################################################
 
 // Call this when the session starts (e.g., after joining a room)
@@ -5680,12 +5680,12 @@ window.addEventListener('popstate', (event) => {
     Swal.fire({
         background: swalBackground,
         position: 'top',
-        title: 'Leave session?',
-        text: 'Are you sure you want to exit this session?',
+        title: '离开会议？',
+        text: '你确定要退出本次会议吗？',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes',
-        cancelButtonText: 'No',
+        confirmButtonText: '退出',
+        cancelButtonText: '取消',
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         showClass: { popup: 'animate__animated animate__fadeInDown' },
@@ -5737,7 +5737,7 @@ function showAbout() {
                                 <i class="fas fa-heart"></i> Support
                             </button>
                             <br /><br /><br />
-                            Author: 
+                            作者: 
                             <a 
                                 id="linkedin-button" 
                                 data-umami-event="Linkedin button" 
@@ -5746,7 +5746,7 @@ function showAbout() {
                                 Miroslav Pejic
                             </a>
                             <br /><br />
-                            Email: 
+                            邮箱: 
                             <a 
                                 id="email-button" 
                                 data-umami-event="Email button" 
@@ -5755,7 +5755,7 @@ function showAbout() {
                             </a>
                             <br /><br />
                             <hr />
-                            <span>&copy; 2025 MiroTalk SFU, all rights reserved</span>
+                            <span>&copy; 2025 MiroTalk SFU，版权所有</span>
                             <hr />
                         `
                 }

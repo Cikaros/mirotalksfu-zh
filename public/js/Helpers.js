@@ -17,7 +17,7 @@ class MixedAudioRecorder {
         } else if (window.mozAudioContext) {
             return new mozAudioContext();
         } else {
-            throw new Error('Web Audio API is not supported in this browser');
+            throw new Error('此浏览器不支持Web Audio API');
         }
     }
 

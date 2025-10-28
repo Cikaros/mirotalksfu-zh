@@ -40,10 +40,10 @@ function getUUID() {
 }
 
 async function fetchRooms() {
-    setRoomsContent('<div class="empty">Loading...</div>');
+    setRoomsContent('<div class="empty">加载中...</div>');
     try {
         const res = await axios.get('/api/v1/activeRooms');
-        if (res.status !== 200) throw new Error('Failed to fetch active rooms');
+        if (res.status !== 200) throw new Error('无法获取活动房间');
         allRooms = getRoomsData(res);
         renderRooms(allRooms);
     } catch (err) {
@@ -54,7 +54,7 @@ async function fetchRooms() {
 
 function renderRooms(rooms) {
     if (!rooms.length) {
-        setRoomsContent('<div class="empty">No active rooms found.</div>');
+        setRoomsContent('<div class="empty">未找到活跃的房间</div>');
         return;
     }
     setRoomsContent(

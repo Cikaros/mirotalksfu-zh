@@ -252,7 +252,7 @@ function isValidRoomName(input) {
 function adultContent() {
     if (
         confirm(
-            '18+ WARNING! ADULTS ONLY!\n\nExplicit material for viewing by adults 18 years of age or older. You must be at least 18 years old to access to this site!\n\nProceeding you are agree and confirm to have 18+ year.'
+            '18+ 警告！仅限成年人！\n\n仅供18岁或以上成年人观看的成人内容。您必须年满18岁才能访问此网站！\n\n继续访问即表示您同意并确认您已年满18岁。'
         )
     ) {
         window.open('https://luvlounge.ca', '_blank');

@@ -68,13 +68,13 @@ function checkRTMPEnabled() {
         .then((response) => {
             const { enabled } = response.data;
             if (!enabled) {
-                showPopup('The RTMP streaming feature has been disabled by the administrator', 'info');
+                showPopup('RTMP流媒体功能已由管理员禁用', 'info');
                 toggleButtons(true);
             }
         })
         .catch((error) => {
             console.error('Error fetching RTMP status:', error);
-            showError(`Error fetching RTMP status: ${error.message}`);
+            showError(`获取RTMP状态出错: ${error.message}`);
         });
 }
 
@@ -87,7 +87,7 @@ async function startCapture(constraints) {
         return stream;
     } catch (err) {
         console.error('Error accessing media devices.', err);
-        showError('Error accessing media devices. Please check your camera and microphone permissions.');
+        showError('访问媒体设备出错。请检查您的摄像头和麦克风权限。');
     }
 }
 
@@ -98,7 +98,7 @@ async function startScreenCapture(constraints) {
         return stream;
     } catch (err) {
         console.error('Error accessing screen media.', err);
-        showError('Error accessing screen sharing. Please try again or check your screen sharing permissions.');
+        showError('无法访问屏幕共享。请尝试再次操作或检查您的屏幕共享权限。');
     }
 }
 
@@ -135,7 +135,7 @@ async function initRTMP(stream) {
                 data,
             });
         } else {
-            showError('Error initializing RTMP. Please try again.');
+            showError('RTMP初始化错误。请重试。');
             console.error('Error initializing RTMP:', error);
         }
         stopStreaming();
@@ -156,7 +156,7 @@ async function stopRTMP() {
             },
         });
     } catch (error) {
-        showError('Error stopping RTMP. Please try again.');
+        showError('停止RTMP出错。请再试一次。');
         console.error('Error stopping RTMP:', error);
     }
 }
@@ -181,7 +181,7 @@ async function streamRTMPChunk(data) {
             if (mediaRecorder) {
                 stopStreaming();
                 console.error('Error syncing chunk:', error.message);
-                showError(`Error syncing chunk: ${error.message}`);
+                showError(`同步块时出错: ${error.message}`);
             }
         }
     }
@@ -296,7 +296,7 @@ function getRTMPScreenConstraints(screenFrameRate) {
 function copyRTMP() {
     const rtmpInput = document.getElementById('rtmp');
     if (!rtmpInput.value) {
-        return showPopup('No RTMP URL detected', 'info');
+        return showPopup('未检测到RTMP地址', 'info');
     }
     rtmpInput.select();
     document.execCommand('copy');

@@ -105,7 +105,7 @@ let BRAND = {
             </a>
             <br /><br />
             <hr />
-            <span>&copy; 2025 MiroTalk SFU, all rights reserved</span>
+            <span>&copy; 2025 MiroTalk SFU，版权所有</span>
             <hr />
         `,
     },
@@ -169,7 +169,7 @@ async function getBrand() {
         try {
             const response = await fetch('/brand', { timeout: 5000 });
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error('网络响应不成功');
             }
             const data = await response.json();
             const serverBrand = data.message;

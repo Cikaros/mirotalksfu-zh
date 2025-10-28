@@ -743,7 +743,7 @@ if (speechRecognition) {
         hide(chatSpeechStartButton);
         show(chatSpeechStopButton);
         setColor(chatSpeechStopButton, 'lime');
-        userLog('info', 'Speech recognition started', 'top-end');
+        userLog('info', '语音识别已启动', 'top-end');
     };
 
     recognition.onresult = (e) => {
@@ -761,7 +761,7 @@ if (speechRecognition) {
 
     recognition.onerror = function (event) {
         console.error('Speech recognition error', event.error);
-        userLog('error', `Speech recognition error ${event.error}`, 'top-end', 6000);
+        userLog('error', `语音识别错误 ${event.error}`, 'top-end', 6000);
     };
 
     recognition.onend = function () {
@@ -769,7 +769,7 @@ if (speechRecognition) {
         show(chatSpeechStartButton);
         hide(chatSpeechStopButton);
         setColor(chatSpeechStopButton, 'white');
-        userLog('info', 'Speech recognition stopped', 'top-end');
+        userLog('info', '语音识别已停止', 'top-end');
     };
 
     console.info('Browser supports webkitSpeechRecognition');
@@ -793,7 +793,7 @@ function startSpeech() {
         recognition.start();
     } catch (error) {
         console.error('Error starting speech recognition:', error);
-        userLog('error', 'Failed to start voice recognition', 'top-end');
+        userLog('error', '语音识别启动失败', 'top-end');
     }
 }
 
@@ -810,12 +810,12 @@ function switchRecognitionLanguage(lang) {
     setRecognitionLanguage(recognition, languageHandlers[currentLanguage].langCode);
     recognition.stop();
     setTimeout(() => recognition.start(), 300);
-    userLog('info', `Switched to ${lang} recognition`, 'top-end');
+    userLog('info', `已切换到 ${lang} 识别`, 'top-end');
 }
 
 function printCommand(command) {
     console.log('Detected', { command: command });
-    userLog('info', `Voice command: ${command}`, 'top-end', 2000);
+    userLog('info', `语音命令: ${command}`, 'top-end', 2000);
 }
 
 function execVoiceCommands(transcript) {

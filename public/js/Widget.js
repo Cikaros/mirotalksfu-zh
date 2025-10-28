@@ -26,13 +26,13 @@ class MiroTalkWidget {
             checkOnlineStatus: false,
             isOnline: true,
             customMessages: {
-                heading: 'Need a hand?',
+                heading: '需要帮助吗？',
                 subheading:
-                    'Hop on a <span style="font-weight: bold">Free 1:1 or Group Consultation</span> with a MiroTalk Expert right now!',
-                connectText: 'connect in < 10 seconds',
-                onlineText: 'We are online',
-                offlineText: 'We are offline',
-                poweredBy: 'Powered by <span class="mirotalk-powered-by">MiroTalk</span>',
+                    '立即与 <span style="font-weight: bold">MiroTalk 专家</span> 进行 <span style="font-weight: bold">免费一对一或小组咨询</span>！',
+                connectText: '在 < 10 秒内连接',
+                onlineText: '我们在线',
+                offlineText: '我们离线',
+                poweredBy: '由 <span class="mirotalk-powered-by">MiroTalk</span> 驱动',
             },
         },
     };
@@ -234,23 +234,23 @@ class MiroTalkWidget {
         const buttons = [];
 
         if (flags.audio) {
-            buttons.push({ action: 'startAudioCall', icon: this.getAudioIcon(), text: 'Start Audio Call' });
+            buttons.push({ action: 'startAudioCall', icon: this.getAudioIcon(), text: '开始音频通话' });
         }
         if (flags.video) {
-            buttons.push({ action: 'startVideoCall', icon: this.getVideoIcon(), text: 'Start Video Call' });
+            buttons.push({ action: 'startVideoCall', icon: this.getVideoIcon(), text: '开始视频通话' });
         }
         if (flags.screen && navigator.mediaDevices && typeof navigator.mediaDevices.getDisplayMedia === 'function') {
-            buttons.push({ action: 'startScreenShare', icon: this.getScreenIcon(), text: 'Start Screen Share' });
+            buttons.push({ action: 'startScreenShare', icon: this.getScreenIcon(), text: '开始屏幕共享' });
         }
         if (flags.chat) {
-            buttons.push({ action: 'startChat', icon: this.getChatIcon(), text: 'Start Chat' });
+            buttons.push({ action: 'startChat', icon: this.getChatIcon(), text: '开始聊天' });
         }
         if (flags.join) {
-            buttons.push({ action: 'joinRoom', icon: this.getJoinIcon(), text: 'Join Room' });
+            buttons.push({ action: 'joinRoom', icon: this.getJoinIcon(), text: '加入房间' });
         }
 
         if (!buttons.length) {
-            return `<div class="no-actions">No actions available</div>`;
+            return `<div class="no-actions">没有可用的操作</div>`;
         }
 
         return buttons
@@ -374,7 +374,7 @@ class MiroTalkWidget {
         reopenerBtn.innerHTML = `
             <div class="reopener-content">
                 ${this.getUserIcon()}
-                <span>Support</span>
+                <span>支持</span>
             </div>
         `;
 
@@ -502,7 +502,7 @@ class MiroTalkWidget {
     }
 
     supportOffline() {
-        alert('Sorry, support is currently offline.');
+        alert('抱歉，开发人员目前已离线。');
     }
 
     // ============================================================================

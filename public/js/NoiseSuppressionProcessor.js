@@ -12,7 +12,7 @@ class WasmModuleInitializer {
 
     async initSyncModule(jsContent) {
         try {
-            if (!jsContent) throw new Error('Missing sync module JS content');
+            if (!jsContent) throw new Error('缺失同步模块');
 
             const createFunction = new Function(jsContent + '; return createRNNWasmModuleSync;')();
             this.Module = await createFunction();
@@ -47,10 +47,10 @@ class RNNoiseContextManager {
     setupWasm() {
         this.wasmPcmInput = this.module._malloc(RNNOISE_FRAME_SIZE * 4);
         this.wasmPcmInputF32Index = this.wasmPcmInput >> 2;
-        if (!this.wasmPcmInput) throw new Error('Failed to allocate WASM buffer');
+        if (!this.wasmPcmInput) throw new Error('分配WASM缓冲区失败');
 
         this.rnnoiseContext = this.module._rnnoise_create();
-        if (!this.rnnoiseContext) throw new Error('Failed to create RNNoise context');
+        if (!this.rnnoiseContext) throw new Error('创建RNNoise上下文失败');
 
         console.log('WASM setup complete:', {
             wasmPcmInput: this.wasmPcmInput,

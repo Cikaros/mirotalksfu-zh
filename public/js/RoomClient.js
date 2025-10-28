@@ -1,12 +1,12 @@
 'use strict';
 
 /**
- * MiroTalk SFU - Client component
+ * MiroTalk SFU - 客户端组件
  *
  * @link    GitHub: https://github.com/miroslavpejic85/mirotalksfu
- * @link    Official Live demo: https://sfu.mirotalk.com
- * @license For open source use: AGPLv3
- * @license For commercial or closed source, contact us at license.mirotalk@gmail.com or purchase directly via CodeCanyon
+ * @link    官方实时演示: https://sfu.mirotalk.com
+ * @license 用于开源使用: AGPLv3
+ * @license 用于商业或封闭源代码，请联系我们 license.mirotalk@gmail.com 或直接通过CodeCanyon购买
  * @license CodeCanyon: https://codecanyon.net/item/mirotalk-sfu-webrtc-realtime-video-conferences/40769970
  * @author  Miroslav Pejic - miroslav.pejic.85@gmail.com
  * @version 1.9.90
@@ -485,8 +485,8 @@ class RoomClient {
                     return popupHtmlMessage(
                         null,
                         image.forbidden,
-                        'Join Room',
-                        `Room is full, maximum participants${room?.maxParticipants ? ` (${room.maxParticipants})` : ''} reached!`,
+                        '加入房间',
+                        `房间已满，最大参与者${room?.maxParticipants ? ` (${room.maxParticipants})` : ''}人数已达！`,
                         'center',
                         '/',
                         false
@@ -544,7 +544,7 @@ class RoomClient {
             .catch((error) => {
                 console.error('Join error:', error);
                 //
-                popupHtmlMessage(null, image.network, 'Join Room', error, 'center', false, true);
+                popupHtmlMessage(null, image.network, '加入房间', error, 'center', false, true);
             });
     }
 
@@ -670,16 +670,16 @@ class RoomClient {
                         active: true,
                         broadcast: true,
                     });
-                    this.userLog('warning', 'The Moderator starts your video in privacy mode', 'top-end');
+                    this.userLog('warning', '主持人在隐私模式下开启您的视频', 'top-end');
                 }
                 if (this._moderator.audio_start_muted && this._moderator.video_start_hidden) {
-                    this.userLog('warning', 'The Moderator disabled your audio and video', 'top-end');
+                    this.userLog('warning', '主持人已禁用您的音频和视频', 'top-end');
                 } else {
                     if (this._moderator.audio_start_muted && !this._moderator.video_start_hidden) {
-                        this.userLog('warning', 'The Moderator disabled your audio', 'top-end');
+                        this.userLog('warning', '主持人已禁用您的音频', 'top-end');
                     }
                     if (!this._moderator.audio_start_muted && this._moderator.video_start_hidden) {
-                        this.userLog('warning', 'The Moderator disabled your video', 'top-end');
+                        this.userLog('warning', '主持人已禁用您的视频', 'top-end');
                     }
                 }
                 //
@@ -782,7 +782,7 @@ class RoomClient {
     async loadDevice(routerRtpCapabilities) {
         if (!routerRtpCapabilities) {
             console.error('Router RTP Capabilities are required to load the device.');
-            this.userLog('error', 'Router RTP Capabilities are missing.', 'center', 6000);
+            this.userLog('error', '缺少路由器RTP功能', 'center', 6000);
             return null;
         }
 
@@ -794,10 +794,10 @@ class RoomClient {
         } catch (error) {
             if (error.name === 'UnsupportedError') {
                 console.error('Browser not supported:', error);
-                this.userLog('error', 'Browser not supported. Please try a different browser.', 'center', 6000);
+                this.userLog('error', '浏览器不支持。请尝试使用其他浏览器。', 'center', 6000);
             } else {
                 console.error('Error creating device:', error);
-                this.userLog('error', `Failed to create device: ${error.message}`, 'center', 6000);
+                this.userLog('error', `创建设备失败：${error.message}`, 'center', 6000);
             }
             return null;
         }
@@ -813,7 +813,7 @@ class RoomClient {
             );
         } catch (error) {
             console.error('Error loading device with router RTP capabilities:', error);
-            this.userLog('error', `Failed to load device: ${error.message}`, 'center', 6000);
+            this.userLog('error', `加载设备失败: ${error.message}`, 'center', 6000);
             return null;
         }
 
@@ -1067,8 +1067,8 @@ class RoomClient {
         popupHtmlMessage(
             null,
             image.network,
-            `${transportType} Transport`,
-            'Unable to reconnect. Please check your network.',
+            `${transportType} 传输`,
+            '无法重新连接。请检查您的网络。',
             'center',
             false,
             true
@@ -1205,7 +1205,7 @@ class RoomClient {
         if (!isBroadcastingEnabled) adaptAspectRatio(participantsCount);
         if (isParticipantsListOpen) getRoomParticipants();
         if (isBroadcastingEnabled && data.isPresenter) {
-            this.userLog('info', `${icons.broadcaster} ${data.peer_name} disconnected`, 'top-end', 6000);
+            this.userLog('info', `${icons.broadcaster} ${data.peer_name} 已断开`, 'top-end', 6000);
         }
     };
 
@@ -1386,8 +1386,8 @@ class RoomClient {
             showConfirmButton: false,
             position: 'top',
             icon: 'warning',
-            title: 'Lost connection',
-            text: `${reason}, trying to reconnect...`,
+            title: '连接丢失',
+            text: `${reason}，正在尝试重新连接...`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         });
@@ -1403,10 +1403,10 @@ class RoomClient {
             background: swalBackground,
             position: 'top',
             icon: 'warning',
-            title: 'Unable to reconnect',
-            text: 'Please check your internet connection!',
+            title: '无法重新连接',
+            text: '请检查您的互联网连接！',
             icon: 'error',
-            confirmButtonText: 'Join Room',
+            confirmButtonText: '加入房间',
             confirmButtonColor: '#18392B',
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
@@ -1441,7 +1441,7 @@ class RoomClient {
 
         // Immediately save recording if active
         if (this.isRecording()) {
-            this.saveRecording('Socket disconnected');
+            this.saveRecording('套接字已断开');
         }
 
         this.serverAwayShown = false;
@@ -1470,8 +1470,8 @@ class RoomClient {
     updateReconnectAlert(delay) {
         if (this.reconnectAlert) {
             this.reconnectAlert.update({
-                title: 'Reconnecting',
-                text: `Reconnection attempt in ${delay / 1000} seconds...`,
+                title: '重新连接',
+                text: `重新连接尝试将在 ${delay / 1000} 秒后进行...`,
             });
         }
     }
@@ -1496,9 +1496,9 @@ class RoomClient {
             background: swalBackground,
             position: 'top',
             icon: 'warning',
-            title: 'Server away',
-            text: 'The server seems away or in maintenance, please wait until it come back up.',
-            denyButtonText: `Leave room`,
+            title: '服务器离线',
+            text: '服务器似乎已离线或正在维护中，请等待它重新上线。',
+            denyButtonText: `离开房间`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         }).then((result) => {
@@ -1580,10 +1580,10 @@ class RoomClient {
             background: swalBackground,
             imageUrl: image.user,
             position: 'center',
-            title: 'Username',
-            html: `The Username is already in use. <br/> Please try with another one`,
+            title: '用户名',
+            html: `用户名已被使用。<br/> 请尝试使用另一个。`,
             showDenyButton: false,
-            confirmButtonText: `OK`,
+            confirmButtonText: `确定`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         }).then((result) => {
@@ -1628,12 +1628,12 @@ class RoomClient {
             background: swalBackground,
             position: 'center',
             imageUrl: image.broadcasting,
-            title: 'Room broadcasting Enabled',
-            text: 'Would you like to continue the room broadcast?',
+            title: '房间广播已启用',
+            text: '您是否希望继续房间广播？',
             showDenyButton: true,
             confirmButtonColor: '#18392B',
-            confirmButtonText: `Yes`,
-            denyButtonText: `No`,
+            confirmButtonText: `是`,
+            denyButtonText: `否`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         }).then((result) => {
@@ -1984,18 +1984,18 @@ class RoomClient {
             await rc.applyVirtualBackground(blurLevel, imgSrc, transparentBg);
         }
 
-        // Create clean virtual bg Image
-        createImage('cleanVbImg', image.user, 'Remove virtual background', 'cleanVb', () =>
+        // 创建干净的虚拟背景图片
+        createImage('cleanVbImg', image.user, '移除虚拟背景', 'cleanVb', () =>
             handleVirtualBackground(null, null)
         );
-        // Create High Blur Image
-        createImage('highBlurImg', image.blurHigh, 'High Blur', 'high', () => handleVirtualBackground(20));
+        // 创建高模糊图片
+        createImage('highBlurImg', image.blurHigh, '高模糊', 'high', () => handleVirtualBackground(20));
 
-        // Create Low Blur Image
-        createImage('lowBlurImg', image.blurLow, 'Low Blur', 'low', () => handleVirtualBackground(10));
+        // 创建低模糊图片
+        createImage('lowBlurImg', image.blurLow, '低模糊', 'low', () => handleVirtualBackground(10));
 
-        // Create transparent virtual bg Image
-        createImage('transparentBg', image.transparentBg, 'Transparent Virtual background', 'transparentVb', () =>
+        // 创建透明虚拟背景图片
+        createImage('transparentBg', image.transparentBg, '透明虚拟背景', 'transparentVb', () =>
             handleVirtualBackground(null, null, true)
         );
 
@@ -2030,7 +2030,7 @@ class RoomClient {
                 handleFileUpload(event.target.files[0]);
             });
 
-            setupFileUploadButton('uploadImg', image.upload, 'Upload your custom image', () => fileInput.click());
+            setupFileUploadButton('uploadImg', image.upload, '上传您的自定义图片', () => fileInput.click());
 
             return fileInput;
         }
@@ -2073,8 +2073,8 @@ class RoomClient {
                 console.error('Error fetching image:', error);
                 // Detect CORS issue and provide a clearer error message
                 error.message.includes('Failed to fetch')
-                    ? showError(errorMessage, 'Error: Unable to fetch image. CORS policy may be blocking the request.')
-                    : showError(errorMessage, `Error fetching image: ${error.message}`);
+                    ? showError(errorMessage, '错误：无法获取图片。CORS策略可能阻止了此请求。')
+                    : showError(errorMessage, `获取图片时出错: ${error.message}`);
             }
         }
 
@@ -2108,7 +2108,7 @@ class RoomClient {
         createUploadImageButton();
 
         // Upload from URL button
-        setupFileUploadButton('linkImage', image.link, 'Upload Image from URL', askForImageURL);
+        setupFileUploadButton('linkImage', image.link, '从URL上传图片', askForImageURL);
 
         // Load default virtual backgrounds
         virtualBackgrounds.forEach((imageUrl, index) => {
@@ -2361,16 +2361,16 @@ class RoomClient {
 
         if (this.forceVP8) {
             codec = this.device.rtpCapabilities.codecs.find((c) => c.mimeType.toLowerCase() === 'video/vp8');
-            if (!codec) throw new Error('Desired VP8 codec+configuration is not supported');
+            if (!codec) throw new Error('所需的 VP8 编解码器+配置不支持');
         } else if (this.forceH264) {
             codec = this.device.rtpCapabilities.codecs.find((c) => c.mimeType.toLowerCase() === 'video/h264');
-            if (!codec) throw new Error('Desired H264 codec+configuration is not supported');
+            if (!codec) throw new Error('所需的 H264 编解码器+配置不支持');
         } else if (this.forceVP9) {
             codec = this.device.rtpCapabilities.codecs.find((c) => c.mimeType.toLowerCase() === 'video/vp9');
-            if (!codec) throw new Error('Desired VP9 codec+configuration is not supported');
+            if (!codec) throw new Error('所需的 VP9 编解码器+配置不支持');
         } else if (this.forceAV1) {
             codec = this.device.rtpCapabilities.codecs.find((c) => c.mimeType.toLowerCase() === 'video/av1');
-            if (!codec) throw new Error('Desired AV1 codec+configuration is not supported');
+            if (!codec) throw new Error('所需的 AV1 编解码器+配置不支持');
         }
 
         if (this.enableWebcamLayers) {
@@ -2441,16 +2441,16 @@ class RoomClient {
 
         if (this.forceVP8) {
             codec = this.device.rtpCapabilities.codecs.find((c) => c.mimeType.toLowerCase() === 'video/vp8');
-            if (!codec) throw new Error('Desired VP8 codec+configuration is not supported');
+            if (!codec) throw new Error('所需的 VP8 编解码器+配置不支持');
         } else if (this.forceH264) {
             codec = this.device.rtpCapabilities.codecs.find((c) => c.mimeType.toLowerCase() === 'video/h264');
-            if (!codec) throw new Error('Desired H264 codec+configuration is not supported');
+            if (!codec) throw new Error('所需的 H264 编解码器+配置不支持');
         } else if (this.forceVP9) {
             codec = this.device.rtpCapabilities.codecs.find((c) => c.mimeType.toLowerCase() === 'video/vp9');
-            if (!codec) throw new Error('Desired VP9 codec+configuration is not supported');
+            if (!codec) throw new Error('所需的 VP9 编解码器+配置不支持');
         } else if (this.forceAV1) {
             codec = this.device.rtpCapabilities.codecs.find((c) => c.mimeType.toLowerCase() === 'video/av1');
-            if (!codec) throw new Error('Desired AV1 codec+configuration is not supported');
+            if (!codec) throw new Error('所需的 AV1 编解码器+配置不支持');
         }
 
         if (this.enableSharingLayers) {
@@ -2701,12 +2701,12 @@ class RoomClient {
                 if (isScreen && this.videoMediaContainer.childElementCount > 1) pn.click();
 
                 if (!this.isMobileDevice) {
-                    this.setTippy(pn.id, 'Toggle Pin', 'bottom');
-                    this.setTippy(mv.id, 'Toggle mirror', 'bottom');
-                    this.setTippy(pip.id, 'Toggle picture in picture', 'bottom');
-                    this.setTippy(ts.id, 'Snapshot', 'bottom');
-                    this.setTippy(vp.id, 'Toggle video privacy', 'bottom');
-                    this.setTippy(au.id, 'Audio status', 'bottom');
+                    this.setTippy(pn.id, '切换固定', 'bottom');
+                    this.setTippy(mv.id, '切换镜像', 'bottom');
+                    this.setTippy(pip.id, '切换画中画', 'bottom');
+                    this.setTippy(ts.id, '快照', 'bottom');
+                    this.setTippy(vp.id, '切换视频隐私', 'bottom');
+                    this.setTippy(au.id, '音频状态', 'bottom');
                 }
 
                 handleAspectRatio();
@@ -2998,12 +2998,12 @@ class RoomClient {
 
     async getConsumeStream(producerId, peer_id, type) {
         if (!this.device) {
-            throw new Error('Device not initialized');
+            throw new Error('设备未初始化');
         }
 
         // Check if consumer transport exists
         if (!this.consumerTransport) {
-            throw new Error('Consumer transport not initialized');
+            throw new Error('消费者传输未初始化');
         }
 
         const { rtpCapabilities } = this.device;
@@ -3227,20 +3227,20 @@ class RoomClient {
                 }
 
                 if (!this.isMobileDevice) {
-                    this.setTippy(pn.id, 'Toggle Pin', 'bottom');
-                    this.setTippy(ha.id, 'Toggle Focus mode', 'bottom');
-                    this.setTippy(pip.id, 'Toggle picture in picture', 'bottom');
-                    this.setTippy(mv.id, 'Toggle mirror', 'bottom');
-                    this.setTippy(ts.id, 'Snapshot', 'bottom');
-                    this.setTippy(sf.id, 'Send file', 'bottom');
-                    this.setTippy(sm.id, 'Send message', 'bottom');
-                    this.setTippy(sv.id, 'Send video', 'bottom');
-                    this.setTippy(cm.id, 'Hide', 'bottom');
-                    this.setTippy(au.id, 'Mute', 'bottom');
-                    this.setTippy(pv.id, '🔊 Volume', 'bottom');
-                    this.setTippy(gl.id, 'Geolocation', 'bottom');
-                    this.setTippy(ban.id, 'Ban', 'bottom');
-                    this.setTippy(ko.id, 'Eject', 'bottom');
+                    this.setTippy(pn.id, '切换固定', 'bottom');
+                    this.setTippy(ha.id, '切换专注模式', 'bottom');
+                    this.setTippy(pip.id, '切换画中画', 'bottom');
+                    this.setTippy(mv.id, '切换镜像', 'bottom');
+                    this.setTippy(ts.id, '快照', 'bottom');
+                    this.setTippy(sf.id, '发送文件', 'bottom');
+                    this.setTippy(sm.id, '发送消息', 'bottom');
+                    this.setTippy(sv.id, '发送视频', 'bottom');
+                    this.setTippy(cm.id, '隐藏', 'bottom');
+                    this.setTippy(au.id, '静音', 'bottom');
+                    this.setTippy(pv.id, '🔊 音量', 'bottom');
+                    this.setTippy(gl.id, '地理位置', 'bottom');
+                    this.setTippy(ban.id, '禁止', 'bottom');
+                    this.setTippy(ko.id, '踢出', 'bottom');
                 }
 
                 // Use helper function to set audio volume
@@ -3473,14 +3473,14 @@ class RoomClient {
         if (isParticipantsListOpen) getRoomParticipants();
 
         if (!this.isMobileDevice && remotePeer) {
-            this.setTippy(sm.id, 'Send message', 'bottom');
-            this.setTippy(sf.id, 'Send file', 'bottom');
-            this.setTippy(sv.id, 'Send video', 'bottom');
-            this.setTippy(au.id, 'Mute', 'bottom');
-            this.setTippy(pv.id, '🔊 Volume', 'bottom');
-            this.setTippy(gl.id, 'Geolocation', 'bottom');
-            this.setTippy(ban.id, 'Ban', 'bottom');
-            this.setTippy(ko.id, 'Eject', 'bottom');
+            this.setTippy(sm.id, '发送消息', 'bottom');
+            this.setTippy(sf.id, '发送文件', 'bottom');
+            this.setTippy(sv.id, '发送视频', 'bottom');
+            this.setTippy(au.id, '静音', 'bottom');
+            this.setTippy(pv.id, '🔊 音量', 'bottom');
+            this.setTippy(gl.id, '地理位置', 'bottom');
+            this.setTippy(ban.id, '禁止', 'bottom');
+            this.setTippy(ko.id, '踢出', 'bottom');
         }
 
         remotePeer ? this.setPeerAudio(peer_id, peer_audio) : this.setIsAudio(peer_id, peer_audio);
@@ -3523,10 +3523,10 @@ class RoomClient {
                 background: swalBackground,
                 position: 'center',
                 icon: 'question',
-                text: 'Do you want to share your screen?',
+                text: '您是否要共享屏幕？',
                 showDenyButton: true,
-                confirmButtonText: `Yes`,
-                denyButtonText: `No`,
+                confirmButtonText: `是`,
+                denyButtonText: `否`,
                 showClass: { popup: 'animate__animated animate__fadeInDown' },
                 hideClass: { popup: 'animate__animated animate__fadeOutUp' },
             }).then((result) => {
@@ -3665,7 +3665,7 @@ class RoomClient {
         // Defer until a user gesture if needed
         if (!this.hasUserActivation()) {
             this.pendingSinkId = sinkId;
-            this.userLog('info', 'Click once to apply the selected speaker', 'top-end', 3000);
+            this.userLog('info', '点击一次以应用选定的扬声器', 'top-end', 3000);
             this.runOnNextUserActivation(() => {
                 const els = audioElement ? [audioElement] : this.remoteAudioEl.querySelectorAll('audio');
                 els.forEach((el) => this.attachSinkId(el, this.pendingSinkId));
@@ -3682,7 +3682,7 @@ class RoomClient {
 
     async attachSinkId(elem, sinkId) {
         if (typeof elem.setSinkId !== 'function') {
-            const error = `Browser doesn't support output device selection.`;
+            const error = `浏览器不支持输出设备选择。`;
             console.warn(error);
             this.userLog('error', error, 'top-end', 6000);
             return;
@@ -3695,16 +3695,16 @@ class RoomClient {
                 console.error('Attach SinkId error: ', err);
                 const speakerSel = this.getId('speakerSelect');
                 if (err?.name === 'SecurityError') {
-                    const msg = `Use HTTPS to select audio output device: ${err.message || err}`;
+                    const msg = `请使用HTTPS选择音频输出设备：${err.message || err}`;
                     console.error('Attach SinkId error: ', msg);
                     this.userLog('error', msg, 'top-end', 6000);
                 } else if (err?.name === 'NotAllowedError' || /user gesture/i.test(err?.message || '')) {
                     // Retry on next user gesture
-                    this.userLog('info', 'Click once to allow changing the speaker', 'top-end', 4000);
+                    this.userLog('info', '点击以允许更换发言人', 'top-end', 4000);
                     this.pendingSinkId = sinkId;
                     this.runOnNextUserActivation(() => this.attachSinkId(elem, this.pendingSinkId));
                 } else {
-                    this.userLog('warning', 'Attach SinkId error', err, 'top-end', 6000);
+                    this.userLog('warning', 'Attach SinkId 错误', err, 'top-end', 6000);
                 }
                 if (speakerSel) speakerSel.selectedIndex = 0;
                 refreshLsDevices();
@@ -4056,7 +4056,7 @@ class RoomClient {
                 switch (data.action) {
                     case enums.recording.started:
                     case enums.recording.start:
-                        html = html + '<br/> Your presence implies you agree to being recorded';
+                        html = html + '<br/>您的出席意味着您同意被记录';
                         toastMessage(6000);
                         break;
                     case enums.recording.stop:
@@ -4323,7 +4323,7 @@ class RoomClient {
 
             if (!cloneVideoElements()) {
                 rc.documentPictureInPictureClose();
-                return userLog('warning', 'No video allowed for Document PIP', 'top-end', 6000);
+                return userLog('warning', '不允许在Document PIP中插入视频', 'top-end', 6000);
             }
 
             const videoObserver = new MutationObserver(() => {
@@ -4417,7 +4417,7 @@ class RoomClient {
         else if (element.mozRequestFullScreen) element.mozRequestFullScreen();
         else if (element.webkitRequestFullscreen) element.webkitRequestFullscreen();
         else if (element.msRequestFullscreen) element.msRequestFullscreen();
-        else this.userLog('warning', 'Full screen mode not supported by this browser on this device', 'top-end');
+        else this.userLog('warning', '此设备上的浏览器不支持全屏模式', 'top-end');
     }
 
     goOutFullscreen(element) {
@@ -4434,7 +4434,7 @@ class RoomClient {
             this.setTippy(fsId, 'Full screen', 'bottom');
             btnFs.addEventListener('click', () => {
                 if (videoPlayer.classList.contains('videoCircle')) {
-                    return this.userLog('info', 'Full Screen not allowed if video on privacy mode', 'top-end');
+                    return this.userLog('info', '如果视频处于隐私模式不允许开启全屏', 'top-end');
                 }
                 videoPlayer.style.pointerEvents = this.isVideoOnFullScreen ? 'auto' : 'none';
                 this.toggleFullScreen(videoPlayer);
@@ -4501,7 +4501,7 @@ class RoomClient {
                     if (this.pinnedVideoPlayerId != videoPlayer.id) {
                         this.isVideoPinned = true;
                         if (this.isScreenAllowed) return;
-                        return this.msgPopup('toast', 'Another video seems pinned, unpin it before to pin this one');
+                        return this.msgPopup('toast', '另一个视频似乎被固定了，在固定这个之前先解固定那个');
                     }
                     if (!isScreen && !isBroadcastingEnabled) videoPlayer.style.objectFit = 'var(--videoObjFit)';
                     this.videoPinMediaContainer.removeChild(cam);
@@ -4750,7 +4750,7 @@ class RoomClient {
         if (btnTs && videoPlayer) {
             btnTs.addEventListener('click', () => {
                 if (videoPlayer.classList.contains('videoCircle')) {
-                    return this.userLog('info', 'SnapShoot not allowed if video on privacy mode', 'top-end');
+                    return this.userLog('info', '在隐私模式下不允许截屏', 'top-end');
                 }
                 this.sound('snapshot');
                 let context, canvas, width, height, dataURL;
@@ -4945,13 +4945,13 @@ class RoomClient {
 
     toggleChatPin() {
         if (transcription.isPin()) {
-            return userLog('info', 'Please unpin the transcription that appears to be currently pinned', 'top-end');
+            return userLog('info', '请取消固定当前已固定的转录', 'top-end');
         }
         if (this.isPollPinned) {
-            return userLog('info', 'Please unpin the poll that appears to be currently pinned', 'top-end');
+            return userLog('info', '请取消固定当前已固定的投票', 'top-end');
         }
         if (this.isEditorPinned) {
-            return userLog('info', 'Please unpin the editor that appears to be currently pinned', 'top-end');
+            return userLog('info', '请取消固定当前已固定的编辑器', 'top-end');
         }
         this.isChatPinned ? this.chatUnpin() : this.chatPin();
         this.sound('click');
@@ -5071,14 +5071,14 @@ class RoomClient {
         if (!this.thereAreParticipants() && !isChatGPTOn && !isDeepSeekOn) {
             this.cleanMessage();
             isChatPasteTxt = false;
-            return this.userLog('info', 'No participants in the room', 'top-end');
+            return this.userLog('info', '房间里没有参与者', 'top-end');
         }
 
         // Prevent long messages
         if (this.chatMessageLengthCheck && chatMessage.value.length > this.chatMessageLength) {
             return this.userLog(
                 'warning',
-                `The message seems too long, with a maximum of ${this.chatMessageLength} characters allowed`,
+                `消息似乎太长了，最多允许${this.chatMessageLength}个字符`,
                 'top-end'
             );
         }
@@ -5101,7 +5101,7 @@ class RoomClient {
             this.chatMessageSpamCount++;
             return this.userLog(
                 'warning',
-                `Kindly refrain from spamming. Please wait ${this.chatMessageNotifyDelay / 1000} seconds before sending another message`,
+                `请勿刷屏。请等待 ${this.chatMessageNotifyDelay / 1000} 秒后再发送消息`,
                 'top-end',
                 this.chatMessageNotifyDelay
             );
@@ -5249,16 +5249,16 @@ class RoomClient {
         if (!this.thereAreParticipants()) {
             isChatPasteTxt = false;
             this.cleanMessage();
-            return this.userLog('info', 'No participants in the room except you', 'top-end');
+            return this.userLog('info', '除了你，房间里没有其他参与者', 'top-end');
         }
         Swal.fire({
             background: swalBackground,
             position: 'center',
             imageUrl: image.message,
             input: 'text',
-            inputPlaceholder: '💬 Enter your message...',
+            inputPlaceholder: '💬 输入您的消息...',
             showCancelButton: true,
-            confirmButtonText: `Send`,
+            confirmButtonText: `发送`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         }).then((result) => {
@@ -5312,12 +5312,12 @@ class RoomClient {
         );
 
         if (!this.showChatOnMessage) {
-            this.userLog('info', `💬 New message from: ${data.peer_name}`, 'top-end');
+            this.userLog('info', `💬 来自 ${data.peer_name} 的新消息`, 'top-end');
         }
 
         if (this.speechInMessages) {
             VideoAI.active
-                ? this.streamingTask(`New message from: ${data.peer_name}, the message is: ${data.peer_msg}`)
+                ? this.streamingTask(`来自 ${data.peer_name} 的新消息，消息内容为: ${data.peer_msg}`)
                 : this.speechMessage(true, data.peer_name, data.peer_msg);
         } else {
             this.sound('message');
@@ -5511,11 +5511,11 @@ class RoomClient {
         Swal.fire({
             background: swalBackground,
             position: 'center',
-            title: 'Delete this Message?',
+            title: '删除此消息？',
             imageUrl: image.delete,
             showDenyButton: true,
-            confirmButtonText: `Yes`,
-            denyButtonText: `No`,
+            confirmButtonText: `删除`,
+            denyButtonText: `取消`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         }).then((result) => {
@@ -5531,7 +5531,7 @@ class RoomClient {
         navigator.clipboard
             .writeText(text)
             .then(() => {
-                this.userLog('success', 'Message copied!', 'top-end', 1000);
+                this.userLog('success', '消息已复制!', 'top-end', 1000);
             })
             .catch((err) => {
                 this.userLog('error', err, 'top-end', 6000);
@@ -5675,7 +5675,7 @@ class RoomClient {
 
     speechMessage(newMsg = true, from, msg) {
         const speech = new SpeechSynthesisUtterance();
-        speech.text = (newMsg ? 'New' : '') + ' message from:' + from + '. The message is:' + msg;
+        speech.text = (newMsg ? '新' : '') + '消息来自:' + from + '。消息内容为:' + msg;
         speech.rate = 0.9;
         window.speechSynthesis.speak(speech);
     }
@@ -5705,16 +5705,16 @@ class RoomClient {
 
     chatClean() {
         if (this.chatMessages.length === 0) {
-            return userLog('info', 'No chat messages to clean', 'top-end');
+            return userLog('info', '没有聊天消息需要清理', 'top-end');
         }
         Swal.fire({
             background: swalBackground,
             position: 'center',
-            title: 'Clean up all chat Messages?',
+            title: '清理所有聊天消息？',
             imageUrl: image.delete,
             showDenyButton: true,
-            confirmButtonText: `Yes`,
-            denyButtonText: `No`,
+            confirmButtonText: `是`,
+            denyButtonText: `否`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         }).then((result) => {
@@ -5739,7 +5739,7 @@ class RoomClient {
 
     chatSave() {
         if (this.chatMessages.length === 0) {
-            return userLog('info', 'No chat messages to save', 'top-end');
+            return userLog('info', '没有聊天消息需要保存', 'top-end');
         }
         saveObjToJsonFile(this.chatMessages, 'CHAT');
     }
@@ -5769,13 +5769,13 @@ class RoomClient {
 
     togglePollPin() {
         if (transcription.isPin()) {
-            return userLog('info', 'Please unpin the transcription that appears to be currently pinned', 'top-end');
+            return userLog('info', '请取消固定当前已固定的转录', 'top-end');
         }
         if (this.isChatPinned) {
-            return userLog('info', 'Please unpin the chat that appears to be currently pinned', 'top-end');
+            return userLog('info', '请取消固定当前已固定的聊天', 'top-end');
         }
         if (this.isEditorPinned) {
-            return userLog('info', 'Please unpin the editor that appears to be currently pinned', 'top-end');
+            return userLog('info', '请取消固定当前已固定的编辑器', 'top-end');
         }
         this.isPollPinned ? this.pollUnpin() : this.pollPin();
         this.sound('click');
@@ -5917,12 +5917,12 @@ class RoomClient {
                     allowOutsideClick: false,
                     allowEscapeKey: false,
                     background: swalBackground,
-                    title: 'Edit Poll',
+                    title: '编辑投票',
                     html: this.createPollInputs(poll),
                     focusConfirm: false,
                     showCancelButton: true,
-                    confirmButtonText: 'Save',
-                    cancelButtonText: 'Cancel',
+                    confirmButtonText: '保存',
+                    cancelButtonText: '取消',
                     cancelButtonColor: '#dc3545',
                     preConfirm: () => {
                         const newQuestion = document.getElementById('swal-input-question').value;
@@ -5953,11 +5953,11 @@ class RoomClient {
                 Swal.fire({
                     background: swalBackground,
                     position: 'top',
-                    title: 'Delete this poll?',
+                    title: '删除此投票？',
                     imageUrl: image.delete,
                     showDenyButton: true,
-                    confirmButtonText: `Yes`,
-                    denyButtonText: `No`,
+                    confirmButtonText: `是`,
+                    denyButtonText: `否`,
                     showClass: { popup: 'animate__animated animate__fadeInDown' },
                     hideClass: { popup: 'animate__animated animate__fadeOutUp' },
                 }).then((result) => {
@@ -5989,9 +5989,9 @@ class RoomClient {
             pollsContainer.appendChild(pollDiv);
 
             if (!this.isMobileDevice) {
-                setTippy('toggleVoters', 'Toggle voters', 'top');
-                setTippy('delPoll', 'Delete poll', 'top');
-                setTippy('editPoll', 'Edit poll', 'top');
+                setTippy('toggleVoters', '切换投票者', 'top');
+                setTippy('delPoll', '删除投票', 'top');
+                setTippy('editPoll', '编辑投票', 'top');
             }
         });
     }
@@ -6077,7 +6077,7 @@ class RoomClient {
 
         results.length > 0
             ? saveObjToJsonFile(results, 'Poll')
-            : this.userLog('info', 'No polling data available to save', 'top-end');
+            : this.userLog('info', '没有投票数据可供保存', 'top-end');
     }
 
     getPollFileName() {
@@ -6120,7 +6120,7 @@ class RoomClient {
         this.editorSendAction(action);
 
         if (this.isEditorLocked) {
-            userLog('info', 'The Editor is locked. \n The participants cannot interact with it.', 'top-right');
+            userLog('info', '编辑器已锁定。\n参与者无法与其交互。', 'top-right');
             sound('locked');
         }
     }
@@ -6134,13 +6134,13 @@ class RoomClient {
 
     toggleEditorPin() {
         if (transcription.isPin()) {
-            return userLog('info', 'Please unpin the transcription that appears to be currently pinned', 'top-end');
+            return userLog('info', '请取消固定当前已固定的转录', 'top-end');
         }
         if (this.isPollPinned) {
-            return userLog('info', 'Please unpin the poll that appears to be currently pinned', 'top-end');
+            return userLog('info', '请取消固定当前已固定的投票', 'top-end');
         }
         if (this.isChatPinned) {
-            return userLog('info', 'Please unpin the chat that appears to be currently pinned', 'top-end');
+            return userLog('info', '请取消固定当前已固定的聊天', 'top-end');
         }
         this.isEditorPinned ? this.editorUnpin() : this.editorPin();
         this.sound('click');
@@ -6219,26 +6219,26 @@ class RoomClient {
             case 'open':
                 if (this.isEditorOpen) return;
                 this.toggleEditor();
-                this.userLog('info', `${icons.editor} ${peer_name} open editor`, 'top-end', 6000);
+                this.userLog('info', `${icons.editor} ${peer_name} 打开编辑器`, 'top-end', 6000);
                 break;
             case 'close':
                 if (!this.isEditorOpen) return;
                 this.toggleEditor();
-                this.userLog('info', `${icons.editor} ${peer_name} close editor`, 'top-end', 6000);
+                this.userLog('info', `${icons.editor} ${peer_name} 关闭编辑器`, 'top-end', 6000);
                 break;
             case 'clean':
                 quill.setText('');
-                this.userLog('info', `${icons.editor} ${peer_name} cleared editor`, 'top-end', 6000);
+                this.userLog('info', `${icons.editor} ${peer_name} 清空编辑器`, 'top-end', 6000);
                 break;
             case 'lock':
                 this.isEditorLocked = true;
                 quill.enable(false);
-                this.userLog('info', `${icons.editor} ${peer_name} locked the editor`, 'top-end', 6000);
+                this.userLog('info', `${icons.editor} ${peer_name} 锁定编辑器`, 'top-end', 6000);
                 break;
             case 'unlock':
                 this.isEditorLocked = false;
                 quill.enable(true);
-                this.userLog('info', `${icons.editor} ${peer_name} unlocked the editor`, 'top-end', 6000);
+                this.userLog('info', `${icons.editor} ${peer_name} 解锁编辑器`, 'top-end', 6000);
                 break;
             default:
                 break;
@@ -6260,28 +6260,28 @@ class RoomClient {
     editorCopy() {
         const content = quill.getText();
         if (content.trim().length === 0) {
-            return this.userLog('info', 'Nothing to copy', 'top-end');
+            return this.userLog('info', '没有内容可以复制', 'top-end');
         }
         copyToClipboard(content, false);
     }
 
     editorClean() {
         if (!isPresenter && this.editorIsLocked()) {
-            userLog('info', 'The Editor is locked. \n You cannot interact with it.', 'top-right');
+            userLog('info', '编辑器已锁定。\n您无法与其交互。', 'top-right');
             return;
         }
         const content = quill.getText();
         if (content.trim().length === 0) {
-            return this.userLog('info', 'Nothing to clear', 'top-end');
+            return this.userLog('info', '没有内容可以清理', 'top-end');
         }
         Swal.fire({
             background: swalBackground,
             position: 'center',
-            title: 'Clear the editor content?',
+            title: '清空编辑器内容？',
             imageUrl: image.delete,
             showDenyButton: true,
-            confirmButtonText: `Yes`,
-            denyButtonText: `No`,
+            confirmButtonText: `是`,
+            denyButtonText: `否`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         }).then((result) => {
@@ -6298,14 +6298,14 @@ class RoomClient {
             background: swalBackground,
             position: 'top',
             imageUrl: image.save,
-            title: 'Editor save options',
+            title: '编辑器保存选项',
             showDenyButton: true,
             showCancelButton: true,
             cancelButtonColor: 'red',
             denyButtonColor: 'green',
-            confirmButtonText: `Text`,
+            confirmButtonText: `文本`,
             denyButtonText: `Html`,
-            cancelButtonText: `Cancel`,
+            cancelButtonText: `取消`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         }).then((result) => {
@@ -6324,7 +6324,7 @@ class RoomClient {
     saveEditorAsText() {
         const content = quill.getText().trim();
         if (content.length === 0) {
-            return this.userLog('info', 'No data to save!', 'top-end');
+            return this.userLog('info', '没有数据可以保存！', 'top-end');
         }
         const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
         const fileName = this.generateFileName('editor.txt');
@@ -6335,7 +6335,7 @@ class RoomClient {
     saveEditorAsHtml() {
         const content = quill.root.innerHTML.trim();
         if (content === '<p><br></p>') {
-            return this.userLog('info', 'No data to save!', 'top-end');
+            return this.userLog('info', '没有数据可以保存！', 'top-end');
         }
         const fileName = this.generateFileName('editor.html');
         this.saveAsHtml(content, fileName);
@@ -6428,15 +6428,15 @@ class RoomClient {
             background: swalBackground,
             position: 'top',
             imageUrl: image.recording,
-            title: 'Recording options',
-            text: 'Select the recording type you want to start. Audio will be recorded from all participants.',
+            title: '录制选项',
+            text: '选择您想要开始的录制类型。音频将从所有参与者录制。',
             showDenyButton: true,
             showCancelButton: true,
             cancelButtonColor: 'red',
             denyButtonColor: 'green',
-            confirmButtonText: `Camera`,
-            denyButtonText: `Screen/Window`,
-            cancelButtonText: `Cancel`,
+            confirmButtonText: `摄像头`,
+            denyButtonText: `屏幕/窗口`,
+            cancelButtonText: `取消`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         }).then((result) => {
@@ -6621,7 +6621,7 @@ class RoomClient {
                 );
                 console.log('Chunk synced successfully:', response.data);
             } catch (error) {
-                let errorMessage = 'Recording stopped! ';
+                let errorMessage = '录音已停止！';
                 if (error.response) {
                     errorMessage += error.response.data.message;
                     console.error('Error syncing chunk', {
@@ -6659,11 +6659,11 @@ class RoomClient {
                             params: { fileName: rc.recServerFileName, durationMs },
                         });
                         console.log('Finalized (with duration fix) and uploaded to S3');
-                        userLog('success', 'Recording successfully uploaded to S3.', 'top-end', 3000);
+                        userLog('success', '录音已成功上传到S3.', 'top-end', 3000);
                     } catch (error) {
-                        let errorMessage = 'Finalization failed! ';
-                        if (error.response) errorMessage += error.response.data?.message || 'Server error';
-                        else if (error.request) errorMessage += 'No response from server';
+                        let errorMessage = '最终化失败！ ';
+                        if (error.response) errorMessage += error.response.data?.message || '服务器错误';
+                        else if (error.request) errorMessage += '服务器无响应';
                         else errorMessage += error.message;
                         userLog('warning', errorMessage, 'top-end', 3000);
                     }
@@ -6699,18 +6699,18 @@ class RoomClient {
                         `${rc.recording.recSyncServerEndpoint}/recSyncFinalize?fileName=` + rc.recServerFileName
                     );
                     console.log('Finalized and uploaded to S3:', response.data);
-                    userLog('success', 'Recording successfully uploaded to S3.', 'top-end', 3000);
+                    userLog('success', '录音已成功上传到S3.', 'top-end', 3000);
                 } catch (error) {
-                    let errorMessage = 'Finalization failed! ';
+                    let errorMessage = '最终化失败！ ';
                     if (error.response) {
-                        errorMessage += error.response.data?.message || 'Server error';
-                        console.error('Finalization error response:', error.response);
+                        errorMessage += error.response.data?.message || '服务器错误';
+                        console.error('最终化错误响应:', error.response);
                     } else if (error.request) {
-                        errorMessage += 'No response from server';
-                        console.error('Finalization error: No response', error.request);
+                        errorMessage += '服务器无响应';
+                        console.error('最终化错误: 无响应', error.request);
                     } else {
                         errorMessage += error.message;
-                        console.error('Finalization error:', error.message);
+                        console.error('最终化错误:', error.message);
                     }
                     userLog('warning', errorMessage, 'top-end', 3000);
                 }
@@ -6752,7 +6752,7 @@ class RoomClient {
         </ul>
         <br/>
         `;
-        const recordingMsg = `Please wait to be processed, then will be downloaded to your ${currentDevice} device.`;
+        const recordingMsg = `请等待处理完成，然后将下载到您的 ${currentDevice} 设备上。`;
 
         this.saveLastRecordingInfo(recordingInfo);
         this.showRecordingInfo(recType, recordingInfo, recordingMsg);
@@ -6815,9 +6815,9 @@ class RoomClient {
             Swal.fire({
                 background: swalBackground,
                 position: 'top',
-                title: 'Recording',
+                title: '录音',
                 html: `<div style="text-align: left;">
-                🔴 ${recType} Recording Info: 
+                🔴 ${recType} 录音信息: 
                 ${recordingInfo}
                 ${recordingMsg}
                 </div>`,
@@ -6852,7 +6852,7 @@ class RoomClient {
             this._isRecording = false;
             this.mediaRecorder.pause();
             this.event(_EVENTS.pauseRec);
-            this.recordingAction('Pause recording');
+            this.recordingAction('暂停录音');
         }
     }
 
@@ -6861,7 +6861,7 @@ class RoomClient {
             this._isRecording = true;
             this.mediaRecorder.resume();
             this.event(_EVENTS.resumeRec);
-            this.recordingAction('Resume recording');
+            this.recordingAction('恢复录音');
         }
     }
 
@@ -6978,19 +6978,19 @@ class RoomClient {
                 e.stopPropagation();
                 e.target.parentElement.style.outline = 'none';
                 if (itsMe) {
-                    return userLog('warning', 'You cannot send files to yourself.', 'top-end');
+                    return userLog('warning', '您不能给自己发送文件。', 'top-end');
                 }
-                if (this.sendInProgress) {
-                    return userLog('warning', 'Please wait for the previous file to be sent.', 'top-end');
+                if (thisInProgress) {
+                    return userLog('warning', '请等待之前文件发送完成。', 'top-end');
                 }
                 if (e.dataTransfer.items && e.dataTransfer.items.length > 1) {
-                    return userLog('warning', 'Please drag and drop a single file.', 'top-end');
+                    return userLog('warning', '请拖拽单个文件。', 'top-end');
                 }
                 if (e.dataTransfer.items) {
                     let item = e.dataTransfer.items[0].webkitGetAsEntry();
-                    console.log('Drag and drop', item);
+                    console.log('拖拽放置', item);
                     if (item.isDirectory) {
-                        return userLog('warning', 'Please drag and drop a single file not a folder.', 'top-end');
+                        return userLog('warning', '请拖拽单个文件，不要拖拽文件夹。', 'top-end');
                     }
                     var file = e.dataTransfer.items[0].getAsFile();
                     rc.sendFileInformations(file, peer_id);
@@ -7010,11 +7010,11 @@ class RoomClient {
             imageAlt: 'mirotalksfu-file-sharing',
             imageUrl: image.share,
             position: 'center',
-            title: 'Share file',
+            title: '分享文件',
             input: 'file',
             html: `
             <div id="dropArea">
-                <p>Drag and drop your file here</p>
+                <p>将您的文件拖拽到此处</p>
             </div>
             `,
             inputAttributes: {
@@ -7029,8 +7029,8 @@ class RoomClient {
                 dropArea.addEventListener('drop', handleDrop);
             },
             showDenyButton: true,
-            confirmButtonText: `Send`,
-            denyButtonText: `Cancel`,
+            confirmButtonText: `发送`,
+            denyButtonText: `取消`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         }).then((result) => {
@@ -7078,17 +7078,17 @@ class RoomClient {
 
     sendFileInformations(file, peer_id, broadcast = false) {
         if (this.isFileReaderRunning()) {
-            return this.userLog('warning', 'File transfer in progress. Please wait until it completes', 'top-end');
+            return this.userLog('warning', '文件传输正在进行中。请等待完成', 'top-end');
         }
         this.fileToSend = file;
         //
         if (this.fileToSend && this.fileToSend.size > 0) {
             if (!this.thereAreParticipants()) {
-                return userLog('info', 'No participants detected', 'top-end');
+                return userLog('info', '未检测到参与者', 'top-end');
             }
-            // prevent XSS injection
+            // 防止XSS注入
             if (this.isHtml(this.fileToSend.name) || !this.isValidFileName(this.fileToSend.name))
-                return userLog('warning', 'Invalid file name!', 'top-end', 5000);
+                return userLog('warning', '文件名无效！', 'top-end', 5000);
 
             const fileInfo = {
                 peer_id: peer_id,
@@ -7108,8 +7108,8 @@ class RoomClient {
                 `${icons.fileSend} File send: 
                 <br/> 
                 <ul>
-                    <li>Name: ${this.fileToSend.name}</li>
-                    <li>Size: ${this.bytesToSize(this.fileToSend.size)}</li>
+                    <li>名称: ${this.fileToSend.name}</li>
+                    <li>大小: ${this.bytesToSize(this.fileToSend.size)}</li>
                 </ul>`,
                 'all',
                 'all'
@@ -7120,7 +7120,7 @@ class RoomClient {
                 this.sendFileData(peer_id, broadcast);
             }, 1000);
         } else {
-            userLog('error', 'File not selected or empty.', 'top-end');
+            userLog('error', '未选择文件或文件为空。', 'top-end');
         }
     }
 
@@ -7130,16 +7130,16 @@ class RoomClient {
         this.receiveBuffer = [];
         this.receivedSize = 0;
         let fileToReceiveInfo =
-            ' From: ' +
+            ' 来自: ' +
             this.incomingFileInfo.peer_name +
             html.newline +
-            ' Incoming file: ' +
+            ' 收到的文件: ' +
             this.incomingFileInfo.fileName +
             html.newline +
-            ' File type: ' +
+            ' 文件类型: ' +
             this.incomingFileInfo.fileType +
             html.newline +
-            ' File size: ' +
+            ' 文件大小: ' +
             this.bytesToSize(this.incomingFileInfo.fileSize);
         this.setMsgAvatar('right', this.incomingFileInfo.peer_name, this.incomingFileInfo.peer_avatar);
         this.appendMessage(
@@ -7147,13 +7147,13 @@ class RoomClient {
             this.rightMsgAvatar,
             this.incomingFileInfo.peer_name,
             this.incomingFileInfo.peer_id,
-            `${icons.fileReceive} File receive: 
+            `${icons.fileReceive} 文件接收: 
             <br/> 
             <ul>
-                <li>From: ${this.incomingFileInfo.peer_name}</li>
-                <li>Id: ${this.incomingFileInfo.peer_id}</li>
-                <li>Name: ${this.incomingFileInfo.fileName}</li>
-                <li>Size: ${this.bytesToSize(this.incomingFileInfo.fileSize)}</li>
+                <li>来自: ${this.incomingFileInfo.peer_name}</li>
+                <li>ID: ${this.incomingFileInfo.peer_id}</li>
+                <li>名称: ${this.incomingFileInfo.fileName}</li>
+                <li>大小: ${this.bytesToSize(this.incomingFileInfo.fileSize)}</li>
             </ul>`,
             'all',
             'all'
@@ -7175,13 +7175,13 @@ class RoomClient {
         this.sendInProgress = true;
 
         sendFileInfo.innerText =
-            'File name: ' +
+            '文件名称: ' +
             this.fileToSend.name +
             html.newline +
-            'File type: ' +
+            '文件类型: ' +
             this.fileToSend.type +
             html.newline +
-            'File size: ' +
+            '文件大小: ' +
             this.bytesToSize(this.fileToSend.size) +
             html.newline;
 
@@ -7205,13 +7205,13 @@ class RoomClient {
             offset += data.fileData.byteLength;
 
             sendProgress.value = offset;
-            sendFilePercentage.innerText = 'Send progress: ' + ((offset / this.fileToSend.size) * 100).toFixed(2) + '%';
+            sendFilePercentage.innerText = '发送进度: ' + ((offset / this.fileToSend.size) * 100).toFixed(2) + '%';
 
-            // send file completed
+            // 文件发送完成
             if (offset === this.fileToSend.size) {
                 this.sendInProgress = false;
                 sendFileDiv.style.display = 'none';
-                userLog('success', 'The file ' + this.fileToSend.name + ' was sent successfully.', 'top-end');
+                userLog('success', '文件 ' + this.fileToSend.name + ' 已成功发送。', 'top-end');
             }
 
             if (offset < this.fileToSend.size) readSlice(offset);
@@ -7256,7 +7256,7 @@ class RoomClient {
 
     handleReceiveFileAbort(data) {
         if (this.isFileReaderRunning()) {
-            this.userLog('info', data.peer_name + ' ⚠️ aborted file transfer', 'top-end');
+            this.userLog('info', data.peer_name + ' ⚠️ 中止了文件传输', 'top-end');
             this.fileReader.abort();
             sendFileDiv.style.display = 'none';
             this.sendInProgress = false;
@@ -7272,7 +7272,7 @@ class RoomClient {
         this.receiveInProgress = false;
         receiveFileDiv.style.display = 'none';
         console.log(data.peer_name + ' aborted the file transfer');
-        this.userLog('info', data.peer_name + ' ⚠️ aborted the file transfer', 'top-end');
+        this.userLog('info', data.peer_name + ' ⚠️ 中止了文件传输', 'top-end');
     }
 
     handleFile(data) {
@@ -7281,7 +7281,7 @@ class RoomClient {
         this.receivedSize += data.fileData.byteLength;
         receiveProgress.value = this.receivedSize;
         receiveFilePercentage.innerText =
-            'Receive progress: ' + ((this.receivedSize / this.incomingFileInfo.fileSize) * 100).toFixed(2) + '%';
+            '接收进度: ' + ((this.receivedSize / this.incomingFileInfo.fileSize) * 100).toFixed(2) + '%';
         if (this.receivedSize === this.incomingFileInfo.fileSize) {
             receiveFileDiv.style.display = 'none';
             this.incomingFileData = this.receiveBuffer;
@@ -7307,13 +7307,13 @@ class RoomClient {
                     allowOutsideClick: false,
                     background: swalBackground,
                     position: 'center',
-                    title: 'Received file',
-                    text: this.incomingFileInfo.fileName + ' size ' + this.bytesToSize(this.incomingFileInfo.fileSize),
+                    title: '收到的文件',
+                    text: this.incomingFileInfo.fileName + ' 大小 ' + this.bytesToSize(this.incomingFileInfo.fileSize),
                     imageUrl: e.target.result,
                     imageAlt: 'mirotalksfu-file-img-download',
                     showDenyButton: true,
-                    confirmButtonText: `Save`,
-                    denyButtonText: `Cancel`,
+                    confirmButtonText: `保存`,
+                    denyButtonText: `取消`,
                     showClass: { popup: 'animate__animated animate__fadeInDown' },
                     hideClass: { popup: 'animate__animated animate__fadeOutUp' },
                 }).then((result) => {
@@ -7328,11 +7328,11 @@ class RoomClient {
                 allowOutsideClick: false,
                 background: swalBackground,
                 position: 'center',
-                title: 'Received file',
-                text: this.incomingFileInfo.fileName + ' size ' + this.bytesToSize(this.incomingFileInfo.fileSize),
+                title: '收到的文件',
+                text: this.incomingFileInfo.fileName + ' 大小 ' + this.bytesToSize(this.incomingFileInfo.fileSize),
                 showDenyButton: true,
-                confirmButtonText: `Save`,
-                denyButtonText: `Cancel`,
+                confirmButtonText: `保存`,
+                denyButtonText: `取消`,
                 showClass: { popup: 'animate__animated animate__fadeInDown' },
                 hideClass: { popup: 'animate__animated animate__fadeOutUp' },
             }).then((result) => {
@@ -7388,7 +7388,7 @@ class RoomClient {
 
     shareVideo(peer_id = 'all') {
         if (this._moderator.media_cant_sharing) {
-            return userLog('warning', 'The moderator does not allow you to share any media', 'top-end', 6000);
+            return userLog('warning', '主持人不允许您共享任何媒体', 'top-end', 6000);
         }
 
         this.sound('open');
@@ -7397,11 +7397,11 @@ class RoomClient {
             background: swalBackground,
             position: 'center',
             imageUrl: image.videoShare,
-            title: 'Share a Video or Audio',
-            text: 'Paste a Video or Audio URL',
+            title: '分享视频或音频',
+            text: '粘贴视频或音频URL',
             input: 'text',
             showCancelButton: true,
-            confirmButtonText: `Share`,
+            confirmButtonText: `分享`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         }).then((result) => {
@@ -7411,7 +7411,7 @@ class RoomClient {
                 //     return userLog('info', 'No participants detected', 'top-end');
                 // }
                 if (!this.isVideoTypeSupported(result.value)) {
-                    return userLog('warning', 'Something wrong, try with another Video or audio URL');
+                    return userLog('warning', '出现问题，请尝试其他视频或音频URL');
                 }
                 /*
                     https://www.youtube.com/watch?v=RT6_Id5-7-s
@@ -7432,7 +7432,7 @@ class RoomClient {
                     this.socket.emit('shareVideoAction', data);
                     this.openVideo(data);
                 } else {
-                    this.userLog('error', 'Not valid video URL', 'top-end', 6000);
+                    this.userLog('error', '无效的视频URL', 'top-end', 6000);
                 }
             }
         });
@@ -7487,11 +7487,11 @@ class RoomClient {
 
         switch (action) {
             case 'open':
-                this.userLog('info', `${peer_name} <i class="fab fa-youtube"></i> opened the video`, 'top-end');
+                this.userLog('info', `${peer_name} <i class="fab fa-youtube"></i> 打开了视频`, 'top-end');
                 this.openVideo(data);
                 break;
             case 'close':
-                this.userLog('info', `${peer_name} <i class="fab fa-youtube"></i> closed the video`, 'top-end');
+                this.userLog('info', `${peer_name} <i class="fab fa-youtube"></i> 关闭了视频`, 'top-end');
                 this.closeVideo();
                 break;
             default:
@@ -7535,9 +7535,9 @@ class RoomClient {
                     background: swalBackground,
                     position: 'top',
                     imageUrl: image.videoShare,
-                    title: 'Unmute Video',
-                    text: 'Tap the button below to unmute and play the video with sound.',
-                    confirmButtonText: 'Unmute',
+                    title: '取消静音视频',
+                    text: '点击下面的按钮取消静音并播放带声音的视频。',
+                    confirmButtonText: '取消静音',
                     didOpen: () => {
                         const unmuteButton = Swal.getConfirmButton();
                         if (unmuteButton) unmuteButton.focus();
@@ -7640,16 +7640,16 @@ class RoomClient {
         exitVideoBtn.addEventListener('click', (e) => {
             e.preventDefault();
             if (this._moderator.media_cant_sharing) {
-                return userLog('warning', 'The moderator does not allow you close this media', 'top-end', 6000);
+                return userLog('warning', '主持人不允许您关闭此媒体', 'top-end', 6000);
             }
             this.closeVideo(true);
         });
 
         this.handlePN(video.id, pn.id, d.id);
         if (!this.isMobileDevice) {
-            this.setTippy(pn.id, 'Toggle Pin video player', 'bottom');
-            this.setTippy(e.id, 'Close video player', 'bottom');
-            this.setTippy(fsBtn.id, 'Full screen', 'bottom');
+            this.setTippy(pn.id, '切换固定视频播放器', 'bottom');
+            this.setTippy(e.id, '关闭视频播放器', 'bottom');
+            this.setTippy(fsBtn.id, '全屏', 'bottom');
         }
 
         handleAspectRatio();
@@ -7780,34 +7780,34 @@ class RoomClient {
     roomStatus(action) {
         switch (action) {
             case 'broadcasting':
-                this.userLog('info', `${icons.room} BROADCASTING ${isBroadcastingEnabled ? 'On' : 'Off'}`, 'top-end');
+                this.userLog('info', `${icons.room} 广播 ${isBroadcastingEnabled ? '开启' : '关闭'}`, 'top-end');
                 break;
             case 'lock':
                 if (!isPresenter) return;
                 this.sound('locked');
                 this.event(_EVENTS.roomLock);
-                this.userLog('info', `${icons.lock} LOCKED the room by the password`, 'top-end');
+                this.userLog('info', `${icons.lock} 房间已通过密码锁定`, 'top-end');
                 break;
             case 'unlock':
                 if (!isPresenter) return;
-                this.userLog('info', `${icons.unlock} UNLOCKED the room`, 'top-end');
+                this.userLog('info', `${icons.unlock} 房间已解锁`, 'top-end');
                 this.event(_EVENTS.roomUnlock);
                 break;
             case 'lobbyOn':
                 this.event(_EVENTS.lobbyOn);
-                this.userLog('info', `${icons.lobby} Lobby is enabled`, 'top-end');
+                this.userLog('info', `${icons.lobby} 会议室已启用`, 'top-end');
                 break;
             case 'lobbyOff':
                 this.event(_EVENTS.lobbyOff);
-                this.userLog('info', `${icons.lobby} Lobby is disabled`, 'top-end');
+                this.userLog('info', `${icons.lobby} 会议室已禁用`, 'top-end');
                 break;
             case 'hostOnlyRecordingOn':
                 this.event(_EVENTS.hostOnlyRecordingOn);
-                this.userLog('info', `${icons.recording} Host only recording is enabled`, 'top-end');
+                this.userLog('info', `${icons.recording} 仅主持人录制已启用`, 'top-end');
                 break;
             case 'hostOnlyRecordingOff':
                 this.event(_EVENTS.hostOnlyRecordingOff);
-                this.userLog('info', `${icons.recording} Host only recording is disabled`, 'top-end');
+                this.userLog('info', `${icons.recording} 仅主持人录制已禁用`, 'top-end');
                 break;
             default:
                 break;
@@ -7819,117 +7819,117 @@ class RoomClient {
         this.sound('switch');
         switch (action) {
             case 'toggleVideoMirror':
-                this.userLog('info', `${icons.mirror} Video mirror ${status}`, 'top-end');
+                this.userLog('info', `${icons.mirror} 视频镜像 ${status}`, 'top-end');
                 break;
             case 'pitchBar':
-                this.userLog('info', `${icons.pitchBar} Audio pitch bar ${status}`, 'top-end');
+                this.userLog('info', `${icons.pitchBar} 音频音调条 ${status}`, 'top-end');
                 break;
             case 'sounds':
-                this.userLog('info', `${icons.sounds} Sounds notification ${status}`, 'top-end');
+                this.userLog('info', `${icons.sounds} 声音通知 ${status}`, 'top-end');
                 break;
             case 'ptt':
-                this.userLog('info', `${icons.ptt} Push to talk ${status}`, 'top-end');
+                this.userLog('info', `${icons.ptt} 按讲模式 ${status}`, 'top-end');
                 break;
             case 'notify':
-                this.userLog('info', `${icons.share} Share room on join ${status}`, 'top-end');
+                this.userLog('info', `${icons.share} 加入时共享房间 ${status}`, 'top-end');
                 break;
             case 'hostOnlyRecording':
-                this.userLog('info', `${icons.recording} Only host recording ${status}`, 'top-end');
+                this.userLog('info', `${icons.recording} 仅主持人录制 ${status}`, 'top-end');
                 break;
             case 'showChat':
                 active
-                    ? this.userLog('info', `${icons.chat} Chat will be shown, when you receive a message`, 'top-end')
+                    ? this.userLog('info', `${icons.chat} 聊天将在收到消息时显示`, 'top-end')
                     : this.userLog(
                           'info',
-                          `${icons.chat} Chat not will be shown, when you receive a message`,
+                          `${icons.chat} 聊天将不会在收到消息时显示`,
                           'top-end'
                       );
                 break;
             case 'speechMessages':
-                this.userLog('info', `${icons.speech} Speech incoming messages ${status}`, 'top-end');
+                this.userLog('info', `${icons.speech} 语音传入消息 ${status}`, 'top-end');
                 break;
             case 'transcriptShowOnMsg':
                 active
                     ? this.userLog(
                           'info',
-                          `${icons.transcript} Transcript will be shown, when you receive a message`,
+                          `${icons.transcript} 转录将在收到消息时显示`,
                           'top-end'
                       )
                     : this.userLog(
                           'info',
-                          `${icons.transcript} Transcript not will be shown, when you receive a message`,
+                          `${icons.transcript} 转录将不会在收到消息时显示`,
                           'top-end'
                       );
                 break;
             case 'video_start_privacy':
                 this.userLog(
                     'info',
-                    `${icons.moderator} Moderator: everyone starts in privacy mode ${status}`,
+                    `${icons.moderator} 主持人: 每个人都以隐私模式启动 ${status}`,
                     'top-end'
                 );
                 break;
             case 'audio_start_muted':
-                this.userLog('info', `${icons.moderator} Moderator: everyone starts muted ${status}`, 'top-end');
+                this.userLog('info', `${icons.moderator} 主持人: 每个人都以静音启动 ${status}`, 'top-end');
                 break;
             case 'video_start_hidden':
-                this.userLog('info', `${icons.moderator} Moderator: everyone starts hidden ${status}`, 'top-end');
+                this.userLog('info', `${icons.moderator} 主持人: 每个人都以隐藏启动 ${status}`, 'top-end');
                 break;
             case 'audio_cant_unmute':
                 this.userLog(
                     'info',
-                    `${icons.moderator} Moderator: everyone can't unmute themselves ${status}`,
+                    `${icons.moderator} 主持人: 每个人都不能自己取消静音 ${status}`,
                     'top-end'
                 );
                 break;
             case 'video_cant_unhide':
                 this.userLog(
                     'info',
-                    `${icons.moderator} Moderator: everyone can't unhide themselves ${status}`,
+                    `${icons.moderator} 主持人: 每个人都不能自己取消隐藏 ${status}`,
                     'top-end'
                 );
                 break;
             case 'screen_cant_share':
                 this.userLog(
                     'info',
-                    `${icons.moderator} Moderator: everyone can't share the screen ${status}`,
+                    `${icons.moderator} 主持人: 每个人都不能分享屏幕 ${status}`,
                     'top-end'
                 );
                 break;
             case 'chat_cant_privately':
                 this.userLog(
                     'info',
-                    `${icons.moderator} Moderator: everyone can't chat privately ${status}`,
+                    `${icons.moderator} 主持人: 每个人都不能私聊 ${status}`,
                     'top-end'
                 );
                 break;
             case 'chat_cant_chatgpt':
                 this.userLog(
                     'info',
-                    `${icons.moderator} Moderator: everyone can't chat with ChatGPT ${status}`,
+                    `${icons.moderator} 主持人: 每个人都不能与ChatGPT聊天 ${status}`,
                     'top-end'
                 );
                 break;
             case 'chat_cant_deep_seek':
                 this.userLog(
                     'info',
-                    `${icons.moderator} Moderator: everyone can't chat with DeepSeek ${status}`,
+                    `${icons.moderator} 主持人: 每个人都不能与DeepSeek聊天 ${status}`,
                     'top-end'
                 );
                 break;
             case 'media_cant_sharing':
-                this.userLog('info', `${icons.moderator} Moderator: everyone can't share media ${status}`, 'top-end');
+                this.userLog('info', `${icons.moderator} 主持人: 每个人都不能分享媒体 ${status}`, 'top-end');
                 break;
             case 'disconnect_all_on_leave':
-                this.userLog('info', `${icons.moderator} Moderator: disconnect all on leave room ${status}`, 'top-end');
+                this.userLog('info', `${icons.moderator} 主持人: 离开房间时断开所有连接 ${status}`, 'top-end');
                 break;
             case 'recSyncServer':
-                this.userLog('info', `${icons.recSync} Server Sync Recording ${status}`, 'top-end');
+                this.userLog('info', `${icons.RecSync} 服务器同步录制 ${status}`, 'top-end');
                 break;
             case 'customThemeKeep':
-                this.userLog('info', `${icons.theme} Custom theme keep ${status}`, 'top-end');
+                this.userLog('info', `${icons.theme} 自定义主题保持 ${status}`, 'top-end');
                 break;
             case 'save_room_notifications':
-                this.userLog('success', 'Room notifications saved successfully', 'top-end');
+                this.userLog('success', '房间通知保存成功', 'top-end');
                 break;
             default:
                 break;
@@ -7962,7 +7962,7 @@ class RoomClient {
                 if (!isRulesActive || isPresenter) {
                     const { peer_id, peer_name, peer_avatar } = data;
                     this.lobbyAddPear({ peer_id, peer_name, peer_avatar });
-                    this.userLog('info', peer_name + ' wants to join the meeting', 'top-end');
+                    this.userLog('info', peer_name + ' 想要加入会议', 'top-end');
                 }
                 break;
             case 'accept':
@@ -7973,7 +7973,7 @@ class RoomClient {
                 await this.joinAllowed(data.room);
                 control.style.display = 'flex';
                 bottomButtons.style.display = 'flex';
-                this.msgPopup('info', 'Your join meeting request was accepted by the moderator', 3000, 'top');
+                this.msgPopup('info', '您的加入会议请求已被主持人接受', 3000, 'top');
                 break;
             case 'reject':
                 if (this.lobbyRemovePearForPresenter(data)) {
@@ -7981,16 +7981,16 @@ class RoomClient {
                 }
                 this.RoomLobbyAccepted = false;
                 this.sound('eject');
-                Swal.fire({
+                Swal.Fire({
                     icon: 'warning',
                     allowOutsideClick: false,
                     allowEscapeKey: true,
                     showDenyButton: false,
                     showConfirmButton: true,
                     background: swalBackground,
-                    title: 'Rejected',
-                    text: 'Your join meeting request was rejected by the moderator',
-                    confirmButtonText: `Ok`,
+                    title: '已拒绝',
+                    text: '您的加入会议请求已被主持人拒绝',
+                    confirmButtonText: `确定`,
                     showClass: { popup: 'animate__animated animate__fadeInDown' },
                     hideClass: { popup: 'animate__animated animate__fadeOutUp' },
                 }).then((result) => {
@@ -8043,7 +8043,7 @@ class RoomClient {
             this.socket.emit('roomLobby', data);
             this.lobbyRemoveAll();
         } else {
-            this.userLog('info', 'No participants in lobby detected', 'top-end');
+            this.userLog('info', '大厅没有检测到参与者', 'top-end');
         }
     }
 
@@ -8054,7 +8054,7 @@ class RoomClient {
             this.socket.emit('roomLobby', data);
             this.lobbyRemoveAll();
         } else {
-            this.userLog('info', 'No participants in lobby detected', 'top-end');
+            this.userLog('info', '大厅没有检测到参与者', 'top-end');
         }
     }
 
@@ -8104,12 +8104,12 @@ class RoomClient {
             `;
 
             if (!this.isMobileDevice) {
-                setTippy(lobbyAcceptId, 'Accept', 'top');
-                setTippy(lobbyRejectId, 'Reject', 'top');
+                setTippy(lobbyAcceptId, '接受', 'top');
+                setTippy(lobbyRejectId, '拒绝', 'top');
             }
         }
         lobbyTb.innerHTML = lobbyTr;
-        lobbyHeaderTitle.innerText = 'Lobby users (' + this.lobbyParticipantsCount() + ')';
+        lobbyHeaderTitle.innerText = '大厅用户 (' + this.lobbyParticipantsCount() + ')';
         this.lobbyToggle();
     }
 
@@ -8159,9 +8159,9 @@ class RoomClient {
             allowEscapeKey: false,
             background: swalBackground,
             imageUrl: image.forbidden,
-            title: 'Oops, Room not valid',
-            text: 'Invalid Room name! Path traversal pattern detected!',
-            confirmButtonText: `OK`,
+            title: '哎呀，房间无效',
+            text: '房间名称无效！检测到路径遍历模式！',
+            confirmButtonText: `确定`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         }).then(() => {
@@ -8176,9 +8176,9 @@ class RoomClient {
             allowEscapeKey: false,
             background: swalBackground,
             imageUrl: image.forbidden,
-            title: 'Oops, Room not allowed',
-            text: 'This room is not allowed for this user',
-            confirmButtonText: `OK`,
+            title: '哎呀，房间不允许',
+            text: '此房间不被此用户允许',
+            confirmButtonText: `确定`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         }).then(() => {
@@ -8193,9 +8193,9 @@ class RoomClient {
             allowEscapeKey: false,
             background: swalBackground,
             imageUrl: image.forbidden,
-            title: 'Oops, Unauthorized',
-            text: 'The host has user authentication enabled',
-            confirmButtonText: `Login`,
+            title: '哎呀，未授权',
+            text: '主持人已启用用户认证',
+            confirmButtonText: `登录`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         }).then(() => {
@@ -8219,14 +8219,14 @@ class RoomClient {
                 allowEscapeKey: false,
                 background: swalBackground,
                 imageUrl: image.locked,
-                title: 'Oops, Room is Locked',
+                title: '哎呀，房间已锁定',
                 input: 'text',
-                inputPlaceholder: 'Enter the Room password',
-                confirmButtonText: `OK`,
+                inputPlaceholder: '输入房间密码',
+                confirmButtonText: `确定`,
                 showClass: { popup: 'animate__animated animate__fadeInDown' },
                 hideClass: { popup: 'animate__animated animate__fadeOutUp' },
                 inputValidator: (pwd) => {
-                    if (!pwd) return 'Please enter the Room password';
+                    if (!pwd) return '请输入房间密码';
                     this.RoomPassword = pwd;
                 },
             }).then(() => {
@@ -8248,10 +8248,10 @@ class RoomClient {
             background: swalBackground,
             position: 'center',
             imageUrl: image.locked,
-            title: 'Oops, Wrong Room Password',
-            text: 'The room is locked, try with another one.',
+            title: '哎呀，房间密码错误',
+            text: '房间已锁定，请尝试其他房间。',
             showDenyButton: false,
-            confirmButtonText: `Ok`,
+            confirmButtonText: `确定`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         }).then((result) => {
@@ -8268,9 +8268,9 @@ class RoomClient {
             showConfirmButton: false,
             background: swalBackground,
             icon: 'warning',
-            title: 'Lobby enabled and no presenter available',
-            text: 'A presenter is required to start the meeting. Please try joining again later.',
-            denyButtonText: `Leave room`,
+            title: '会议室已启用且无主持人可用',
+            text: '需要主持人来开始会议。请稍后再尝试加入。',
+            denyButtonText: `离开房间`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
             timer: 6000,
@@ -8289,10 +8289,10 @@ class RoomClient {
             showConfirmButton: false,
             background: swalBackground,
             imageUrl: image.poster,
-            title: 'Room has lobby enabled',
-            text: 'Asking to join meeting...',
-            confirmButtonText: `Ok`,
-            denyButtonText: `Leave room`,
+            title: '房间已启用会议室',
+            text: '正在请求加入会议...',
+            confirmButtonText: `确定`,
+            denyButtonText: `离开房间`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         }).then((result) => {
@@ -8314,9 +8314,9 @@ class RoomClient {
             showConfirmButton: true,
             background: swalBackground,
             imageUrl: image.forbidden,
-            title: 'Banned',
-            text: 'You are banned from this room!',
-            confirmButtonText: `Ok`,
+            title: '已禁止',
+            text: '您已被禁止进入此房间！',
+            confirmButtonText: `确定`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         }).then(() => {
@@ -8623,7 +8623,7 @@ class RoomClient {
             btnGl.addEventListener('click', () => {
                 isPresenter
                     ? this.askPeerGeoLocation(peer_id)
-                    : this.userLog('warning', 'Only the presenter can ask geolocation to the participants', 'top-end');
+                    : this.userLog('warning', '只有主持人可以向参与者请求地理位置信息', 'top-end');
             });
         }
     }
@@ -8640,7 +8640,7 @@ class RoomClient {
             btnBan.addEventListener('click', () => {
                 isPresenter
                     ? this.peerAction('me', peer_id, 'ban')
-                    : this.userLog('warning', 'Only the presenter can ban the participants', 'top-end');
+                    : this.userLog('warning', '只有主持人可以禁止参与者', 'top-end');
             });
         }
     }
@@ -8657,7 +8657,7 @@ class RoomClient {
             btnKo.addEventListener('click', () => {
                 isPresenter
                     ? this.peerAction('me', peer_id, 'eject')
-                    : this.userLog('warning', 'Only the presenter can eject the participants', 'top-end');
+                    : this.userLog('warning', '只有主持人可以踢出参与者', 'top-end');
             });
         }
     }
@@ -8668,7 +8668,7 @@ class RoomClient {
 
     toggleFocusMode(videoContainerId, btnHa = null) {
         if (isHideMeActive) {
-            this.userLog('warning', 'To use this feature, please toggle Hide self view before', 'top-end', 6000);
+            this.userLog('warning', '请在使用此功能前切换到隐藏自我视图模式', 'top-end', 6000);
             return;
         }
         const videoContainer = this.getId(videoContainerId);
@@ -8708,11 +8708,11 @@ class RoomClient {
                 if (e.target.className === html.videoOn) {
                     isPresenter
                         ? this.peerAction('me', peer_id, 'hide')
-                        : this.userLog('warning', 'Only the presenter can hide the participants', 'top-end');
+                        : this.userLog('warning', '只有主持人可以隐藏参与者', 'top-end');
                 } else {
                     isPresenter
                         ? this.peerAction('me', peer_id, 'unhide')
-                        : this.userLog('warning', 'Only the presenter can unhide the participants', 'top-end');
+                        : this.userLog('warning', '只有主持人可以取消隐藏参与者', 'top-end');
                 }
             });
         }
@@ -8731,11 +8731,11 @@ class RoomClient {
                 if (e.target.className === html.audioOn) {
                     isPresenter
                         ? this.peerAction('me', peer_id, 'mute')
-                        : this.userLog('warning', 'Only the presenter can mute the participants', 'top-end');
+                        : this.userLog('warning', '只有主持人可以静音参与者', 'top-end');
                 } else {
                     isPresenter
                         ? this.peerAction('me', peer_id, 'unmute')
-                        : this.userLog('warning', 'Only the presenter can unmute the participants', 'top-end');
+                        : this.userLog('warning', '只有主持人可以取消静音参与者', 'top-end');
                 }
             });
         }
@@ -8882,13 +8882,13 @@ class RoomClient {
             console.log('peerAction', data);
 
             if (!this.thereAreParticipants()) {
-                if (info) return this.userLog('info', 'No participants detected', 'top-end');
+                if (info) return this.userLog('info', '未检测到参与者', 'top-end');
             }
             if (!broadcast) {
                 switch (action) {
                     case 'mute':
                         const audioMessage =
-                            'The participant has been muted, and only they have the ability to unmute themselves';
+                            '参与者已被静音，只有他们自己才能解除静音';
                         if (isBroadcastingEnabled) {
                             const peerAudioButton = this.getId(data.peer_id + '___pAudio');
                             if (peerAudioButton) {
@@ -8914,7 +8914,7 @@ class RoomClient {
                         break;
                     case 'hide':
                         const videoMessage =
-                            'The participant is currently hidden, and only they have the option to unhide themselves';
+                            '参与者当前是隐藏的，只有他们自己有选项使自己显现';
                         if (isBroadcastingEnabled) {
                             const peerVideoButton = this.getId(data.peer_id + '___pVideo');
                             if (peerVideoButton) {
@@ -8939,7 +8939,7 @@ class RoomClient {
                         }
                     case 'stop':
                         const screenMessage =
-                            'The participant screen is not shared, only the participant can initiate sharing';
+                            '参与者屏幕未共享，仅参与者可以发起共享';
                         const peerScreenButton = this.getId(id);
                         if (peerScreenButton) {
                             const peerScreenStatus = peerScreenButton.querySelector('i');
@@ -8973,8 +8973,8 @@ class RoomClient {
             switch (action) {
                 case 'ban':
                     if (peerActionAllowed) {
-                        const message = `Will ban you from the room${
-                            msg ? `<br><br><span class="red">Reason: ${msg}</span>` : ''
+                        const message = `将把你从房间中封禁${
+                            msg ? `<br><br><span class="red">原因: ${msg}</span>` : ''
                         }`;
                         this.exit(true);
                         this.sound(action);
@@ -8983,8 +8983,8 @@ class RoomClient {
                     break;
                 case 'eject':
                     if (peerActionAllowed) {
-                        const message = `Will eject you from the room${
-                            msg ? `<br><br><span class="red">Reason: ${msg}</span>` : ''
+                        const message = `将把你从房间中踢出${
+                            msg ? `<br><br><span class="red">原因: ${msg}</span>` : ''
                         }`;
                         this.exit(true);
                         this.sound(action);
@@ -8998,7 +8998,7 @@ class RoomClient {
                             this.updatePeerInfo(this.peer_name, this.peer_id, 'audio', false);
                             this.userLog(
                                 'warning',
-                                from_peer_name + '  ' + _PEER.audioOff + ' has closed yours audio',
+                                from_peer_name + '  ' + _PEER.audioOff + ' 已关闭你的音频',
                                 'top-end',
                                 10000
                             );
@@ -9010,8 +9010,8 @@ class RoomClient {
                         this.peerMediaStartConfirm(
                             mediaType.audio,
                             image.unmute,
-                            'Enable Microphone',
-                            'Allow the presenter to enable your microphone?'
+                            '启用麦克风',
+                            '允许主持人开启你的麦克风？'
                         );
                     }
                     break;
@@ -9020,7 +9020,7 @@ class RoomClient {
                         this.closeProducer(mediaType.video, 'moderator');
                         this.userLog(
                             'warning',
-                            from_peer_name + '  ' + _PEER.videoOff + ' has closed yours video',
+                            from_peer_name + '  ' + _PEER.videoOff + ' 已关闭你的视频',
                             'top-end',
                             10000
                         );
@@ -9031,8 +9031,8 @@ class RoomClient {
                         this.peerMediaStartConfirm(
                             mediaType.video,
                             image.unhide,
-                            'Enable Camera',
-                            'Allow the presenter to enable your camera?'
+                            '启用摄像头',
+                            '允许主持人开启你的摄像头？'
                         );
                     }
                     break;
@@ -9042,7 +9042,7 @@ class RoomClient {
                             this.closeProducer(mediaType.screen, 'moderator');
                             this.userLog(
                                 'warning',
-                                from_peer_name + '  ' + _PEER.screenOff + ' has closed yours screen share',
+                                from_peer_name + '  ' + _PEER.screenOff + ' 已关闭你的屏幕共享',
                                 'top-end',
                                 10000
                             );
@@ -9054,8 +9054,8 @@ class RoomClient {
                         this.peerMediaStartConfirm(
                             mediaType.screen,
                             image.start,
-                            'Start Screen share',
-                            'Allow the presenter to start your screen share?'
+                            '开始屏幕共享',
+                            '允许主持人开启你的屏幕共享？'
                         );
                     }
                     break;
@@ -9075,8 +9075,8 @@ class RoomClient {
             title: title,
             text: text,
             showDenyButton: true,
-            confirmButtonText: `Yes`,
-            denyButtonText: `No`,
+            confirmButtonText: `确定`,
+            denyButtonText: `取消`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         }).then(async (result) => {
@@ -9137,12 +9137,12 @@ class RoomClient {
                     background: swalBackground,
                     position: 'center',
                     imageUrl: image.forbidden,
-                    title: 'Ban current participant',
+                    title: '封禁当前参与者',
                     input: 'text',
-                    inputPlaceholder: 'Ban reason',
+                    inputPlaceholder: '封禁原因',
                     showDenyButton: true,
-                    confirmButtonText: `Yes`,
-                    denyButtonText: `No`,
+                    confirmButtonText: `是`,
+                    denyButtonText: `否`,
                     showClass: { popup: 'animate__animated animate__fadeInDown' },
                     hideClass: { popup: 'animate__animated animate__fadeOutUp' },
                 })
@@ -9166,17 +9166,17 @@ class RoomClient {
                 break;
             case 'eject':
                 let ejectConfirmed = false;
-                let whoEject = data.broadcast ? 'All participants except yourself?' : 'current participant?';
+                let whoEject = data.broadcast ? '所有参与者（包括你自己）？' : '当前参与者？';
                 Swal.fire({
                     background: swalBackground,
                     position: 'center',
                     imageUrl: data.broadcast ? image.users : image.user,
-                    title: 'Eject ' + whoEject,
+                    title: '踢出 ' + whoEject,
                     input: 'text',
-                    inputPlaceholder: 'Eject reason',
+                    inputPlaceholder: '踢出原因',
                     showDenyButton: true,
-                    confirmButtonText: `Yes`,
-                    denyButtonText: `No`,
+                    confirmButtonText: `是`,
+                    denyButtonText: `否`,
                     showClass: { popup: 'animate__animated animate__fadeInDown' },
                     hideClass: { popup: 'animate__animated animate__fadeOutUp' },
                 })
@@ -9203,7 +9203,7 @@ class RoomClient {
                         }
                     })
                     .then(() => {
-                        if (ejectConfirmed) this.peerActionProgress(action, 'In progress, wait...', 6000, 'refresh');
+                        if (ejectConfirmed) this.peerActionProgress(action, '进行中，请等待...', 6000, 'refresh');
                     });
                 break;
             case 'mute':
@@ -9213,41 +9213,41 @@ class RoomClient {
             case 'stop':
             case 'start':
                 let muteHideStopConfirmed = false;
-                let who = data.broadcast ? 'everyone except yourself?' : 'current participant?';
+                let who = data.broadcast ? '所有人（包括你自己）？' : '当前参与者？';
                 let imageUrl, title, text;
                 switch (action) {
                     case 'mute':
                         imageUrl = image.mute;
-                        title = 'Mute ' + who;
+                        title = '静音 ' + who;
                         text =
-                            'Once muted, only the presenter will be able to unmute participants, but participants can unmute themselves at any time';
+                            '一旦被静音，只有主持人能够取消参与者的静音状态，但参与者可以随时自行取消静音';
                         break;
                     case 'unmute':
                         imageUrl = image.unmute;
-                        title = 'Unmute ' + who;
-                        text = 'A pop-up message will appear to prompt and allow this action.';
+                        title = '取消静音 ' + who;
+                        text = '将弹出一个提示消息，以提示并允许此操作。';
                         break;
                     case 'hide':
-                        title = 'Hide ' + who;
+                        title = '隐藏 ' + who;
                         imageUrl = image.hide;
                         text =
-                            'Once hidden, only the presenter will be able to unhide participants, but participants can unhide themselves at any time';
+                            '一旦被隐藏，只有主持人能够取消参与者的隐藏状态，但参与者可以随时自行取消隐藏';
                         break;
                     case 'unhide':
-                        title = 'Unhide ' + who;
+                        title = '取消隐藏 ' + who;
                         imageUrl = image.unhide;
-                        text = 'A pop-up message will appear to prompt and allow this action.';
+                        text = '将弹出一个提示消息，以提示并允许此操作。';
                         break;
                     case 'stop':
                         imageUrl = image.stop;
-                        title = 'Stop screen share to the ' + who;
+                        title = '停止屏幕共享给 ' + who;
                         text =
-                            "Once stopped, only the presenter will be able to start the participants' screens, but participants can start their screens themselves at any time";
+                            "一旦被停止，只有主持人能够重新开始参与者的屏幕共享，但参与者可以随时自行启动自己的屏幕共享";
                         break;
                     case 'start':
                         imageUrl = image.start;
-                        title = 'Start screen share to the ' + who;
-                        text = 'A pop-up message will appear to prompt and allow this action.';
+                        title = '开始屏幕共享给 ' + who;
+                        text = '将弹出一个提示消息，以提示并允许此操作。';
                         break;
                     default:
                         break;
@@ -9259,8 +9259,8 @@ class RoomClient {
                     title: title,
                     text: text,
                     showDenyButton: true,
-                    confirmButtonText: `Yes`,
-                    denyButtonText: `No`,
+                    confirmButtonText: `是`,
+                    denyButtonText: `否`,
                     showClass: { popup: 'animate__animated animate__fadeInDown' },
                     hideClass: { popup: 'animate__animated animate__fadeOutUp' },
                 })
@@ -9294,7 +9294,7 @@ class RoomClient {
                     })
                     .then(() => {
                         if (muteHideStopConfirmed)
-                            this.peerActionProgress(action, 'In progress, wait...', 2000, 'refresh');
+                            this.peerActionProgress(action, '进行中，请等待...', 2000, 'refresh');
                     });
                 break;
             default:
@@ -9307,13 +9307,13 @@ class RoomClient {
         console.log('peerGuestNotAllowed', action);
         switch (action) {
             case 'audio':
-                this.userLog('warning', 'Only the presenter can mute/unmute participants', 'top-end');
+                this.userLog('warning', '只有主持人可以对参与者进行静音/取消静音操作', 'top-end');
                 break;
             case 'video':
-                this.userLog('warning', 'Only the presenter can hide/show participants', 'top-end');
+                this.userLog('warning', '只有主持人可以对参与者进行隐藏/显示操作', 'top-end');
                 break;
             case 'screen':
-                this.userLog('warning', 'Only the presenter can start/stop the screen of participants', 'top-end');
+                this.userLog('warning', '只有主持人可以对参与者的屏幕进行开始/停止操作', 'top-end');
                 break;
             default:
                 break;
@@ -9435,7 +9435,7 @@ class RoomClient {
         switch (peer_id) {
             case 'ChatGPT':
                 if (this._moderator.chat_cant_chatgpt) {
-                    return userLog('warning', 'The moderator does not allow you to chat with ChatGPT', 'top-end', 6000);
+                    return userLog('warning', '管理员不允许您与ChatGPT聊天', 'top-end', 6000);
                 }
                 isChatGPTOn = true;
                 chatAbout.innerHTML = generateChatAboutHTML(image.chatgpt, 'ChatGPT');
@@ -9445,7 +9445,7 @@ class RoomClient {
                 if (this._moderator.chat_cant_deep_seek) {
                     return userLog(
                         'warning',
-                        'The moderator does not allow you to chat with DeepSeek',
+                        '管理员不允许你与DeepSeek聊天',
                         'top-end',
                         6000
                     );
@@ -9460,7 +9460,7 @@ class RoomClient {
                 break;
             default:
                 if (this._moderator.chat_cant_privately) {
-                    return userLog('warning', 'The moderator does not allow you to chat privately', 'top-end', 6000);
+                    return userLog('warning', '管理员不允许你私聊', 'top-end', 6000);
                 }
                 chatAbout.innerHTML = generateChatAboutHTML(avatarImg, peer_name);
                 chatPrivateMessages.style.display = 'block';
@@ -9474,7 +9474,7 @@ class RoomClient {
                 break;
         }
 
-        if (!this.isMobileDevice) setTippy('chatShowParticipantsList', 'Toggle participants list', 'bottom');
+        if (!this.isMobileDevice) setTippy('chatShowParticipantsList', '切换参与者列表', 'bottom');
 
         const clickedElement = event ? event.target : null;
         if (!event || (clickedElement.tagName != 'BUTTON' && clickedElement.tagName != 'I')) {
@@ -9616,7 +9616,7 @@ class RoomClient {
                         if (peer_hand) peer_hand.style.display = 'flex';
                         this.userLog(
                             'warning',
-                            peer_name + '  ' + _PEER.raiseHand + ' has raised the hand',
+                            peer_name + '  ' + _PEER.raiseHand + ' 已举手',
                             'top-end',
                             10000
                         );
@@ -9674,15 +9674,15 @@ class RoomClient {
         } = peer_info;
 
         const emojiPeerInfo = [
-            { label: 'Join Time', value: join_data_time, emoji: '⏰' },
-            { label: 'Name', value: peer_name, emoji: '👤' },
-            { label: 'Presenter', value: peer_presenter ? 'Yes' : 'No', emoji: peer_presenter ? '⭐' : '🎤' },
-            { label: 'Desktop Device', value: is_desktop_device ? 'Yes' : 'No', emoji: '💻' },
-            { label: 'Mobile Device', value: is_mobile_device ? 'Yes' : 'No', emoji: '📱' },
-            { label: 'Tablet Device', value: is_tablet_device ? 'Yes' : 'No', emoji: '📲' },
-            { label: 'iPad Pro', value: is_ipad_pro_device ? 'Yes' : 'No', emoji: '📱' },
-            { label: 'OS', value: `${os_name} ${os_version}`, emoji: '🖥️' },
-            { label: 'Browser', value: `${browser_name} ${browser_version}`, emoji: '🌐' },
+            { label: '加入时间', value: join_data_time, emoji: '⏰' },
+            { label: '名称', value: peer_name, emoji: '👤' },
+            { label: '主持人', value: peer_presenter ? '是' : '否', emoji: peer_presenter ? '⭐' : '🎤' },
+            { label: '桌面设备', value: is_desktop_device ? '是' : '否', emoji: '💻' },
+            { label: '移动设备', value: is_mobile_device ? '是' : '否', emoji: '📱' },
+            { label: '平板设备', value: is_tablet_device ? '是' : '否', emoji: '📲' },
+            { label: 'iPad Pro', value: is_ipad_pro_device ? '是' : '否', emoji: '📱' },
+            { label: '操作系统', value: `${os_name} ${os_version}`, emoji: '🖥️' },
+            { label: '浏览器', value: `${browser_name} ${browser_version}`, emoji: '🌐' },
         ];
 
         // Format the peer info into a structured string
@@ -9732,11 +9732,11 @@ class RoomClient {
             background: swalBackground,
             imageUrl: image.geolocation,
             position: 'center',
-            title: 'Geo Location',
-            html: `Would you like to share your location to ${cmd.from_peer_name}?`,
+            title: '地理位置',
+            html: `你是否希望与 ${cmd.from_peer_name} 分享你的位置信息？`,
             showDenyButton: true,
-            confirmButtonText: `Yes`,
-            denyButtonText: `No`,
+            confirmButtonText: `是`,
+            denyButtonText: `否`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         }).then((result) => {
@@ -9763,16 +9763,16 @@ class RoomClient {
                     let geoError = error;
                     switch (error.code) {
                         case error.PERMISSION_DENIED:
-                            geoError = 'User denied the request for Geolocation';
+                            geoError = '用户拒绝了地理位置请求';
                             break;
                         case error.POSITION_UNAVAILABLE:
-                            geoError = 'Location information is unavailable';
+                            geoError = '位置信息不可用';
                             break;
                         case error.TIMEOUT:
-                            geoError = 'The request to get user location timed out';
+                            geoError = '获取用户位置信息超时';
                             break;
                         case error.UNKNOWN_ERROR:
-                            geoError = 'An unknown error occurred';
+                            geoError = '发生了未知错误';
                             break;
                         default:
                             break;
@@ -9791,14 +9791,14 @@ class RoomClient {
             rc.sendPeerGeoLocation(
                 peer_id,
                 'geoLocationKO',
-                `${rc.peer_name}: Geolocation is not supported by this browser`
+                `${rc.peer_name}: 此浏览器不支持地理位置`
             );
-            rc.userLog('warning', 'Geolocation is not supported by this browser', 'top-end', 5000);
+            rc.userLog('warning', '此浏览器不支持地理位置', 'top-end', 5000);
         }
     }
 
     denyPeerGeoLocation(peer_id) {
-        rc.sendPeerGeoLocation(peer_id, 'geoLocationKO', `${rc.peer_name}: Has declined permission for geolocation`);
+        rc.sendPeerGeoLocation(peer_id, 'geoLocationKO', `${rc.peer_name}: 已拒绝地理位置权限`);
     }
 
     handleGeoPeerLocation(cmd) {
@@ -9810,11 +9810,11 @@ class RoomClient {
             background: swalBackground,
             imageUrl: image.geolocation,
             position: 'center',
-            title: 'Geo Location',
-            html: `Would you like to open ${cmd.from_peer_name} geolocation?`,
+            title: '地理位置',
+            html: `你是否希望打开 ${cmd.from_peer_name} 的地理位置信息？`,
             showDenyButton: true,
-            confirmButtonText: `Yes`,
-            denyButtonText: `No`,
+            confirmButtonText: `是`,
+            denyButtonText: `否`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         }).then((result) => {
@@ -9834,7 +9834,7 @@ class RoomClient {
     // ##############################################
 
     getAvatarList() {
-        this.msgPopup('toast', 'Please hold on, we are processing the avatar lists...', 10000);
+        this.msgPopup('toast', '请稍等，我们正在处理头像列表...', 10000);
         this.socket
             .request('getAvatarList')
             .then(function (completion) {
@@ -9956,7 +9956,7 @@ class RoomClient {
                 }
 
                 const selectElement = document.getElementById('avatarVoiceIDs');
-                selectElement.innerHTML = '<option value="">Select Avatar Voice</option>'; // Reset options with default
+                selectElement.innerHTML = '<option value="">选择头像声音</option>'; // Reset options with default
 
                 // Sort the list alphabetically by language
                 const sortedList = voiceList.sort((a, b) => (a.language ?? '').localeCompare(b.language ?? ''));
@@ -10064,10 +10064,10 @@ class RoomClient {
         };
 
         if (!this.isMobileDevice) {
-            this.setTippy(pin.id, 'Toggle Pin', 'bottom');
-            this.setTippy(interrupt.id, 'Interrupt avatar speaking', 'bottom');
-            this.setTippy(fs.id, 'Toggle full screen', 'bottom');
-            this.setTippy(ss.id, 'Stop VideoAI session', 'bottom');
+            this.setTippy(pin.id, '切换置顶', 'bottom');
+            this.setTippy(interrupt.id, '中断头像说话', 'bottom');
+            this.setTippy(fs.id, '切换全屏', 'bottom');
+            this.setTippy(ss.id, '停止VideoAI会话', 'bottom');
         }
 
         handleAspectRatio();
@@ -10086,7 +10086,7 @@ class RoomClient {
             });
 
             if (!response || Object.keys(response).length === 0 || response.error) {
-                this.userLog('error', 'Error to creating the avatar', 'top-end');
+                this.userLog('error', '创建头像时出错', 'top-end');
                 this.stopSession();
                 return;
             }
@@ -10111,7 +10111,7 @@ class RoomClient {
                 case 'quota_not_enough':
                     this.msgPopup(
                         'warning',
-                        'You’ve reached your quota limit for this demo account. Please consider upgrading for more features.',
+                        '您已达到此演示账户的配额限制。请考虑升级以获得更多功能。',
                         6000,
                         'top'
                     );
@@ -10148,10 +10148,10 @@ class RoomClient {
 
     async startSession() {
         if (!VideoAI.info) {
-            this.userLog('warning', 'Please create a connection first', 'top-end');
+            this.userLog('warning', '请先创建连接', 'top-end');
             return;
         }
-        this.userLog('info', 'Starting session... please wait', 'top-end');
+        this.userLog('info', '正在启动会话... 请稍候', 'top-end');
         try {
             const answer = await this.peerConnection.createAnswer();
 
@@ -10200,7 +10200,7 @@ class RoomClient {
 
             VideoAI.active = true;
 
-            this.userLog('info', 'Video AI streaming started', 'top-end');
+            this.userLog('info', 'Video AI 流媒体已启动', 'top-end');
         } catch (error) {
             console.error('Video AI streamingStart error:', error);
         }
@@ -10220,7 +10220,7 @@ class RoomClient {
         }
         setTimeout(() => {
             this.streamingTask(
-                `Welcome to ${BRAND.app.name}! Please Open the Chat and navigate to the ChatGPT section. Feel free to ask me any questions you have.`
+                `欢迎使用 ${BRAND.app.name}！请打开聊天窗口并导航到 ChatGPT 部分。随时向我提问您有任何问题。`
             );
         }, 2000);
     }
@@ -10394,7 +10394,7 @@ class RoomClient {
             console.log('RTMP files', filenames);
             if (filenames.length === 0) {
                 const fileNameDiv = rc.getId('file-name');
-                fileNameDiv.textContent = 'No file found to stream';
+                fileNameDiv.textContent = '未找到要流式传输的文件';
                 //elemDisplay('startRtmpButton', false);
             }
 
@@ -10432,7 +10432,7 @@ class RoomClient {
             this.getId('file-name').textContent = '';
             return this.userLog(
                 'warning',
-                "The provided File is not valid. Please ensure it's .mp4, webm or ogg video file",
+                "提供的文件无效。请确保它是 .mp4、webm 或 ogg 视频文件",
                 'top-end'
             );
         }
@@ -10461,7 +10461,7 @@ class RoomClient {
     }
 
     endRTMP(data) {
-        const rtmpMessage = `${data.rtmpUrl} processing finished!`;
+        const rtmpMessage = `${data.rtmpUrl} 处理已完成！`;
         this.rtmpFileStreamer = false;
         this.userLog('info', rtmpMessage, 'top-end');
         console.log(rtmpMessage);
@@ -10489,7 +10489,7 @@ class RoomClient {
             this.getId('rtmpStreamURL').value = '';
             return this.userLog(
                 'warning',
-                'The provided URL is not valid. Please ensure it links to an .mp4 video file',
+                '提供的 URL 无效。请确保它链接到一个 .mp4 视频文件',
                 'top-end'
             );
         }
@@ -10518,7 +10518,7 @@ class RoomClient {
     }
 
     endRTMPfromURL(data) {
-        const rtmpMessage = `${data.rtmpUrl} processing finished!`;
+        const rtmpMessage = `${data.rtmpUrl} 处理已完成！`;
         this.rtmpUrlStreamer = false;
         this.userLog('info', rtmpMessage, 'top-end');
         console.log(rtmpMessage);
@@ -10562,7 +10562,7 @@ class RoomClient {
     }
 
     copyRTMPUrl(url) {
-        if (!url) return this.userLog('info', 'No RTMP URL detected', 'top-end');
+        if (!url) return this.userLog('info', '未检测到 RTMP URL', 'top-end');
         copyToClipboard(url);
     }
 
@@ -10587,7 +10587,7 @@ class RoomClient {
             }
             return this.userLog(
                 'warning',
-                'Unable to start the RTMP stream. Please ensure the RTMP server is running. If the problem persists, contact the administrator',
+                '无法启动 RTMP 流。请确保 RTMP 服务器正在运行。如果问题仍然存在，请联系管理员',
                 'top-end',
                 6000
             );
@@ -10600,13 +10600,13 @@ class RoomClient {
             background: swalBackground,
             imageUrl: image.rtmp,
             position: 'center',
-            title: 'LIVE',
+            title: '直播',
             html: `
                 <p style="background:transparent; color:rgb(8, 189, 89);">${rtmp}</p>
                 `,
             showDenyButton: false,
             showCancelButton: false,
-            confirmButtonText: `Copy URL`,
+            confirmButtonText: `复制链接`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         }).then((result) => {
@@ -10698,7 +10698,7 @@ class RoomClient {
         const notifyEmailInput = getId('notifyEmailInput');
         if (!this.isValidEmail(notifyEmailInput.value)) {
             notifyEmailInput.value = '';
-            this.userLog('warning', 'Email not valid', 'top-end', 6000);
+            this.userLog('warning', '邮箱无效', 'top-end', 6000);
             return false;
         }
         return true;

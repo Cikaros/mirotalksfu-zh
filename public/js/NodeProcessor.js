@@ -27,7 +27,7 @@ class UIManager {
 
     updateUI(isProcessing, noiseSuppressionEnabled) {
         this.updateStatus(
-            `Audio processing ${isProcessing ? 'started' : 'stopped'}`,
+            `${isProcessing ? '已开启' : '已结束'}音频处理`,
             isProcessing ? 'success' : 'info'
         );
 
@@ -46,12 +46,12 @@ class MessageHandler {
         if (event.data.type === 'request-wasm') {
             this.wasmLoader.loadWasmBuffer();
         } else if (event.data.type === 'wasm-ready') {
-            this.uiManager.updateStatus('✅ RNNoise WASM initialized successfully', 'success');
+            this.uiManager.updateStatus('✅ RNNoise WASM 初始化成功', 'success');
         } else if (event.data.type === 'wasm-error') {
-            this.uiManager.updateStatus('❌ RNNoise WASM error: ' + event.data.error, 'error');
+            this.uiManager.updateStatus('❌ RNNoise WASM 错误: ' + event.data.error, 'error');
         } else if (event.data.type === 'vad') {
             if (event.data.isSpeech) {
-                //this.uiManager.updateStatus(`🗣️ Speech detected (VAD: ${event.data.probability.toFixed(2)})`, 'info');
+                //this.uiManager.updateStatus(`🗣️ 检测到语音 (VAD: ${event.data.probability.toFixed(2)})`, 'info');
             }
         }
     }
@@ -66,25 +66,25 @@ class WasmLoader {
 
     async loadWasmBuffer() {
         try {
-            this.uiManager.updateStatus('📦 Loading RNNoise sync module...', 'info');
+            this.uiManager.updateStatus('📦 正在加载RNNoise同步模块...', 'info');
 
             const jsResponse = await fetch('../js/RnnoiseSync.js');
 
             if (!jsResponse.ok) {
-                throw new Error('Failed to load rnnoise-sync.js');
+                throw new Error('加载rnnoise-sync.js失败');
             }
 
             const jsContent = await jsResponse.text();
-            this.uiManager.updateStatus('📦 Sending sync module to worklet...', 'info');
+            this.uiManager.updateStatus('📦 正在将同步模块发送到工作单元...', 'info');
 
             this.getWorkletNode().port.postMessage({
                 type: 'sync-module',
                 jsContent: jsContent,
             });
 
-            this.uiManager.updateStatus('📦 Sync module sent to worklet', 'info');
+            this.uiManager.updateStatus('📦 同步模块发送到工作单元', 'info');
         } catch (error) {
-            this.uiManager.updateStatus('❌ Failed to load sync module: ' + error.message, 'error');
+            this.uiManager.updateStatus('❌ 加载同步模块失败: ' + error.message, 'error');
             console.error('Sync module loading error:', error);
         }
     }
@@ -136,18 +136,18 @@ class RNNoiseProcessor {
 
     async startProcessing(mediaStream = null) {
         if (!mediaStream) {
-            throw new Error('No media stream provided to startProcessing');
+            throw new Error('无法启动，没有提供媒体流');
         }
         try {
-            this.uiManager.updateStatus('🎤 Starting audio processing...', 'info');
+            this.uiManager.updateStatus('🎤 开始音频处理...', 'info');
 
             this.audioContext = new AudioContext();
             const sampleRate = this.audioContext.sampleRate;
-            this.uiManager.updateStatus(`🎵 Audio context created with sample rate: ${sampleRate}Hz`, 'info');
+            this.uiManager.updateStatus(`🎵 创建的音频上下文: ${sampleRate}Hz`, 'info');
 
             this.mediaStream = mediaStream;
             if (!this.mediaStream.getAudioTracks().length) {
-                throw new Error('No audio tracks found in the provided media stream');
+                throw new Error('在提供的媒体流中未找到音频轨道');
             }
 
             await this.audioContext.audioWorklet.addModule('../js/NoiseSuppressionProcessor.js');
@@ -168,12 +168,12 @@ class RNNoiseProcessor {
 
             this.isProcessing = true;
             this.uiManager.updateUI(this.isProcessing, this.noiseSuppressionEnabled);
-            this.uiManager.updateStatus('🎤 Audio processing started', 'success');
+            this.uiManager.updateStatus('🎤 音频处理已开始', 'success');
 
             // Return the processed MediaStream (with noise suppression)
             return this.destinationNode.stream;
         } catch (error) {
-            this.uiManager.updateStatus('❌ Error: ' + error.message, 'error');
+            this.uiManager.updateStatus('❌ 错误: ' + error.message, 'error');
         }
     }
 
@@ -195,7 +195,7 @@ class RNNoiseProcessor {
         this.noiseSuppressionEnabled = false;
 
         this.uiManager.updateUI(this.isProcessing, this.noiseSuppressionEnabled);
-        this.uiManager.updateStatus('🛑 Audio processing stopped', 'info');
+        this.uiManager.updateStatus('🛑 音频处理已停止', 'info');
     }
 
     toggleNoiseSuppression() {
@@ -209,8 +209,8 @@ class RNNoiseProcessor {
         }
 
         this.noiseSuppressionEnabled
-            ? this.uiManager.updateStatus('🔊 RNNoise enabled - background noise will be suppressed', 'success')
-            : this.uiManager.updateStatus('🔇 RNNoise disabled - audio passes through unchanged', 'info');
+            ? this.uiManager.updateStatus('🔊 RNNoise 开启 - 已处理背景噪音', 'success')
+            : this.uiManager.updateStatus('🔇 RNNoise 禁用 - 关闭背景噪音处理器', 'info');
 
         this.uiManager.updateUI(this.isProcessing, this.noiseSuppressionEnabled);
     }

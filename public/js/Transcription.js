@@ -109,7 +109,7 @@ class Transcription {
                 show(transcriptionSpeechStop);
                 setColor(transcriptionSpeechStatus, 'lime');
                 !transcription.isPersistentMode
-                    ? userLog('info', 'Transcription started', 'top-end')
+                    ? userLog('info', '转录开始', 'top-end')
                     : (transcription.isPersistent = true);
             };
 
@@ -142,7 +142,7 @@ class Transcription {
             this.transcription.onerror = function (event) {
                 console.error('Transcription error', event.error);
                 if (!transcription.isPersistent || !transcription.isPersistentMode)
-                    userLog('error', `Transcription error ${event.error}`, 'top-end', 6000);
+                    userLog('error', `转录错误 ${event.error}`, 'top-end', 6000);
             };
 
             this.transcription.onend = function () {
@@ -161,7 +161,7 @@ class Transcription {
                     }, 2000);
                 } else {
                     transcription.isPersistent = false;
-                    userLog('info', 'Transcription stopped', 'top-end');
+                    userLog('info', '转录停止', 'top-end');
                 }
             };
 
@@ -298,10 +298,10 @@ class Transcription {
 
     togglePinUnpin() {
         if (rc.isChatPinned) {
-            return userLog('info', 'Please unpin the chat that appears to be currently pinned', 'top-end');
+            return userLog('info', '请取消固定当前已固定的聊天', 'top-end');
         }
         if (rc.isEditorPinned) {
-            return userLog('info', 'Please unpin the editor that appears to be currently pinned', 'top-end');
+            return userLog('info', '请取消固定当前已固定的编辑器', 'top-end');
         }
         this.isPinned ? this.unpinned() : this.pinned();
         rc.sound('click');
@@ -367,7 +367,7 @@ class Transcription {
             document.body.removeChild(a);
             rc.sound('download');
         } else {
-            userLog('info', "There isn't transcriptions to save", 'top-end');
+            userLog('info', "没有可保存的转录文本", 'top-end');
         }
     }
 
@@ -376,11 +376,11 @@ class Transcription {
             Swal.fire({
                 background: swalBackground,
                 position: 'center',
-                title: 'Clean up all transcripts?',
+                title: '清理所有转录数据？',
                 imageUrl: image.delete,
                 showDenyButton: true,
-                confirmButtonText: `Yes`,
-                denyButtonText: `No`,
+                confirmButtonText: `清理`,
+                denyButtonText: `取消`,
                 showClass: { popup: 'animate__animated animate__fadeInDown' },
                 hideClass: { popup: 'animate__animated animate__fadeOutUp' },
             }).then((result) => {
@@ -395,7 +395,7 @@ class Transcription {
                 }
             });
         } else {
-            userLog('info', "There isn't transcriptions to delete", 'top-end');
+            userLog('info', "没有要删除的转录数据", 'top-end');
         }
     }
 
@@ -431,7 +431,7 @@ class Transcription {
             hide(transcriptionFooter);
             rc.msgPopup(
                 'info',
-                `${peer_name} wants to start transcriptions for this session, but your browser does not support it. Please use a Chromium-based browser like Google Chrome, Microsoft Edge, or Brave.`
+                `${peer_name} 想要开始本次会话的转录，但你的浏览器不支持。请使用基于 Chromium 的浏览器，如 Google Chrome、Microsoft Edge 或 Brave。`
             );
             return;
         }
@@ -445,10 +445,10 @@ class Transcription {
             background: swalBackground,
             position: 'center',
             imageUrl: image.transcription,
-            title: 'Start Transcription',
-            text: `${peer_name} wants to start the transcriptions for this session. Would you like to enable them?`,
-            confirmButtonText: `Yes`,
-            denyButtonText: `No`,
+            title: '开始转录',
+            text: `${peer_name} 希望为此会话开始转录。您是否希望启用转录？`,
+            confirmButtonText: `是`,
+            denyButtonText: `否`,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         }).then((result) => {
@@ -491,7 +491,7 @@ class Transcription {
             this.transcription.start();
         } catch (error) {
             this.transcriptionRunning = false;
-            userLog('error', `Transcription start error ${error.message}`, 'top-end', 6000);
+            userLog('error', `转录开始错误 ${error.message}`, 'top-end', 6000);
             console.error('Transcription start error', error);
         }
     }
