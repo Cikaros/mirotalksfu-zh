@@ -134,7 +134,7 @@ function sendEmail(subject, body, emailSendTo = false) {
 
 function getJoinRoomSubject(data) {
     const { room_id } = data;
-    return `${APP_NAME} - New user Join to Room ${room_id}`;
+    return `${APP_NAME} - 新用户加入房间 ${room_id}`;
 }
 function getJoinRoomBody(data) {
     const { peer_name, room_id, domain, os, browser } = data;
@@ -150,7 +150,7 @@ function getJoinRoomBody(data) {
     const room_join = `https://${currentDomain}/join/`;
 
     return `
-        <h1>New user join</h1>
+        <h1>新用户加入房间</h1>
         <style>
             table {
                 font-family: arial, sans-serif;
@@ -168,23 +168,23 @@ function getJoinRoomBody(data) {
         </style>
         <table>
             <tr>
-                <td>User</td>
+                <td>用户</td>
                 <td>${peer_name}</td>
             </tr>
             <tr>
-                <td>Os</td>
+                <td>操作系统</td>
                 <td>${os}</td>
             </tr>
             <tr>
-                <td>Browser</td>
+                <td>浏览器</td>
                 <td>${browser}</td>
             </tr>
             <tr>
-                <td>Room</td>
+                <td>房间</td>
                 <td>${room_join}${room_id}</td>
             </tr>
             <tr>
-                <td>Date, Time</td>
+                <td>时间</td>
                 <td>${currentDataTime}</td>
             </tr>
         </table>
@@ -197,7 +197,7 @@ function getJoinRoomBody(data) {
 
 function getWidgetRoomSubject(data) {
     const { room_id } = data;
-    return `${APP_NAME} WIDGET - New user Wait for expert assistance in Room ${room_id}`;
+    return `${APP_NAME} 小配件 - 新用户请在房间等待专家帮助 ${room_id}`;
 }
 
 function getWidgetRoomBody(data) {
@@ -219,7 +219,7 @@ function getAlertBody(data) {
     const currentDataTime = getCurrentDataTime();
 
     return `
-        <h1>🚨 Alert Notification</h1>
+        <h1>🚨 警报</h1>
         <style>
             table {
                 font-family: arial, sans-serif;
@@ -237,11 +237,11 @@ function getAlertBody(data) {
         </style>
         <table>
             <tr>
-                <td>⚠️ Alert</td>
+                <td>⚠️ 通知</td>
                 <td>${body}</td>
             </tr>
             <tr>
-                <td>🕒 Date, Time</td>
+                <td>🕒 时间</td>
                 <td>${currentDataTime}</td>
             </tr>
         </table>

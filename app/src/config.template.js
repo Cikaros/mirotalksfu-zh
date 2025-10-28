@@ -2,22 +2,20 @@
 
 /**
  * ==============================================
- * MiroTalk SFU - Configuration File
+ * MiroTalk SFU - 配置文件
  * ==============================================
  *
- * This file contains all configurable settings for the MiroTalk SFU application.
- * Environment variables can override most settings (see each section for details).
- *
- * Structure:
- * 1. Core System Configuration
- * 2. Server Settings
- * 3. Media Handling
- * 4. Security & Authentication
- * 5. API Configuration
- * 6. Third-Party Integrations
- * 7. UI/UX Customization
- * 8. Feature Flags
- * 9. Mediasoup (WebRTC) Settings
+ * 该文件包含 MiroTalk SFU 应用的所有可配置设置。环境变量可以覆盖大多数设置（请参见每个部分的详细信息）。
+ * 结构：
+ * 1. 核心系统配置 
+ * 2. 服务器设置 
+ * 3. 媒体处理 
+ * 4. 安全与认证 
+ * 5. API 配置 
+ * 6. 第三方集成 
+ * 7. UI/UX 自定义 
+ * 8. 功能标志 
+ * 9. Mediasoup（WebRTC）设置
  */
 
 const dotenv = require('dotenv').config();
@@ -27,7 +25,7 @@ const fs = require('fs');
 const splitChar = ',';
 
 // ==============================================
-// 1. Environment Detection & System Configuration
+// 1. 环境检测 & 系统配置
 // ==============================================
 
 const PLATFORM = os.platform();
@@ -38,7 +36,7 @@ const LISTEN_IP = process.env.SFU_LISTEN_IP || '0.0.0.0';
 const IPv4 = getIPv4();
 
 // ==============================================
-// 2. WebRTC Port Configuration
+// 2. WebRTC端口配置
 // ==============================================
 
 const RTC_MIN_PORT = parseInt(process.env.SFU_MIN_PORT) || 40000;
@@ -47,26 +45,26 @@ const NUM_CPUS = os.cpus().length;
 const NUM_WORKERS = Math.min(process.env.SFU_NUM_WORKERS || NUM_CPUS, NUM_CPUS);
 
 // ==============================================
-// 3. FFmpeg Path Configuration
+// 3. FFmpeg路径配置
 // ==============================================
 
 const RTMP_FFMPEG_PATH = process.env.RTMP_FFMPEG_PATH || getFFmpegPath(PLATFORM);
 
 // ==============================================
-// Main Configuration Export
+// 主要配置导出
 // ==============================================
 
 module.exports = {
     // ==============================================
-    // 1. Core System Configuration
+    // 1. 核心系统配置
     // ==============================================
 
     system: {
         /**
-         * System Information
+         * 系统信息
          * ------------------
-         * - Hardware/OS details collected automatically
-         * - Used for diagnostics and optimization
+         * - 硬件/OS细节自动收集
+         * - 用于诊断和优化
          */
         info: {
             os: {
@@ -85,16 +83,16 @@ module.exports = {
         },
 
         /**
-         * Console Configuration
+         * 控制台配置
          * ---------------------
-         * - timeZone: IANA timezone (e.g., 'Europe/Rome')
-         * - debug: Enable debug logging in non-production
-         * - colors: Colorized console output
-         * - json: Log output in JSON format
-         * - json_pretty: Pretty-print JSON logs
+         * - 时区: IANA时区（例如，'Europe/Rome'）
+         * - 调试：在非生产环境中启用调试日志记录
+         * - 颜色: 色彩化的控制台输出
+         * - json: JSON格式的日志输出
+         * - json_pretty: 格式化打印JSON日志
          */
         console: {
-            timeZone: 'UTC',
+            timeZone: 'Asia/Shanghai',
             debug: ENVIRONMENT !== 'production',
             json: process.env.LOGS_JSON === 'true',
             json_pretty: process.env.LOGS_JSON_PRETTY === 'true',
@@ -102,9 +100,9 @@ module.exports = {
         },
 
         /**
-         * External Services Configuration
+         * 外部服务配置
          * -------------------------------
-         * - ip: Services to detect public IP address
+         * - ip: 检测公共IP地址的服务
          */
         services: {
             ip: ['http://api.ipify.org', 'http://ipinfo.io/ip', 'http://ifconfig.me/ip'],
@@ -112,15 +110,15 @@ module.exports = {
     },
 
     // ==============================================
-    // 2. Server Configuration
+    // 2. 服务器配置
     // ==============================================
 
     server: {
         /**
-         * Host Configuration
+         * 主机配置
          * ------------------
-         * - hostUrl: Public URL (e.g., 'https://yourdomain.com')
-         * - listen: IP and port to bind to
+         * - hostUrl: 公共URL（例如，'https://yourdomain.com'）
+         * - listen: 绑定的IP和端口
          */
         hostUrl: process.env.SERVER_HOST_URL || 'https://localhost:3010',
         listen: {
@@ -129,11 +127,11 @@ module.exports = {
         },
 
         /**
-         * Security Settings
+         * 安全设置
          * -----------------
-         * - trustProxy: Trust X-Forwarded-* headers
-         * - ssl: SSL certificate paths
-         * - cors: Cross-origin resource sharing
+         * - trustProxy: 信任 X-Forwarded- 头部
+         * - ssl: SSL证书路径
+         * - cors: 跨域资源共享
          */
         trustProxy: process.env.TRUST_PROXY === 'true',
         ssl: {
@@ -147,34 +145,34 @@ module.exports = {
     },
 
     // ==============================================
-    // 3. Media Handling Configuration
+    // 3. 媒体处理配置
     // ==============================================
 
     media: {
         /**
-         * Recording Configuration
+         * 录音配置
          * =======================
-         * Server side recording functionality.
+         * 服务器端录制功能。
          *
-         * Core Settings:
+         * 核心设置:
          * ------------------------
-         * - enabled        : Enable recording functionality
-         * - uploadToS3     : Upload recording to AWS S3 bucket [true/false]
-         * - endpoint       : Leave empty ('') to store recordings locally OR
-         *   - Set to a valid URL (e.g., 'http://localhost:8080/') to:
-         *      - Push recordings to a remote server
-         *      - Store in cloud storage services
-         *      - Send to processing pipelines
-         * - dir            : Storage directory for recordings
-         * - maxFileSize    : Maximum recording size (1GB default)
+         * - enabled        : 启用录音功能
+         * - uploadToS3     : 上传录音到AWS S3桶 [true/false]
+         * - endpoint       : 留空（''）以本地存储录音
+         *   - 设置为有效的URL（例如，'http://localhost:8080/'）:
+         *      - 将录音推送到远程服务器
+         *      - 将数据存储在云存储服务中
+         *      - 发送到处理管道
+         * - dir            : 录音存储目录
+         * - maxFileSize    : 最大录音大小（默认1GB）
          *
-         * Docker Note:
+         * Docker 笔记:
          * ------------
-         * - When running in Docker, ensure the recording directory exists and is properly mounted:
-         *   1. Create the directory (e.g., 'app/rec')
-         *   2. Configure as volume in docker-compose.yml
-         *   3. Set appropriate permissions
-         *   4. Restart container after changes
+         * - 在 Docker 中运行时，请确保录影目录存在并正确挂载。:
+         *   1. 创建目录（例如，'app/rec'）
+         *   2. 在 docker-compose.yml 中配置为卷
+         *   3. 设置适当的权限
+         *   4. 重启容器以应用更改
          */
         recording: {
             enabled: process.env.RECORDING_ENABLED === 'true',
@@ -185,29 +183,29 @@ module.exports = {
         },
 
         /**
-         * RTMP Configuration
+         * RTMP配置
          * =================
-         * Configures Real-Time Messaging Protocol (RTMP) for audio/video/data streaming.
+         * 配置实时消息协议（RTMP）以进行音频/视频/数据流传输。
          *
-         * Core Settings
+         * 核心设置
          * ------------
-         * - enabled            : Enable/disable RTMP streaming (default: false)
-         * - fromFile           : Enable local file streaming (default: true)
-         * - fromUrl            : Enable URL streaming (default: true)
-         * - fromStream         : Enable live stream input (default: true)
-         * - maxStreams         : Maximum simultaneous streams (default: 1)
-         * - useNodeMediaServer : Use NodeMediaServer instead of nginx-rtmp (default: true)
-         * - server             : RTMP server URL (default: 'rtmp://localhost:1935')
-         * - appName            : Application name (default: 'live')
-         * - streamKey          : Optional authentication key (auto-generated UUID if empty)
-         * - secret             : Must match NodeMediaServer's config.js (default: 'mirotalkRtmpSecret')
-         * - apiSecret          : WebRTC→RTMP API secret (default: 'mirotalkRtmpApiSecret')
-         * - expirationHours    : Stream URL expiry in hours (default: 4)
-         * - dir                : Video storage directory (default: 'app/rtmp')
-         * - ffmpegPath         : FFmpeg binary path (auto-detected)
-         * - platform           : Current OS platform (auto-detected)
+         * - enabled            : 启用/禁用RTMP流传输 (default: false)
+         * - fromFile           : 启用本地文件流传输 (default: true)
+         * - fromUrl            : 启用URL流媒体 (default: true)
+         * - fromStream         : 启用直播输入 (default: true)
+         * - maxStreams         : 最大同时流数 (default: 1)
+         * - useNodeMediaServer : 使用NodeMediaServer代替nginx-rtmp (default: true)
+         * - server             : RTMP服务器URL (default: 'rtmp://localhost:1935')
+         * - appName            : 应用名称 (default: 'live')
+         * - streamKey          : 可选身份验证密钥 (auto-generated UUID if empty)
+         * - secret             : 必须匹配NodeMediaServer的config.js (default: 'mirotalkRtmpSecret')
+         * - apiSecret          : WebRTC→RTMP API密钥 (default: 'mirotalkRtmpApiSecret')
+         * - expirationHours    : 流媒体URL有效期（小时） (default: 4)
+         * - dir                : 视频存储目录 (default: 'app/rtmp')
+         * - ffmpegPath         : FFmpeg二进制文件路径 (auto-detected)
+         * - platform           : 当前操作系统平台 (auto-detected)
          *
-         * Server Management
+         * 服务器管理
          * ----------------
          * NodeMediaServer (mirotalk/nms:latest):
          *   - Start: npm run nms-start
@@ -219,24 +217,24 @@ module.exports = {
          *   - Stop:  npm run rtmp-stop
          *   - Logs:  npm run rtmp-logs
          *
-         * Implementation Notes:
+         * 部署说明:
          * --------------------
-         * 1. For NodeMediaServer:
-         *    - Mandatory values: appName (falls back to 'live'), streamKey (auto-generated)
-         *    - URL format: rtmp://host:port/appName/streamKey?sign=expiration-token
+         * 1. 对于NodeMediaServer:
+         *    - 必填项：appName（默认为'live'），streamKey（自动生成）
+         *    - URL格式: rtmp://host:port/appName/streamKey?sign=有效期-token
          *
-         * 2. Default Behavior:
-         *    - If server URL is empty, uses localhost:1935
-         *    - If no streamKey provided, generates UUIDv4
-         *    - When useNodeMediaServer=true, generates signed URLs with expiration
+         * 2. 默认行为:
+         *    - 如果服务器URL为空，则使用localhost:1935
+         *    - 如果没有提供streamKey，生成UUIDv4
+         *    - 当 useNodeMediaServer=true 时，生成带有过期时间的签名URL
          *
-         * Requirements:
+         * 要求:
          * -------------
-         * - RTMP server must be running
-         * - Port 1935 must be accessible
-         * - FFmpeg must be installed
+         * - RTMP 服务器必须运行
+         * - 端口1935必须可访问
+         * - FFmpeg 必须安装
          *
-         * Documentation:
+         * 文档:
          * --------------
          * - https://docs.mirotalk.com/mirotalk-sfu/rtmp/
          */
@@ -260,15 +258,15 @@ module.exports = {
     },
 
     // ==============================================
-    // 4. Security & Authentication
+    // 4. 安全 & 认证
     // ==============================================
 
     security: {
         /**
-         * IP Whitelisting
+         * IP白名单
          * ------------------------
-         * - enabled: Restrict access to specified IPs
-         * - allowedIPs: Array of permitted IP addresses
+         * - enabled: 限制特定IP的访问
+         * - allowedIPs: 允许的IP地址数组
          */
         middleware: {
             IpWhitelist: {
@@ -282,10 +280,10 @@ module.exports = {
         },
 
         /**
-         * JWT Configuration
+         * JWT 配置
          * ------------------------
-         * - key: Secret for JWT signing
-         * - exp: Token expiration time
+         * - key: JWT签名的密钥
+         * - exp: 令牌过期时间
          */
         jwt: {
             key: process.env.JWT_SECRET || 'mirotalksfu_jwt_secret',
@@ -293,33 +291,32 @@ module.exports = {
         },
 
         /**
-         * OpenID Connect (OIDC) Authentication Configuration
+         * OpenID Connect (OIDC) 认证配置
          * =================================================
-         * Configures authentication using OpenID Connect (OIDC), allowing integration with
-         * identity providers like Auth0, Okta, Keycloak, etc.
+         * 使用OpenID Connect (OIDC) 配置身份验证，允许与Auth0、Okta、Keycloak等身份提供商集成。
          *
-         * Structure:
-         * - enabled                                : Master switch for OIDC authentication
-         * - baseURLDynamic                         : Whether to dynamically resolve base URL
-         *   allow_rooms_creation_for_auth_users    : Allow all authenticated users via OIDC to create their own rooms
-         * - peer_name                              : Controls which user attributes to enforce/request
-         * - config                                 : Core OIDC provider settings
+         * 结构:
+         * - enabled                                : OIDC认证的主开关
+         * - baseURLDynamic                         : 是否动态解析基础URL
+         *   allow_rooms_creation_for_auth_users    : 允许所有通过OIDC认证的用户创建自己的房间
+         * - peer_name                              : 强制/请求哪些用户属性
+         * - config                                 : 核心OIDC提供者设置
          *
-         * Core Settings:
-         * - issuerBaseURL      : Provider's discovery endpoint (e.g., https://your-tenant.auth0.com)
-         * - baseURL            : Your application's base URL
-         * - clientID           : Client identifier issued by provider
-         * - clientSecret       : Client secret issued by provider
-         * - secret             : Application session secret
-         * - authRequired       : Whether all routes require authentication
-         * - auth0Logout        : Whether to use provider's logout endpoint
-         * - authorizationParams: OAuth/OIDC flow parameters including:
-         *   - response_type    : OAuth response type ('code' for Authorization Code Flow)
-         *   - scope            : Requested claims (openid, profile, email)
-         * - routes             : Endpoint path configuration for:
-         *   - callback         : OAuth callback handler path
-         *   - login            : Custom login path (false to disable)
-         *   - logout           : Custom logout path
+         * 核心设置:
+         * - issuerBaseURL      : 提供者发现端点（例如，https://your-tenant.auth0.com）
+         * - baseURL            : 您的应用程序的基础URL
+         * - clientID           : 由提供方颁发的客户端标识
+         * - clientSecret       : 由提供方发布的客户端密钥
+         * - secret             : 应用会话密钥
+         * - authRequired       : 所有路由都需要认证吗？
+         * - auth0Logout        : 是否使用提供者的注销端点
+         * - authorizationParams: OAuth/OIDC 流程参数包括：
+         *   - response_type    : OAuth 响应类型（授权码流程为 'code'）
+         *   - scope            : 请求的声明（openid, profile, email）
+         * - routes             : Endpoint路径配置为：
+         *   - callback         : OAuth 回调处理路径
+         *   - login            : 自定义登录路径（设为false以禁用）
+         *   - logout           : 自定义注销路径
          *
          */
         oidc: {
@@ -366,48 +363,48 @@ module.exports = {
         },
 
         /**
-         * Host Protection Configuration
+         * 主机保护配置
          * ============================
-         * Controls access to host-level functionality and room management.
+         * 控制对主机级别功能和房间管理的访问。
          *
-         * Authentication Methods:
+         * 认证方式：
          * ----------------------
-         * - Local users (defined in config or via HOST_USERS env variable)
-         * - API/database validation (users_from_db=true)
+         * - 本地用户（在配置中定义或通过 HOST_USERS 环境变量）
+         * - API/数据库验证（users_from_db=true）
          *
-         * Core Settings:
+         * 核心设置：
          * --------------
-         * - protected      : Enable/disable host protection globally
-         * - user_auth      : Require user authentication for host access
-         * - users_from_db  : Fetch users from API/database instead of local config
+         * - protected      : 全局启用/禁用主机保护
+         * - user_auth      : 主机访问需要用户认证
+         * - users_from_db  : 从 API/数据库获取用户而不是本地配置
          *
-         * API Integration:
+         * API 集成：
          * ---------------
-         * - users_api_secret_key    : Secret key for API authentication
-         * - users_api_endpoint      : Endpoint to validate user credentials
-         * - users_api_room_allowed  : Endpoint to check if user can access a room
-         * - users_api_rooms_allowed : Endpoint to get allowed rooms for a user
-         * - api_room_exists         : Endpoint to verify if a room exists
+         * - users_api_secret_key    : API 认证的密钥
+         * - users_api_endpoint      : 验证用户凭据的端点
+         * - users_api_room_allowed  : 检查用户是否可以访问房间的端点
+         * - users_api_rooms_allowed : 获取用户允许访问房间列表的端点
+         * - api_room_exists         : 验证房间是否存在
          *
-         * Local User Configuration:
+         * 本地用户配置：
          * ------------------------
-         * - users: Array of authorized users (used if users_from_db=false)
-         *   - Define via HOST_USERS env variable:
+         * - users: 授权用户的数组（当 users_from_db=false 时使用）
+         *   - 通过 HOST_USERS 环境变量定义：
          *     HOST_USERS=username:password:displayname:room1,room2|username2:password2:displayname2:*
-         *     (Each user separated by '|', fields by ':', allowed_rooms comma-separated or '*' for all)
-         *   - If HOST_USERS is not set, falls back to DEFAULT_USERNAME, DEFAULT_PASSWORD, etc.
-         *   - Fields:
-         *     - username      : Login username
-         *     - password      : Login password
-         *     - displayname   : User's display name
-         *     - allowed_rooms : List of rooms user can access ('*' for all)
+         *     （每个用户由 '|' 分隔，字段由 ':' 分隔，允许的房间用逗号分隔或 '*' 表示所有）
+         *   - 如果未设置 HOST_USERS，则回退到 DEFAULT_USERNAME、DEFAULT_PASSWORD 等
+         *   - 字段：
+         *     - username      : 登录用户名
+         *     - password      : 登录密码
+         *     - displayname   : 用户显示名称
+         *     - allowed_rooms : 用户可以访问的房间列表（'*' 表示所有）
          *
-         * Presenter Management:
+         * 演示者管理：
          * --------------------
-         * - list        : Array of usernames who can be presenters
-         * - join_first  : First joiner becomes presenter (default: true)
+         * - list        : 可以成为演示者的用户名数组
+         * - join_first  : 第一个加入者成为演示者（默认：true）
          *
-         * Documentation:
+         * 文档：
          * -------------
          * https://docs.mirotalk.com/mirotalk-sfu/host-protection/
          */
@@ -472,33 +469,33 @@ module.exports = {
     },
 
     // ==============================================
-    // 5. API Configuration
+    // 5. API 配置
     // ==============================================
 
     /**
-     * API Security & Endpoint Configuration
+     * API 安全与端点配置
      * ====================================
-     * Controls access to the SFU's API endpoints and integration settings.
+     * 控制对 SFU 的 API 端点和集成设置的访问。
      *
-     * Security Settings:
+     * 安全设置：
      * -----------------
-     * - keySecret : Authentication secret for API requests
-     *               (Always override default in production)
+     * - keySecret : API 请求的认证密钥
+     *               （在生产环境中始终覆盖默认值）
      *
-     * Endpoint Control:
+     * 端点控制：
      * -----------------
-     * - stats      : Enable/disable system statistics endpoint [true/false] (default: true)
-     * - meetings   : Enable/disable meetings list endpoint [true/false] (default: true)
-     * - meeting    : Enable/disable single meeting operations [true/false] (default: true)
-     * - join       : Enable/disable meeting join endpoint [true/false] (default: true)
-     * - token      : Enable/disable token generation endpoint [true/false] (default: false)
-     * - slack      : Enable/disable Slack webhook integration [true/false] (default: true)
-     * - mattermost : Enable/disable Mattermost webhook integration [true/false] (default: true)
+     * - stats      : 启用/禁用系统统计端点 [true/false] （默认：true）
+     * - meetings   : 启用/禁用会议列表端点 [true/false] （默认：true）
+     * - meeting    : 启用/禁用单个会议操作 [true/false] （默认：true）
+     * - join       : 启用/禁用会议加入端点 [true/false] （默认：true）
+     * - token      : 启用/禁用令牌生成端点 [true/false] （默认：false）
+     * - slack      : 启用/禁用 Slack 集成 [true/false] （默认：true）
+     * - mattermost : 启用/禁用 Mattermost webhook 集成 [true/false] （默认：true）
      *
-     * API Documentation:
+     * API 文档：
      * ------------------
-     * - Complete API reference: https://docs.mirotalk.com/mirotalk-sfu/api/
-     * - Webhook setup: See integration guides for Slack/Mattermost
+     * - 完整的 API 参考：https://docs.mirotalk.com/mirotalk-sfu/api/
+     * - Webhook 设置：请参阅 Slack/Mattermost 的集成指南
      */
     api: {
         keySecret: process.env.API_KEY_SECRET || 'mirotalksfu_default_secret',
@@ -514,45 +511,45 @@ module.exports = {
     },
 
     // ==============================================
-    // 6. Third-Party Integrations
+    // 6. 第三方集成
     // ==============================================
 
     integrations: {
         /**
-         * ChatGPT Integration Configuration
+         * ChatGPT 集成配置
          * ================================
-         * OpenAI API integration for AI-powered chat functionality
+         * OpenAI API 集成，用于 AI 驱动的聊天功能
          *
-         * Setup Instructions:
+         * 设置说明：
          * ------------------
-         * 1. Go to https://platform.openai.com/
-         * 2. Create your OpenAI account
-         * 3. Generate your API key at https://platform.openai.com/account/api-keys
+         * 1. 转到 https://platform.openai.com/
+         * 2. 创建您的 OpenAI 账户
+         * 3. 在 https://platform.openai.com/account/api-keys 生成您的 API 密钥
          *
-         * Core Settings:
+         * 核心设置：
          * -------------
-         * - enabled    : Enable/disable ChatGPT integration [true/false] (default: false)
-         * - basePath   : OpenAI API endpoint (default: 'https://api.openai.com/v1/')
-         * - apiKey     : OpenAI API secret key (ALWAYS store in .env)
-         * - model      : GPT model version (default: 'gpt-3.5-turbo')
+         * - enabled    : 启用/禁用 ChatGPT 集成 [true/false] （默认：false）
+         * - basePath   : OpenAI API 端点 （默认：'https://api.openai.com/v1/'）
+         * - apiKey     : OpenAI API 密钥（始终存储在 .env 中）
+         * - model      : GPT 模型版本 （默认：'gpt-3.5-turbo'）
          *
-         * Advanced Settings:
+         * 高级设置：
          * -----------------
-         * - max_tokens: Maximum response length (default: 1024 tokens)
-         * - temperature: Creativity control (0=strict, 1=creative) (default: 0)
+         * - max_tokens: 最大响应长度 （默认：1024 个 token）
+         * - temperature: 创造性控制（0=严格，1=创造性） （默认：0）
          *
-         * Usage Example:
+         * 使用示例：
          * -------------
-         * 1. Supported Models:
-         *    - gpt-3.5-turbo (recommended)
+         * 1. 支持的模型：
+         *    - gpt-3.5-turbo（推荐）
          *    - gpt-4
          *    - gpt-4-turbo
          *    - ...
          *
-         * 2. Temperature Guide:
-         *    - 0.0: Factual responses
-         *    - 0.7: Balanced
-         *    - 1.0: Maximum creativity
+         * 2. 温度指南：
+         *    - 0.0: 事实性响应
+         *    - 0.7: 平衡
+         *    - 1.0: 最大创造性
          */
         chatGPT: {
             enabled: process.env.CHATGPT_ENABLED === 'true',
@@ -564,41 +561,41 @@ module.exports = {
         },
 
         /**
-         * DeepDeek Integration Configuration
+         * DeepDeek 集成配置
          * ================================
-         * DeepDeek API integration for AI-powered chat functionality
+         * DeepDeek API 集成，用于 AI 驱动的聊天功能
          *
-         * Setup Instructions:
+         * 设置说明：
          * ------------------
-         * 1. Go to https://deepseek.com/
-         * 2. Create your DeepDeek account
-         * 3. Generate your API key at https://deepseek.com/account/api-keys
+         * 1. 转到 https://deepseek.com/
+         * 2. 创建您的 DeepDeek 账户
+         * 3. 在 https://deepseek.com/account/api-keys 生成您的 API 密钥
          *
-         * Core Settings:
+         * 核心设置：
          * -------------
-         * - enabled    : Enable/disable DeepDeek integration [true/false] (default: false)
-         * - basePath   : DeepDeek API endpoint (default: 'https://api.deepseek.com/v1/')
-         * - apiKey     : DeepDeek API secret key (ALWAYS store in .env)
-         * - model      : DeepDeek model version (default: 'deepdeek-chat')
+         * - enabled    : 启用/禁用 DeepDeek 集成 [true/false] （默认：false）
+         * - basePath   : DeepDeek API 端点 （默认：'https://api.deepseek.com/v1/'）
+         * - apiKey     : DeepDeek API 密钥（始终存储在 .env 中）
+         * - model      : DeepDeek 模型版本 （默认：'deepdeek-chat'）
          *
-         * Advanced Settings:
+         * 高级设置：
          * -----------------
-         * - max_tokens: Maximum response length (default: 1024 tokens)
-         * - temperature: Creativity control (0=strict, 1=creative) (default: 0)
+         * - max_tokens: 最大响应长度 （默认：1024 个 token）
+         * - temperature: 创造性控制（0=严格，1=创造性） （默认：0）
          *
-         * Usage Example:
+         * 使用示例：
          * -------------
-         * 1. Supported Models:
-         *  - deepseek-chat (recommended)
+         * 1. 支持的模型：
+         *  - deepseek-chat（推荐）
          *  - deepseek-coder
          *  - deepseek-math
          *  - deepseek-llm
          *  - ...
          *
-         * 2. Temperature Guide:
-         *  - 0.0: Factual responses
-         *  - 0.7: Balanced
-         *  - 1.0: Maximum creativity
+         * 2. 温度指南：
+         *  - 0.0: 事实性响应
+         *  - 0.7: 平衡
+         *  - 1.0: 最大创造性
          *
          */
         deepSeek: {
@@ -611,26 +608,26 @@ module.exports = {
         },
 
         /**
-         * HeyGen Video AI Configuration
+         * HeyGen 视频 AI 配置
          * ============================
-         * AI-powered avatar streaming integration
+         * AI 驱动的头像流集成
          *
-         * Setup Instructions:
+         * 设置说明：
          * ------------------
-         * 1. Go to https://app.heygen.com
-         * 2. Create your HeyGen account
-         * 3. Generate your API key at https://app.heygen.com/settings?nav=API
+         * 1. 转到 https://app.heygen.com
+         * 2. 创建您的 HeyGen 账户
+         * 3. 在 https://app.heygen.com/settings?nav=API 生成您的 API 密钥
          *
-         * Core Settings:
+         * 核心设置：
          * -------------
-         * - enabled    : Enable/disable Video AI [true/false] (default: false)
-         * - basePath   : HeyGen API endpoint (default: 'https://api.heygen.com')
-         * - apiKey     : From HeyGen account (ALWAYS store in .env)
+         * - enabled    : 启用/禁用视频 AI [true/false] （默认：false）
+         * - basePath   : HeyGen API 端点 （默认：'https://api.heygen.com'）
+         * - apiKey     : 来自 HeyGen 账户（始终存储在 .env 中）
          *
-         * AI Behavior:
+         * AI 行为：
          * -----------
-         * - systemLimit: Personality/behavior instructions for the AI avatar
-         *                (default: Streaming avatar instructions for MiroTalk SFU)
+         * - systemLimit: AI 头像的性格/行为指令
+         *                （默认：MiroTalk SFU 的流头像指令）
          */
         videoAI: {
             enabled: process.env.VIDEOAI_ENABLED === 'true',
@@ -640,22 +637,22 @@ module.exports = {
         },
 
         /**
-         * Email Notification Configuration
+         * 邮件通知配置
          * ===============================
-         * SMTP settings for system alerts and notifications
+         * 系统警报和通知的 SMTP 设置
          *
-         * Core Settings:
+         * 核心设置：
          * -------------
-         * - alert      : Enable/disable email alerts [true/false] (default: false)
-         * - notify     : Enable/disable room email notifications [true/false] (default: false)
-         * - host       : SMTP server address (default: 'smtp.gmail.com')
-         * - port       : SMTP port (default: 587 for TLS)
-         * - username   : SMTP auth username
-         * - password   : SMTP auth password (store ONLY in .env)
-         * - from       : Sender email address (default: same as username)
-         * - sendTo     : Recipient email for alerts
+         * - alert      : 启用/禁用邮件警报 [true/false] （默认：false）
+         * - notify     : 启用/禁用房间邮件通知 [true/false] （默认：false）
+         * - host       : SMTP 服务器地址 （默认：'smtp.gmail.com'）
+         * - port       : SMTP 端口 （默认：587 用于 TLS）
+         * - username   : SMTP 认证用户名
+         * - password   : SMTP 认证密码（仅存储在 .env 中）
+         * - from       : 发送者邮箱地址 （默认：与用户名相同）
+         * - sendTo     : 警报的收件人邮箱
          *
-         * Common Providers:
+         * 常见提供商：
          * ----------------
          * Gmail:
          * - host: smtp.gmail.com
@@ -681,22 +678,22 @@ module.exports = {
         },
 
         /**
-         * Slack Integration Configuration
+         * Slack 集成配置
          * ==============================
-         * Settings for Slack slash commands and interactivity
+         * Slack 斜杠命令和交互的设置
          *
-         * Setup Instructions:
+         * 设置说明：
          * ------------------
-         * 1. Create a Slack app at https://api.slack.com/apps
-         * 2. Under "Basic Information" → "App Credentials":
-         *    - Copy the Signing Secret
-         * 3. Enable "Interactivity & Shortcuts" and "Slash Commands"
-         * 4. Set Request URL to: https://your-domain.com/slack/commands
+         * 1. 在 https://api.slack.com/apps 创建一个 Slack 应用
+         * 2. 在 "Basic Information" → "App Credentials" 中：
+         *    - 复制签名密钥
+         * 3. 启用 "Interactivity & Shortcuts" 和 "Slash Commands"
+         * 4. 将请求 URL 设置为：https://your-domain.com/slack/commands
          *
-         * Core Settings:
+         * 核心设置：
          * -------------
-         * - enabled         : Enable/disable Slack integration [true/false] (default: false)
-         * - signingSecret   : From Slack app credentials (store ONLY in .env)
+         * - enabled         : 启用/禁用 Slack 集成 [true/false] （默认：false）
+         * - signingSecret   : 来自 Slack 应用凭证（仅存储在 .env 中）
          *
          */
         slack: {
@@ -705,35 +702,35 @@ module.exports = {
         },
 
         /**
-         * Mattermost Integration Configuration
+         * Mattermost 集成配置
          * ===================================
-         * Settings for Mattermost slash commands and bot integration
+         * Mattermost 斜杠命令和机器人集成的设置
          *
-         * Setup Instructions:
+         * 设置说明：
          * ------------------
-         * 1. Go to Mattermost System Console → Integrations → Bot Accounts
-         * 2. Create a new bot account and copy:
-         *    - Server URL (e.g., 'https://chat.yourdomain.com')
-         *    - Access Token
-         * 3. For slash commands:
-         *    - Navigate to Integrations → Slash Commands
-         *    - Set Command: '/sfu'
-         *    - Set Request URL: 'https://your-sfu-server.com/mattermost/commands'
+         * 1. 转到 Mattermost 系统控制台 → 集成 → 机器人账户
+         * 2. 创建一个新的机器人账户并复制：
+         *    - 服务器 URL（例如：'https://chat.yourdomain.com'）
+         *    - 访问令牌
+         * 3. 对于斜杠命令：
+         *    - 导航到集成 → 斜杠命令
+         *    - 设置命令：'/sfu'
+         *    - 设置请求 URL：'https://your-sfu-server.com/mattermost/commands'
          *
-         * Core Settings:
+         * 核心设置：
          * -------------
-         * - enabled      : Enable/disable integration [true/false] (default: false)
-         * - serverUrl    : Mattermost server URL (include protocol)
-         * - token        : Bot account access token (most secure option)
+         * - enabled      : 启用/禁用集成 [true/false] （默认：false）
+         * - serverUrl    : Mattermost 服务器 URL（包含协议）
+         * - token        : 机器人账户访问令牌（最安全的选择）
          * - OR
-         * - username     : Legacy auth username (less secure)
-         * - password     : Legacy auth password (deprecated)
+         * - username     : 传统认证用户名（安全性较低）
+         * - password     : 传统认证密码（已弃用）
          *
-         * Command Configuration:
+         * 命令配置：
          * ---------------------
-         * - commands     : Slash command definitions:
-         *   - name       : Command trigger (e.g., '/sfu')
-         *   - message    : Default response template
+         * - commands     : 斜杠命令定义：
+         *   - name       : 命令触发器（例如：'/sfu'）
+         *   - message    : 默认响应模板
          *
          */
         mattermost: {
@@ -757,32 +754,32 @@ module.exports = {
         },
 
         /**
-         * Discord Integration Configuration
+         * Discord 集成配置
          * ================================
-         * Settings for Discord bot and slash commands integration
+         * Discord 机器人和斜杠命令集成的设置
          *
-         * Setup Instructions:
+         * 设置说明：
          * ------------------
-         * 1. Create a Discord application at https://discord.com/developers/applications
-         * 2. Navigate to "Bot" section and:
-         *    - Click "Add Bot"
-         *    - Copy the bot token (DISCORD_TOKEN)
-         * 3. Under "OAuth2 → URL Generator":
-         *    - Select "bot" and "applications.commands" scopes
-         *    - Select required permissions (see below)
-         * 4. Invite bot to your server using generated URL
+         * 1. 在 https://discord.com/developers/applications 创建一个 Discord 应用程序
+         * 2. 导航到 "Bot" 部分并：
+         *    - 点击 "Add Bot"
+         *    - 复制机器人令牌（DISCORD_TOKEN）
+         * 3. 在 "OAuth2 → URL Generator" 中：
+         *    - 选择 "bot" 和 "applications.commands" 作用域
+         *    - 选择所需的权限（见下文）
+         * 4. 使用生成的 URL 将机器人邀请到您的服务器
          *
-         * Core Settings:
+         * 核心设置：
          * -------------
-         * - enabled        : Enable/disable Discord bot [true/false] (default: false)
-         * - token          : Bot token from Discord Developer Portal (store in .env)
+         * - enabled        : 启用/禁用 Discord 机器人 [true/false] （默认：false）
+         * - token          : 来自 Discord 开发者门户的机器人令牌（存储在 .env 中）
          *
-         * Command Configuration:
+         * 命令配置：
          * ---------------------
-         * - commands       : Slash command definitions:
-         *   - name         : Command trigger (e.g., '/sfu')
-         *   - message      : Response template
-         *   - baseUrl      : Meeting room base URL
+         * - commands       : 斜杠命令定义：
+         *   - name         : 命令触发器（例如：'/sfu'）
+         *   - message      : 响应模板
+         *   - baseUrl      : 会议房间基础 URL
          *
          */
         discord: {
@@ -798,23 +795,23 @@ module.exports = {
         },
 
         /**
-         * Ngrok Tunnel Configuration
+         * Ngrok 隧道配置
          * =========================
-         * Secure tunneling for local development and testing
+         * 用于本地开发和测试的安全隧道
          *
-         * Setup Instructions:
+         * 设置说明：
          * ------------------
-         * 1. Sign up at https://dashboard.ngrok.com/signup
-         * 2. Get your auth token from:
+         * 1. 在 https://dashboard.ngrok.com/signup 注册
+         * 2. 从以下位置获取您的认证令牌：
          *    https://dashboard.ngrok.com/get-started/your-authtoken
-         * 3. For reserved domains/subdomains:
-         *    - Upgrade to paid plan if needed
-         *    - Reserve at https://dashboard.ngrok.com/cloud-edge/domains
+         * 3. 对于预留的域名/子域名：
+         *    - 如需升级到付费计划
+         *    - 在 https://dashboard.ngrok.com/cloud-edge/domains 预留
          *
-         * Core Settings:
+         * 核心设置：
          * -------------
-         * - enabled      : Enable/disable Ngrok tunneling [true/false] (default: false)
-         * - authToken    : Your Ngrok authentication token (from dashboard)
+         * - enabled      : 启用/禁用 Ngrok 隧道 [true/false] （默认：false）
+         * - authToken    : 您的 Ngrok 认证令牌（来自仪表板）
          */
         ngrok: {
             enabled: process.env.NGROK_ENABLED === 'true',
@@ -822,29 +819,29 @@ module.exports = {
         },
 
         /**
-         * Sentry Error Tracking Configuration
+         * Sentry 错误跟踪配置
          * ==================================
-         * Real-time error monitoring and performance tracking
+         * 实时错误监控和性能跟踪
          *
-         * Setup Instructions:
+         * 设置说明：
          * ------------------
-         * 1. Create a project at https://sentry.io/signup/
-         * 2. Get your DSN from:
-         *    Project Settings → Client Keys (DSN)
-         * 3. Configure alert rules and integrations as needed
+         * 1. 在 https://sentry.io/signup/ 创建一个项目
+         * 2. 从以下位置获取您的 DSN：
+         *    项目设置 → 客户端密钥 (DSN)
+         * 3. 根据需要配置警报规则和集成
          *
-         * Core Settings:
+         * 核心设置：
          * -------------
-         * enabled              : Enable/disable Sentry [true/false] (default: false)
-         * logLevels            : Array of log levels to capture (default: ['error'])
-         * DSN                  : Data Source Name (from Sentry dashboard)
-         * tracesSampleRate     : Percentage of transactions to capture (0.0-1.0)
+         * enabled              : 启用/禁用 Sentry [true/false] （默认：false）
+         * logLevels            : 要捕获的日志级别数组 （默认：['error']）
+         * DSN                  : 数据源名称（来自 Sentry 仪表板）
+         * tracesSampleRate     : 要捕获的事务百分比（0.0-1.0）
          *
-         * Performance Tuning:
+         * 性能调优：
          * ------------------
-         * - Production         : 0.1-0.2 (10-20% of transactions)
-         * - Staging            : 0.5-1.0
-         * - Development        : 0.0 (disable performance tracking)
+         * - 生产环境         : 0.1-0.2（10-20% 的事务）
+         * - 预发布环境       : 0.5-1.0
+         * - 开发环境         : 0.0（禁用性能跟踪）
          *
          */
         sentry: {
@@ -857,19 +854,19 @@ module.exports = {
         },
 
         /**
-         * Webhook Configuration Settings
+         * Webhook 配置设置
          * =============================
-         * Controls the webhook notification system for sending event data to external services.
+         * 控制 webhook 通知系统，用于将事件数据发送到外部服务。
          *
-         * Core Settings:
+         * 核心设置：
          * ---------------------
-         * - enabled: Turns webhook notifications on/off
-         * - url: The endpoint URL where webhook payloads will be sent in JSON format
+         * - enabled: 开启/关闭 webhook 通知
+         * - url: webhook 负载将以 JSON 格式发送到的端点 URL
          *
-         * Implementation Guide:
+         * 实施指南：
          * --------------------
-         * - For complete implementation examples, refer to:
-         *      - Project demo: /mirotalksfu/webhook/ folder
+         * - 如需完整的实施示例，请参考：
+         *      - 项目演示：/mirotalksfu/webhook/ 文件夹
          */
         webhook: {
             enabled: process.env.WEBHOOK_ENABLED === 'true',
@@ -877,22 +874,22 @@ module.exports = {
         },
 
         /**
-         * IP Geolocation Service Configuration
+         * IP 地理位置服务配置
          * ===================================
-         * Enables lookup of geographical information based on IP addresses using the GeoJS.io API.
+         * 启用基于 IP 地址的地理信息查找，使用 GeoJS.io API。
          *
-         * Core Settings:
+         * 核心设置：
          * ---------------------
-         * - enabled: Enable/disable the IP lookup functionality [true/false] default false
+         * - enabled: 启用/禁用 IP 查找功能 [true/false] 默认 false
          *
-         * Service Details:
+         * 服务详情：
          * --------------
-         * - Uses GeoJS.io free API service (https://www.geojs.io/)
-         * - Returns JSON data containing:
-         *   - Country, region, city
-         *   - Latitude/longitude
-         *   - Timezone and organization
-         * - Rate limits: 60 requests/minute (free tier)
+         * - 使用 GeoJS.io 免费 API 服务（https://www.geojs.io/）
+         * - 返回包含以下信息的 JSON 数据：
+         *   - 国家、地区、城市
+         *   - 纬度/经度
+         *   - 时区和组织
+         * - 请求限制：60 次/分钟（免费层）
          */
         IPLookup: {
             enabled: process.env.IP_LOOKUP_ENABLED === 'true',
@@ -902,30 +899,30 @@ module.exports = {
         },
 
         /**
-         * AWS S3 Storage Configuration
+         * AWS S3 存储配置
          * ===========================
-         * Enables cloud file storage using Amazon Simple Storage Service (S3).
+         * 启用使用亚马逊简单存储服务（S3）的云文件存储。
          *
-         * Core Settings:
+         * 核心设置：
          * --------------
-         * - enabled: Enable/disable AWS S3 integration [true/false]
+         * - enabled: 启用/禁用 AWS S3 集成 [true/false]
          *
-         * Service Setup:
+         * 服务设置：
          * -------------
-         * 1. Create an S3 Bucket:
-         *    - Sign in to AWS Management Console
-         *    - Navigate to S3 service
-         *    - Click "Create bucket"
-         *    - Choose unique name (e.g., 'mirotalk')
-         *    - Select region (must match AWS_REGION in config)
-         *    - Enable desired settings (versioning, logging, etc.)
+         * 1. 创建 S3 存储桶：
+         *    - 登录 AWS 管理控制台
+         *    - 导航到 S3 服务
+         *    - 点击"创建存储桶"
+         *    - 选择唯一名称（例如：'mirotalk'）
+         *    - 选择区域（必须与配置中的 AWS_REGION 匹配）
+         *    - 启用所需的设置（版本控制、日志记录等）
          *
-         * 2. Get Security Credentials:
-         *    - Create IAM user with programmatic access
-         *    - Attach 'AmazonS3FullAccess' policy (or custom minimal policy)
-         *    - Save Access Key ID and Secret Access Key
+         * 2. 获取安全凭证：
+         *    - 创建具有程序访问权限的 IAM 用户
+         *    - 附加 'AmazonS3FullAccess' 策略（或自定义最小策略）
+         *    - 保存访问密钥 ID 和秘密访问密钥
          *
-         * 3. Configure CORS (for direct uploads):
+         * 3. 配置 CORS（用于直接上传）：
          *    [
          *      {
          *        "AllowedHeaders": ["*"],
@@ -935,11 +932,11 @@ module.exports = {
          *      }
          *    ]
          *
-         * Technical Details:
+         * 技术详情：
          * -----------------
-         * - Default region: us-east-2 (Ohio)
-         * - Direct upload uses presigned URLs (expire after 1 hour by default)
-         * - Recommended permissions for direct upload:
+         * - 默认区域：us-east-2（俄亥俄）
+         * - 直接上传使用预签名 URL（默认在 1 小时后过期）
+         * - 直接上传的推荐权限：
          *   - s3:PutObject
          *   - s3:GetObject
          *   - s3:DeleteObject
@@ -954,39 +951,39 @@ module.exports = {
     },
 
     // ==============================================
-    // 7. UI/UX Customization
+    // 7. UI/UX 自定义
     // ==============================================
 
     ui: {
         /**
-         * Branding & Appearance Configuration
+         * 品牌与外观配置
          * -----------------------------------
-         * Controls all aspects of the application's visual identity, content, and metadata.
-         * Supports environment variable overrides for deployment-specific customization.
+         * 控制应用程序视觉标识、内容和元数据的所有方面。
+         * 支持环境变量覆盖，用于部署特定的自定义。
          *
          * ==============================================
-         * LICENSE REQUIRED:
+         * 需要许可证：
          * ==============================================
          * - https://codecanyon.net/item/mirotalk-sfu-webrtc-realtime-video-conferences/40769970
          */
         rooms: {
             /**
-             * Room Display Settings
+             * 房间显示设置
              * ---------------------
-             * - showActive: Show active rooms in the UI (default: false)
+             * - showActive: 在 UI 中显示活跃房间（默认：false）
              *   https://sfu.mirotalk.com/activeRooms
              */
             showActive: process.env.SHOW_ACTIVE_ROOMS === 'true',
         },
         brand: {
             /**
-             * Application Branding
+             * 应用程序品牌
              * --------------------
-             * Core application identity and user interface text elements.
+             * 核心应用程序标识和用户界面文本元素。
              *
-             * Note:
-             * Set BRAND_HTML_INJECTION to 'false' to disable HTML injection.
-             * This allows for static branding in the public/views folder, without dynamic content injection.
+             * 注意：
+             * 将 BRAND_HTML_INJECTION 设置为 'false' 以禁用 HTML 注入。
+             * 这允许在 public/views 文件夹中使用静态品牌，而不进行动态内容注入。
              */
             htmlInjection: process.env.BRAND_HTML_INJECTION !== 'false',
 
@@ -995,61 +992,61 @@ module.exports = {
                 name: process.env.APP_NAME || 'MiroTalk SFU',
                 title:
                     process.env.APP_TITLE ||
-                    '<h1>MiroTalk SFU</h1> Free browser based Real-time video calls.<br />Simple, Secure, Fast.',
+                    '<h1>MiroTalk SFU</h1> 基于浏览器的实时视频通话。<br >简单，安全，快速。',
                 description:
                     process.env.APP_DESCRIPTION ||
-                    'Start your next video call with a single click. No download, plug-in, or login is required.',
-                joinDescription: process.env.JOIN_DESCRIPTION || 'Pick a room name.<br />How about this one?',
-                joinButtonLabel: process.env.JOIN_BUTTON_LABEL || 'JOIN ROOM',
-                joinLastLabel: process.env.JOIN_LAST_LABEL || 'Your recent room:',
+                    '点击一下即可开始下一次视频通话。无需下载、插件或登录。',
+                joinDescription: process.env.JOIN_DESCRIPTION || '挑一个房间名称。<br>就用这个吧？',
+                joinButtonLabel: process.env.JOIN_BUTTON_LABEL || '加入房间',
+                joinLastLabel: process.env.JOIN_LAST_LABEL || '您最近的房间:',
             },
 
             /**
-             * Website Configuration
+             * 网站配置
              * --------------------
-             * Site-wide settings including icons and page-specific content.
+             * 包括图标和页面特定内容的全站设置。
              */
             site: {
-                title: process.env.SITE_TITLE || 'MiroTalk SFU, Free Video Calls, Messaging and Screen Sharing',
+                title: process.env.SITE_TITLE || 'MiroTalk SFU, 免费视频通话、消息发送和屏幕共享',
                 icon: process.env.SITE_ICON_PATH || '../images/logo.svg',
                 appleTouchIcon: process.env.APPLE_TOUCH_ICON_PATH || '../images/logo.svg',
-                newRoomTitle: process.env.NEW_ROOM_TITLE || 'Pick name. <br />Share URL. <br />Start conference.',
+                newRoomTitle: process.env.NEW_ROOM_TITLE || '选择名称。<br >共享网址。<br >开始会议。',
                 newRoomDescription:
-                    process.env.NEW_ROOM_DESC || 'Each room has its disposable URL. Just pick a name and share.',
+                    process.env.NEW_ROOM_DESC || '每个房间都有一个一次性URL。随便挑个名字分享即可。',
             },
 
             /**
-             * SEO Metadata
+             * SEO 元数据
              * ------------
-             * Search engine optimization elements.
+             * 搜索引擎优化元素。
              */
             meta: {
                 description:
                     process.env.META_DESCRIPTION ||
-                    'MiroTalk SFU powered by WebRTC and mediasoup for real-time video communications.',
-                keywords: process.env.META_KEYWORDS || 'webrtc, video calls, conference, screen sharing, mirotalk, sfu',
+                    'MiroTalk SFU 由 WebRTC 和 mediasoup 提供支持，用于实时视频通信。',
+                keywords: process.env.META_KEYWORDS || 'webrtc, 视频通话, 会议, 屏幕共享, mirotalk, sfu',
             },
 
             /**
-             * OpenGraph/Social Media
+             * OpenGraph/社交媒体
              * ---------------------
-             * Metadata for rich social media sharing.
+             * 丰富社交媒体分享的元数据。
              */
             og: {
                 type: process.env.OG_TYPE || 'app-webrtc',
                 siteName: process.env.OG_SITE_NAME || 'MiroTalk SFU',
-                title: process.env.OG_TITLE || 'Click the link to make a call.',
+                title: process.env.OG_TITLE || '点击链接进行通话。',
                 description:
-                    process.env.OG_DESCRIPTION || 'MiroTalk SFU provides real-time video calls and screen sharing.',
+                    process.env.OG_DESCRIPTION || 'MiroTalk SFU 提供实时视频通话和屏幕共享。',
                 image: process.env.OG_IMAGE_URL || 'https://sfu.mirotalk.com/images/mirotalksfu.png',
                 url: process.env.OG_URL || 'https://sfu.mirotalk.com',
             },
 
             /**
-             * UI Section Visibility
+             * UI 区块可见性
              * ---------------------
-             * Toggle display of various page sections.
-             * Set to 'false' via environment variables to hide.
+             * 切换各种页面区块的显示。
+             * 通过环境变量设置为 'false' 来隐藏。
              */
             html: {
                 topSponsors: process.env.SHOW_TOP_SPONSORS !== 'false',
@@ -1063,25 +1060,25 @@ module.exports = {
             },
 
             /**
-             * Who Are You? Section
+             * 您是谁？区块
              * ---------------------
-             * Prompts users to identify themselves before joining a room.
-             * Customizable text and button labels.
+             * 在加入房间之前提示用户识别自己。
+             * 可自定义的文本和按钮标签。
              */
             whoAreYou: {
-                title: process.env.WHO_ARE_YOU_TITLE || 'Who are you?',
+                title: process.env.WHO_ARE_YOU_TITLE || '你是谁？',
                 description:
                     process.env.WHO_ARE_YOU_DESCRIPTION ||
-                    "If you\'re the presenter, please log in now.<br />Otherwise, kindly wait for the presenter to join.",
-                buttonLoginLabel: process.env.WHO_ARE_YOU_BUTTON_LOGIN_LABEL || 'LOGIN',
-                buttonJoinLabel: process.env.WHO_ARE_YOU_JOIN_LABEL || 'JOIN ROOM',
+                    "如果您是主持人，请立即登录。<br >否则，请等待演讲者加入。",
+                buttonLoginLabel: process.env.WHO_ARE_YOU_BUTTON_LOGIN_LABEL || '登录',
+                buttonJoinLabel: process.env.WHO_ARE_YOU_JOIN_LABEL || '加入房间',
             },
 
             /**
-             * About/Credits Section
+             * 关于/致谢区块
              * ---------------------
-             * Contains author information, version, and support links.
-             * Supports HTML content for flexible formatting.
+             * 包含作者信息、版本和支持链接。
+             * 支持 HTML 内容以实现灵活的格式化。
              */
             about: {
                 imageUrl: process.env.ABOUT_IMAGE_URL || '../images/mirotalk-logo.gif',
@@ -1115,10 +1112,10 @@ module.exports = {
             },
 
             /**
-             * Widget Configuration
+             * 小部件配置
              * --------------------
-             * Controls the appearance and behavior of the support widget.
-             * Supports dynamic configuration via environment variables.
+             * 控制支持小部件的外观和行为。
+             * 支持通过环境变量进行动态配置。
              */
             widget: {
                 enabled: process.env.WIDGET_ENABLED === 'true',
@@ -1145,13 +1142,13 @@ module.exports = {
                     checkOnlineStatus: process.env.WIDGET_SUPPORT_CHECK_ONLINE_STATUS === 'true',
                     isOnline: process.env.WIDGET_SUPPORT_IS_ONLINE !== 'false',
                     customMessages: {
-                        heading: process.env.WIDGET_SUPPORT_HEADING || 'Need Help?',
+                        heading: process.env.WIDGET_SUPPORT_HEADING || '需要帮助吗？',
                         subheading:
-                            process.env.WIDGET_SUPPORT_SUBHEADING || 'Get instant support from our expert team!',
-                        connectText: process.env.WIDGET_SUPPORT_CONNECT_TEXT || 'connect in < 5 seconds',
-                        onlineText: process.env.WIDGET_SUPPORT_ONLINE_TEXT || 'We are online',
-                        offlineText: process.env.WIDGET_SUPPORT_OFFLINE_TEXT || 'We are offline',
-                        poweredBy: process.env.WIDGET_SUPPORT_POWERED_BY || 'Powered by MiroTalk SFU',
+                            process.env.WIDGET_SUPPORT_SUBHEADING || '立即获得我们专家团队的支持！',
+                        connectText: process.env.WIDGET_SUPPORT_CONNECT_TEXT || '连接在 < 5 秒钟内',
+                        onlineText: process.env.WIDGET_SUPPORT_ONLINE_TEXT || '已在线',
+                        offlineText: process.env.WIDGET_SUPPORT_OFFLINE_TEXT || '已离线',
+                        poweredBy: process.env.WIDGET_SUPPORT_POWERED_BY || '由MiroTalk SFU提供支持',
                     },
                 },
                 alert: {
@@ -1163,17 +1160,17 @@ module.exports = {
         },
 
         /**
-         * UI Button Configuration
+         * UI 按钮配置
          * ---------------------
-         * Organized by component/functionality area
+         * 按组件/功能区域组织
          */
         buttons: {
-            // Popup Configuration
+            // 弹出配置
             popup: {
                 shareRoomPopup: process.env.SHOW_SHARE_ROOM_POPUP !== 'false',
                 shareRoomQrOnHover: process.env.SHOW_SHARE_ROOM_QR_ON_HOVER !== 'false',
             },
-            // Main control buttons visible in the UI
+            // UI中可见的主要控制按钮
             main: {
                 shareButton: process.env.SHOW_SHARE_BUTTON !== 'false',
                 hideMeButton: process.env.SHOW_HIDE_ME !== 'false',
@@ -1196,7 +1193,7 @@ module.exports = {
                 exitButton: process.env.SHOW_EXIT_BUTTON !== 'false',
                 extraButton: process.env.SHOW_EXTRA_BUTTON !== 'false',
             },
-            // Settings panel buttons and options
+            // 设置面板按钮和选项
             settings: {
                 activeRooms: process.env.SHOW_ROOMS !== 'false',
                 fileSharing: process.env.ENABLE_FILE_SHARING !== 'false',
@@ -1217,7 +1214,7 @@ module.exports = {
                 customNoiseSuppression: process.env.CUSTOM_NOISE_SUPPRESSION_ENABLED !== 'false',
             },
 
-            // Video controls for producer (local user)
+            // 制作人（本地用户）的视频控件
             producerVideo: {
                 videoPictureInPicture: process.env.ENABLE_PIP !== 'false',
                 videoMirrorButton: process.env.SHOW_MIRROR_BUTTON !== 'false',
@@ -1228,7 +1225,7 @@ module.exports = {
                 audioVolumeInput: process.env.SHOW_VOLUME_CONTROL !== 'false',
             },
 
-            // Video controls for consumer (remote users)
+            // 消费者（远程用户）的视频控制
             consumerVideo: {
                 videoPictureInPicture: process.env.ENABLE_PIP !== 'false',
                 videoMirrorButton: process.env.SHOW_MIRROR_BUTTON !== 'false',
@@ -1246,7 +1243,7 @@ module.exports = {
                 ejectButton: process.env.SHOW_EJECT_BUTTON !== 'false',
             },
 
-            // Controls when video is off
+            // 控制视频关闭时
             videoOff: {
                 sendMessageButton: process.env.SHOW_SEND_MESSAGE !== 'false',
                 sendFileButton: process.env.SHOW_SEND_FILE !== 'false',
@@ -1258,7 +1255,7 @@ module.exports = {
                 ejectButton: process.env.SHOW_EJECT_BUTTON !== 'false',
             },
 
-            // Chat interface controls
+            // 聊天界面控件
             chat: {
                 chatPinButton: process.env.SHOW_CHAT_PIN !== 'false',
                 chatMaxButton: process.env.SHOW_CHAT_MAXIMIZE !== 'false',
@@ -1270,14 +1267,14 @@ module.exports = {
                 deepSeek: process.env.ENABLE_DEEP_SEEK !== 'false',
             },
 
-            // Poll interface controls
+            // Poll界面控件
             poll: {
                 pollPinButton: process.env.SHOW_POLL_PIN !== 'false',
                 pollMaxButton: process.env.SHOW_POLL_MAXIMIZE !== 'false',
                 pollSaveButton: process.env.SHOW_POLL_SAVE !== 'false',
             },
 
-            // Participants list controls
+            // 参与者列表控制
             participantsList: {
                 saveInfoButton: process.env.SHOW_SAVE_INFO !== 'false',
                 sendFileAllButton: process.env.SHOW_SEND_FILE_ALL !== 'false',
@@ -1288,7 +1285,7 @@ module.exports = {
                 ejectButton: process.env.SHOW_EJECT_BUTTON !== 'false',
             },
 
-            // Whiteboard controls
+            // 白板控制
             whiteboard: {
                 whiteboardLockButton: process.env.SHOW_WB_LOCK !== 'false',
             },
@@ -1296,24 +1293,24 @@ module.exports = {
     },
 
     // ==============================================
-    // 8. Feature Flags
+    // 8. 特征标志
     // ==============================================
 
     features: {
         /**
-         * Survey Configuration (QuestionPro)
+         * 调查配置（QuestionPro）
          * =================================
-         * Settings for user feedback and survey integration
+         * 用户反馈和调查集成的设置
          *
-         * Setup Instructions:
+         * 设置说明：
          * ------------------
-         * 1. Sign up at https://www.questionpro.com/
-         * 2. Create survey:
-         *    - Use template or custom questions
-         *    - Configure survey logic and branching
-         * 3. Get survey URL:
-         *    - Publish survey
-         *    - Copy "Collect Responses" link
+         * 1. 在 https://www.questionpro.com 注册
+         * 2. 创建调查：
+         *    - 使用模板或自定义问题
+         *    - 配置调查逻辑和分支
+         * 3. 获取调查 URL：
+         *    - 发布调查
+         *    - 复制"收集响应"链接
          */
         survey: {
             enabled: process.env.SURVEY_ENABLED === 'true',
@@ -1321,10 +1318,10 @@ module.exports = {
         },
 
         /**
-         * Post-Call Redirect
+         * 通话后重定向
          * ---------------------
-         * - enabled: Redirect after call ends
-         * - url: Redirect destination URL
+         * - enabled: 通话结束后重定向
+         * - url: 重定向目标 URL
          */
         redirect: {
             enabled: process.env.REDIRECT_ENABLED === 'true',
@@ -1332,30 +1329,30 @@ module.exports = {
         },
 
         /**
-         * Usage Statistics Configuration (Umami)
+         * 使用统计配置（Umami）
          * =====================================
-         * Privacy-focused analytics tracking for service improvement
+         * 隐私导向的分析跟踪，用于服务改进
          *
-         * Setup Instructions:
+         * 设置说明：
          * ------------------
-         * 1. Self-host Umami or use cloud version:
-         *    - GitHub: https://github.com/umami-software/umami
-         *    - Official Docs: https://umami.is/docs
-         * 2. Create website entry in Umami dashboard
-         * 3. Obtain tracking script URL and website ID
+         * 1. 自托管 Umami 或使用云版本：
+         *    - GitHub：https://github.com/umami-software/umami
+         *    - 官方文档：https://umami.is/docs
+         * 2. 在 Umami 仪表板中创建网站条目
+         * 3. 获取跟踪脚本 URL 和网站 ID
          *
-         * Privacy & Security:
+         * 隐私与安全：
          * ------------------
-         * - No cookies used (GDPR compliant)
-         * - No persistent user tracking
-         * - All data aggregated and anonymized
-         * - Self-hosted option keeps data in your infrastructure
+         * - 不使用 Cookie（符合 GDPR）
+         * - 无持久用户跟踪
+         * - 所有数据聚合和匿名化
+         * - 自托管选项将数据保留在您的基础设施中
          *
-         * Core Settings:
+         * 核心设置：
          * -------------
-         * - enabled      : Enable/disable analytics [true/false] (default: true)
-         * - src          : Umami tracking script URL
-         * - id           : Your website ID from Umami
+         * - enabled      : 启用/禁用分析 [true/false] （默认：true）
+         * - src          : Umami 跟踪脚本 URL
+         * - id           : 您从 Umami 获取的网站 ID
          */
         stats: {
             enabled: process.env.STATS_ENABLED !== 'false',
@@ -1365,15 +1362,15 @@ module.exports = {
     },
 
     /**
-     * Moderation Configuration
+     * 审核配置
      * =======================
-     * Controls global moderation features.
+     * 控制全局审核功能。
      *
-     * Core Settings:
+     * 核心设置：
      * --------------
-     * - room.maxParticipants: Maximum number of participants allowed per room.
-     * - lobby: Enable/disable lobby feature for pre-approval of participants.
-     *   Adjust to limit room size and manage server load.
+     * - room.maxParticipants: 每个房间允许的最大参与者数量。
+     * - lobby: 启用/禁用大厅功能，用于预批准参与者。
+     *   调整以限制房间大小和管理服务器负载。
      */
     moderation: {
         room: {
@@ -1383,44 +1380,44 @@ module.exports = {
     },
 
     // ==============================================
-    // 9. Mediasoup (WebRTC) Configuration
+    // 9. Mediasoup (WebRTC) 配置
     // ==============================================
 
     /**
-     * Mediasoup Integration Resources
+     * Mediasoup 集成资源
      * ==============================
-     * Core WebRTC components powering MiroTalk SFU
+     * 支持 MiroTalk SFU 的核心 WebRTC 组件
      *
-     * Essential Links:
+     * 必需的链接：
      * ---------------
-     * - 🌐 Website     : https://mediasoup.org
-     * - 💬 Forum       : https://mediasoup.discourse.group
+     * - 🌐 网站     : https://mediasoup.org
+     * - 💬 论坛       : https://mediasoup.discourse.group
      *
-     * 📚 Documentation:
+     * 📚 文档：
      * ----------------
-     * - Client API     : https://mediasoup.org/documentation/v3/mediasoup-client/api/
-     * - Server API     : https://mediasoup.org/documentation/v3/mediasoup/api/
-     * - Protocols      : https://mediasoup.org/documentation/v3/mediasoup/rtp-parameters-and-capabilities/
+     * - 客户端 API     : https://mediasoup.org/documentation/v3/mediasoup-client/api/
+     * - 服务器 API     : https://mediasoup.org/documentation/v3/mediasoup/api/
+     * - 协议      : https://mediasoup.org/documentation/v3/mediasoup/rtp-parameters-and-capabilities/
      *
-     * 🔧 Key Components:
+     * 🔧 关键组件：
      * -----------------
-     * - Router         : Manages RTP streams
-     * - Transport      : Network connection handler
-     * - Producer       : Media sender
-     * - Consumer       : Media receiver
+     * - Router         : 管理 RTP 流
+     * - Transport      : 网络连接处理器
+     * - Producer       : 媒体发送者
+     * - Consumer       : 媒体接收者
      *
-     * Mediasoup Configuration
+     * Mediasoup 配置
      * -----------------------
-     * This configuration defines settings for mediasoup workers, routers,
-     * WebRTC servers, and transports. These settings control how the SFU
-     * (Selective Forwarding Unit) handles media processing and networking.
+     * 此配置定义了 mediasoup 工作进程、路由器、
+     * WebRTC 服务器和传输的设置。这些设置控制 SFU
+     * （选择性转发单元）如何处理媒体处理和网络。
      */
     mediasoup: {
         /**
-         * Worker Configuration
+         * 工作进程配置
          * --------------------
-         * Workers are separate processes that handle media processing.
-         * Multiple workers can run in parallel for load balancing.
+         * 工作进程是处理媒体处理的独立进程。
+         * 多个工作进程可以并行运行以实现负载均衡。
          */
         worker: {
             rtcMinPort: RTC_MIN_PORT, // Minimum UDP/TCP port for ICE, DTLS, RTP
@@ -1451,10 +1448,10 @@ module.exports = {
         numWorkers: NUM_WORKERS, // Number of mediasoup worker processes to create
 
         /**
-         * Router Configuration
+         * 路由器配置
          * --------------------
-         * Routers manage media streams and define what codecs are supported.
-         * Each mediasoup worker can host multiple routers.
+         * 路由器管理媒体流并定义支持的编解码器。
+         * 每个 mediasoup 工作进程可以托管多个路由器。
          */
         router: {
             // Enable audio level monitoring (for detecting who is speaking)
@@ -1464,10 +1461,10 @@ module.exports = {
             activeSpeakerObserverEnabled: process.env.MEDIASOUP_ROUTER_ACTIVE_SPEAKER_OBSERVER_ENABLED === 'true',
 
             /**
-             * Supported Media Codecs
+             * 支持的媒体编解码器
              * ----------------------
-             * Defines what codecs the SFU can receive and forward.
-             * Order matters - first is preferred during negotiation.
+             * 定义 SFU 可以接收和转发的编解码器。
+             * 顺序很重要 - 在协商期间第一个是首选。
              */
             mediaCodecs: [
                 // Opus audio codec (standard for WebRTC)
@@ -1540,22 +1537,22 @@ module.exports = {
         },
 
         /**
-         * WebRTC Server Configuration
+         * WebRTC 服务器配置
          * ---------------------------
-         * WebRTC servers handle ICE (connection establishment) and DTLS (encryption).
-         * Can be disabled if using plain WebRtcTransport instead.
+         * WebRTC 服务器处理 ICE（连接建立）和 DTLS（加密）。
+         * 如果使用普通的 WebRtcTransport 则可以禁用。
          *
-         * Best used when:
-         * - Running in controlled environments with fixed IPs
-         * - Need to minimize port usage across workers
-         * - Using StatefulSets/DaemonSets in Kubernetes
+         * 最佳使用场景：
+         * - 在具有固定 IP 的受控环境中运行
+         * - 需要最小化工作进程间的端口使用
+         * - 在 Kubernetes 中使用 StatefulSets/DaemonSets
          *
-         * Kubernetes considerations:
-         * - Requires stable network identity (use StatefulSet)
-         * - Needs NodePort/LoadBalancer with externalTrafficPolicy: Local
-         * - Port ranges must be carefully allocated to avoid conflicts
+         * Kubernetes 考虑因素：
+         * - 需要稳定的网络身份（使用 StatefulSet）
+         * - 需要带有 externalTrafficPolicy: Local 的 NodePort/LoadBalancer
+         * - 端口范围必须仔细分配以避免冲突
          *
-         * Optional Config:
+         * 可选配置：
          * - https://mediasoup.discourse.group/t/mediasoup-3-17-0-released/6805
          */
         webRtcServerActive: process.env.SFU_SERVER === 'true', // Enable if SFU_SERVER=true
@@ -1563,11 +1560,11 @@ module.exports = {
             // Network interfaces and ports for ICE candidates
             listenInfos: [
                 /**
-                 * UDP Configuration
-                 * Preferred for media transport (lower latency)
-                 * Kubernetes implications:
-                 * - Each Pod needs unique ports if sharing host network
-                 * - Consider using hostPort when not using LoadBalancer
+                 * UDP 配置
+                 * 优先用于媒体传输（更低的延迟）
+                 * Kubernetes 影响：
+                 * - 如果共享主机网络，每个 Pod 需要唯一的端口
+                 * - 在不使用 LoadBalancer 时考虑使用 hostPort
                  */
                 {
                     protocol: 'udp',
@@ -1579,11 +1576,11 @@ module.exports = {
                     },
                 },
                 /**
-                 * TCP Configuration
-                 * Fallback for restrictive networks (higher latency)
-                 * Kubernetes implications:
-                 * - Helps with networks blocking UDP
-                 * - May require separate Service definition in k8s
+                 * TCP 配置
+                 * 用于限制性网络的后备选项（更高的延迟）
+                 * Kubernetes 影响：
+                 * - 有助于处理阻止 UDP 的网络
+                 * - 可能需要在 k8s 中定义单独的服务
                  */
                 {
                     protocol: 'tcp',
@@ -1598,29 +1595,29 @@ module.exports = {
         },
 
         /**
-         * WebRTC Transport Configuration
+         * WebRTC 传输配置
          * ------------------------------
-         * Transports handle the actual media flow between clients and the SFU.
-         * These settings affect bandwidth management and network behavior.
+         * 传输处理客户端和 SFU 之间的实际媒体流。
+         * 这些设置影响带宽管理和网络行为。
          *
-         * Preferred when:
-         * - Running in cloud environments with auto-scaling
-         * - Need dynamic port allocation
-         * - Kubernetes Pods are ephemeral
+         * 优选使用场景：
+         * - 在具有自动扩展的云环境中运行
+         * - 需要动态端口分配
+         * - Kubernetes Pod 是临时的
          *
-         * Kubernetes considerations:
-         * - Requires wide port range exposure (50000-60000 typical)
-         * - Works better with ClusterIP Services
-         * - More resilient to Pod restarts
+         * Kubernetes 考虑因素：
+         * - 需要广泛的端口范围暴露（50000-60000 是典型的）
+         * - 与 ClusterIP 服务配合使用效果更好
+         * - 对 Pod 重启更具弹性
          */
         webRtcTransport: {
             // Network interfaces for media transmission
             listenInfos: [
                 /**
-                 * UDP Transport Settings
-                 * Kubernetes implications:
-                 * - Needs hostNetwork or privileged Pod for port access
-                 * - Consider port range size based on expected scale
+                 * UDP 传输设置
+                 * Kubernetes 影响：
+                 * - 需要 hostNetwork 或特权 Pod 来访问端口
+                 * - 根据预期规模考虑端口范围大小
                  */
                 {
                     protocol: 'udp',
@@ -1632,10 +1629,10 @@ module.exports = {
                     },
                 },
                 /**
-                 * TCP Transport Settings
-                 * Kubernetes implications:
-                 * - Less efficient but more compatible
-                 * - May require different Service configuration
+                 * TCP 传输设置
+                 * Kubernetes 影响：
+                 * - 效率较低但兼容性更好
+                 * - 可能需要不同的服务配置
                  */
                 {
                     protocol: 'tcp',
@@ -1651,20 +1648,20 @@ module.exports = {
             iceConsentTimeout: 35, // Timeout for ICE consent (seconds)
 
             /**
-             * Bandwidth Control Settings
-             * Kubernetes implications:
-             * - These values should be tuned based on Node resources
-             * - Consider network plugin overhead (Calico, Cilium etc.)
+             * 带宽控制设置
+             * Kubernetes 影响：
+             * - 这些值应根据节点资源进行调整
+             * - 考虑网络插件开销（Calico、Cilium 等）
              */
             initialAvailableOutgoingBitrate: 2500000, // 2.5 Mbps initial bitrate
             minimumAvailableOutgoingBitrate: 1000000, // 1 Mbps minimum guaranteed
             maxIncomingBitrate: 3000000, // 3 Mbps max per producer
 
             /**
-             * Data Channel Settings
-             * Kubernetes implications:
-             * - Affects memory allocation per transport
-             * - Larger sizes may require Pod resource adjustments
+             * 数据通道设置
+             * Kubernetes 影响：
+             * - 影响每个传输的内存分配
+             * - 更大的大小可能需要调整 Pod 资源
              */
             maxSctpMessageSize: 262144, // 256 KB max message size for data channels
         },
@@ -1672,14 +1669,14 @@ module.exports = {
 };
 
 // ==============================================
-// Helper Functions
+// 辅助函数
 // ==============================================
 
 /**
- * Get IPv4 Address
+ * 获取 IPv4 地址
  * ----------------
- * - Prioritizes ANNOUNCED_IP if set
- * - Falls back to local IP detection
+ * - 如果设置了 ANNOUNCED_IP，则优先使用
+ * - 回退到本地 IP 检测
  */
 function getIPv4() {
     if (ANNOUNCED_IP) return ANNOUNCED_IP;
@@ -1695,10 +1692,10 @@ function getIPv4() {
 }
 
 /**
- * Detect Local IPv4 Address
+ * 检测本地 IPv4 地址
  * -------------------------
- * - Handles different OS network interfaces
- * - Filters out virtual/docker interfaces
+ * - 处理不同的操作系统网络接口
+ * - 过滤掉虚拟/容器接口
  */
 function getLocalIPv4() {
     const ifaces = os.networkInterfaces();
@@ -1737,9 +1734,9 @@ function getLocalIPv4() {
 }
 
 /**
- * Scan All Network Interfaces
+ * 扫描所有网络接口
  * ---------------------------
- * - Checks all interfaces excluding virtual ones
+ * - 检查所有接口，排除虚拟接口
  */
 function scanAllInterfaces(ifaces, excludes) {
     for (const [name, addresses] of Object.entries(ifaces)) {
@@ -1753,9 +1750,9 @@ function scanAllInterfaces(ifaces, excludes) {
 }
 
 /**
- * Find Valid Network Address
+ * 查找有效的网络地址
  * --------------------------
- * - Filters out internal and link-local addresses
+ * - 过滤掉内部和链路本地地址
  */
 function findValidAddress(addresses) {
     return addresses?.find((addr) => addr.family === 'IPv4' && !addr.internal && !addr.address.startsWith('169.254.'))
@@ -1763,10 +1760,10 @@ function findValidAddress(addresses) {
 }
 
 /**
- * Get FFmpeg Path
+ * 获取 FFmpeg 路径
  * ---------------
- * - Checks common installation locations
- * - Platform-specific paths
+ * - 检查常见的安装位置
+ * - 平台特定的路径
  */
 function getFFmpegPath(platform) {
     const paths = {
