@@ -3,7 +3,7 @@
     <head>
         <!-- Title and Icon -->
 
-        <title id="title">MiroTalk SFU - Room Video Calls, Messaging and Screen Sharing.</title>
+        <title id="title">MiroTalk SFU - 房间视频通话、消息发送和屏幕共享</title>
         <link id="icon" rel="shortcut icon" href="../images/logo.svg" />
         <link id="appleTouchIcon" rel="apple-touch-icon" href="../images/logo.svg" />
 
@@ -18,12 +18,12 @@
         <meta
             id="description"
             name="description"
-            content="MiroTalk SFU powered by WebRTC and mediasoup, Real-time Simple Secure Fast video calls, messaging and screen sharing capabilities in the browser."
+            content="MiroTalk SFU 由 WebRTC 和 mediasoup 提供动力，支持浏览器中的实时简单安全快速视频通话、消息传递和屏幕共享功能。"
         />
         <meta
             id="keywords"
             name="keywords"
-            content="webrtc, miro, mediasoup, mediasoup-client, self hosted, voip, sip, real-time communications, chat, messaging, meet, webrtc stun, webrtc turn, webrtc p2p, webrtc sfu, video meeting, video chat, video conference, multi video chat, multi video conference, peer to peer, p2p, sfu, rtc, alternative to, zoom, microsoft teams, google meet, jitsi, meeting"
+            content="webrtc, miro, mediasoup, mediasoup-client, 自托管, voip, sip, 实时通信, 聊天, 消息传递, 会议, webrtc stun, webrtc turn, webrtc p2p, webrtc sfu, 视频会议, 视频聊天, 视频会议, 多视频聊天, 多视频会议, 点对点, p2p, sfu, rtc, 替代方案, zoom, 微软teams, 谷歌会议, jitsi, 会议"
         />
 
         <!-- https://ogp.me -->
@@ -139,14 +139,14 @@
         <script defer src="https://cdn.jsdelivr.net/npm/gifler@0.1.0/gifler.min.js"></script>
     </head>
     <body>
-        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <noscript>您需要启用JavaScript才能运行此应用程序。</noscript>
 
         <div id="loadingDiv" class="center pulsate">
-            <h1>Loading</h1>
+            <h1>正在加载</h1>
             <img class="loading-img" src="../images/loading.gif" />
             <pre>
-Please allow the camera or microphone
-access to use this app.
+请允许使用摄像头或麦克风
+以使用此应用程序。
             </pre>
         </div>
 
@@ -181,26 +181,26 @@ access to use this app.
             <div id="usernameEmoji" class="usernameEmoji fadein center hidden"></div>
             <div id="initImageUrlModal" class="imageUrlModal">
                 <div class="imageUrlModal-content fadein">
-                    <h2>Paste Image URL</h2>
-                    <input type="text" id="initImageUrlInput" placeholder="Enter the image URL here..." />
-                    <button id="initSaveImageUrlBtn">Save</button>
-                    <button id="initCancelImageUrlBtn">Cancel</button>
+                    <h2>粘贴图片URL</h2>
+                    <input type="text" id="initImageUrlInput" placeholder="在此输入图片URL..." />
+                    <button id="initSaveImageUrlBtn">保存</button>
+                    <button id="initCancelImageUrlBtn">取消</button>
                 </div>
             </div>
         </section>
 
         <div id="imageUrlModal" class="imageUrlModal">
             <div class="imageUrlModal-content fadein">
-                <h2>Paste Image URL</h2>
-                <input type="text" id="imageUrlInput" placeholder="Enter the image URL here..." />
-                <button id="saveImageUrlBtn">Save</button>
-                <button id="cancelImageUrlBtn">Cancel</button>
+                <h2>粘贴图片URL</h2>
+                <input type="text" id="imageUrlInput" placeholder="在此输入图片URL..." />
+                <button id="saveImageUrlBtn">保存</button>
+                <button id="cancelImageUrlBtn">取消</button>
             </div>
         </div>
 
         <div id="qrRoomPopupContainer" class="hidden top-center fadein">
             <canvas id="qrRoomPopup"></canvas>
-            <div id="qrText">Scan to join the room</div>
+            <div id="qrText">扫码加入房间</div>
         </div>
 
         <div id="control" class="fadein">
@@ -246,46 +246,46 @@ access to use this app.
             <main class="mySettingsMain">
                 <div class="tab">
                     <button id="tabRoomBtn" class="fas fa-home tablinks">
-                        <p class="tabButtonText">Room</p>
+                        <p class="tabButtonText">房间</p>
                     </button>
                     <button id="tabVideoDevicesBtn" class="fas fa-video tablinks">
-                        <p class="tabButtonText">Video</p>
+                        <p class="tabButtonText">视频</p>
                     </button>
                     <button id="tabAudioDevicesBtn" class="fas fa-microphone tablinks">
-                        <p class="tabButtonText">Audio</p>
+                        <p class="tabButtonText">音频</p>
                     </button>
                     <button id="tabNotificationsBtn" class="fas fa-bell tablinks hidden">
-                        <p class="tabButtonText">Notifications</p>
+                        <p class="tabButtonText">通知</p>
                     </button>
                     <button id="tabModeratorBtn" class="fas fa-user-shield tablinks">
-                        <p class="tabButtonText">Moderator</p>
+                        <p class="tabButtonText">主持人</p>
                     </button>
                     <button id="tabRecordingBtn" class="fas fa-record-vinyl tablinks">
-                        <p class="tabButtonText">Recording</p>
+                        <p class="tabButtonText">录制</p>
                     </button>
                     <button id="tabVideoAIBtn" class="fab fa-airbnb tablinks">
-                        <p class="tabButtonText">VideoAI</p>
+                        <p class="tabButtonText">视频AI</p>
                     </button>
                     <button id="tabVideoShareBtn" class="fab fa-youtube tablinks">
-                        <p class="tabButtonText">Media</p>
+                        <p class="tabButtonText">媒体</p>
                     </button>
                     <button id="tabRTMPStreamingBtn" class="fa-solid fa-satellite-dish tablinks">
                         <p class="tabButtonText">RTMP</p>
                     </button>
                     <button id="tabProfileBtn" class="fas fa-user tablinks">
-                        <p class="tabButtonText">Profile</p>
+                        <p class="tabButtonText">个人资料</p>
                     </button>
                     <button id="tabShortcutsBtn" class="fas fa-keyboard tablinks">
-                        <p class="tabButtonText">Shortcuts</p>
+                        <p class="tabButtonText">快捷方式</p>
                     </button>
                     <button id="tabAspectBtn" class="fas fa-screwdriver-wrench tablinks">
-                        <p class="tabButtonText">Aspect</p>
+                        <p class="tabButtonText">比例</p>
                     </button>
                     <button id="tabStylingBtn" class="fas fa-palette tablinks">
-                        <p class="tabButtonText">Style</p>
+                        <p class="tabButtonText">样式</p>
                     </button>
                     <button id="tabLanguagesBtn" class="fas fa-globe tablinks">
-                        <p class="tabButtonText">Language</p>
+                        <p class="tabButtonText">语言</p>
                     </button>
                 </div>
 
@@ -293,23 +293,23 @@ access to use this app.
                     <div id="tabRoom" class="tabcontent">
                         <button id="activeRoomsButton" class="hidden btn-custom">
                             <i class="fa-solid fa-circle-dot"></i>
-                            <p>Active rooms</p>
+                            <p>活跃房间</p>
                         </button>
                         <button id="lockRoomButton" class="hidden btn-custom">
                             <i class="fas fa-lock-open orange"></i>
-                            <p class="orange">Lock room</p>
+                            <p class="orange">锁定房间</p>
                         </button>
                         <button id="unlockRoomButton" class="hidden btn-custom">
                             <i class="fas fa-lock red"></i>
-                            <p class="red">Unlock room</p>
+                            <p class="red">解锁房间</p>
                         </button>
                         <button id="fileShareButton" class="hidden btn-custom">
                             <i class="fas fa-folder-open"></i>
-                            <p>File sharing</p>
+                            <p>文件共享</p>
                         </button>
                         <button id="sendEmailInvitation" class="hidden btn-custom">
                             <i class="fas fa-envelope-circle-check"></i>
-                            <p id="roomSendEmail" class="cp">Send email invitation</p>
+                            <p id="roomSendEmail" class="cp">发送邮件邀请</p>
                         </button>
                         <hr />
                         <table class="settingsTable">
@@ -317,7 +317,7 @@ access to use this app.
                                 <td>
                                     <div class="title">
                                         <i class="fa-solid fa-wifi"></i>
-                                        <p>Broadcast</p>
+                                        <p>广播</p>
                                     </div>
                                 </td>
                                 <td>
@@ -330,7 +330,7 @@ access to use this app.
                                 <td>
                                     <div class="title">
                                         <i class="fas fa-shield-halved"></i>
-                                        <p>Lobby</p>
+                                        <p>大厅</p>
                                     </div>
                                 </td>
                                 <td>
@@ -343,7 +343,7 @@ access to use this app.
                                 <td>
                                     <div class="title">
                                         <i class="fas fa-microphone-lines"></i>
-                                        <p>Volume bar</p>
+                                        <p>音量条</p>
                                     </div>
                                 </td>
                                 <td>
@@ -356,7 +356,7 @@ access to use this app.
                                 <td>
                                     <div class="title">
                                         <i class="fas fa-music"></i>
-                                        <p>Sounds</p>
+                                        <p>声音</p>
                                     </div>
                                 </td>
                                 <td>
@@ -369,7 +369,7 @@ access to use this app.
                                 <td>
                                     <div class="title">
                                         <i class="fas fa-share-alt"></i>
-                                        <p>Share</p>
+                                        <p>共享</p>
                                     </div>
                                 </td>
                                 <td>
@@ -382,7 +382,7 @@ access to use this app.
                                 <td>
                                     <div class="title">
                                         <i class="fas fa-eye"></i>
-                                        <p>Buttons</p>
+                                        <p>按钮</p>
                                     </div>
                                 </td>
                                 <td>
@@ -418,19 +418,19 @@ access to use this app.
                     <div id="tabVideoDevices" class="tabcontent">
                         <button id="refreshVideoDevices" class="btn-custom">
                             <i class="fas fa-rotate"></i>
-                            <p>Refresh video devices</p>
+                            <p>刷新视频设备</p>
                         </button>
                         <br /><br />
                         <div class="title">
                             <i class="fas fa-video"></i>
-                            <p>Video Source:</p>
+                            <p>视频源：</p>
                         </div>
                         <select id="videoSelect" class="form-select text-light bg-dark"></select>
                         <br />
                         <div id="videoVirtualBackground" class="hidden">
                             <div class="title">
                                 <i class="fa-solid fa-image"></i>
-                                <p>Virtual background:</p>
+                                <p>虚拟背景：</p>
                             </div>
                             <div id="imageGridVideo" class="image-grid"></div>
                             <span id="errorMessage" class="show-error"></span>
@@ -438,32 +438,32 @@ access to use this app.
                         </div>
                         <div class="title">
                             <i class="fas fa-palette"></i>
-                            <p>Video Quality:</p>
+                            <p>视频质量：</p>
                         </div>
                         <select id="videoQuality" class="form-select text-light bg-dark">
-                            <option value="default">🎥&nbsp;Default</option>
+                            <option value="default">🎥&nbsp;默认</option>
                             <option value="qvga">🎥&nbsp;QVGA</option>
                             <option value="vga">🎥&nbsp;VGA</option>
-                            <option value="hd">🎥&nbsp;HD</option>
-                            <option value="fhd">🎥&nbsp;FULL HD</option>
-                            <option value="2k">🎥&nbsp;2k</option>
+                            <option value="hd">🎥&nbsp;高清</option>
+                            <option value="fhd">🎥&nbsp;全高清</option>
+                            <option value="2k">🎥&nbsp;2K</option>
                             <option value="4k">🎥&nbsp;4K</option>
-                            <option value="6k">🎥&nbsp;6k</option>
+                            <option value="6k">🎥&nbsp;6K</option>
                             <option value="8k">🎥&nbsp;8K</option>
                         </select>
                         <br />
                         <div id="ScreenQualityDiv" class="hidden">
                             <div class="title">
                                 <i class="fas fa-palette"></i>
-                                <p>Screen Quality:</p>
+                                <p>屏幕质量：</p>
                             </div>
                             <select id="screenQuality" class="form-select text-light bg-dark">
-                                <option value="default">🖥&nbsp;Default</option>
-                                <option value="hd">🖥&nbsp;HD</option>
-                                <option value="fhd">🖥&nbsp;FULL HD</option>
-                                <option value="2k">🖥&nbsp;2k</option>
+                                <option value="default">🖥&nbsp;默认</option>
+                                <option value="hd">🖥&nbsp;高清</option>
+                                <option value="fhd">🖥&nbsp;全高清</option>
+                                <option value="2k">🖥&nbsp;2K</option>
                                 <option value="4k">🖥&nbsp;4K</option>
-                                <option value="6k">🖥&nbsp;6k</option>
+                                <option value="6k">🖥&nbsp;6K</option>
                                 <option value="8k">🖥&nbsp;8K</option>
                             </select>
                         </div>
@@ -471,40 +471,40 @@ access to use this app.
                         <div id="ScreenOptimizationDiv" class="hidden">
                             <div class="title">
                                 <i class="fa-solid fa-rocket"></i>
-                                <p id="screenOptimizationLabel">Screen Optimization:</p>
+                                <p id="screenOptimizationLabel">屏幕优化：</p>
                             </div>
                             <select id="screenOptimization" class="form-select text-light bg-dark">
-                                <option value="default">🖥&nbsp;None</option>
-                                <option value="detail">🖥&nbsp;Detail</option>
-                                <option value="motion">🖥&nbsp;Motion</option>
+                                <option value="default">🖥&nbsp;无</option>
+                                <option value="detail">🖥&nbsp;细节</option>
+                                <option value="motion">🖥&nbsp;运动</option>
                             </select>
                         </div>
                         <hr />
                         <div class="title">
                             <i class="fa-solid fa-camera"></i>
-                            <p>Camera FPS:</p>
+                            <p>摄像头帧率：</p>
                         </div>
                         <br />
                         <select id="videoFps" class="form-select text-light bg-dark">
-                            <option value="max">max frame-per-second</option>
-                            <option value="60">60 - frame-per-second</option>
-                            <option value="30">30 - frame-per-second</option>
-                            <option value="15">15 - frame-per-second</option>
-                            <option value="5">5 - frame-per-second</option>
+                            <option value="max">最大帧率</option>
+                            <option value="60">60 - 帧每秒</option>
+                            <option value="30">30 - 帧每秒</option>
+                            <option value="15">15 - 帧每秒</option>
+                            <option value="5">5 - 帧每秒</option>
                         </select>
                         <br />
                         <div id="ScreenFpsDiv" class="hidden">
                             <div class="title">
                                 <i class="fa-solid fa-desktop"></i>
-                                <p>Screen FPS:</p>
+                                <p>屏幕帧率：</p>
                             </div>
                             <br />
                             <select id="screenFps" class="form-select text-light bg-dark">
-                                <option value="max">max frame-per-second</option>
-                                <option value="60">60 - frame-per-second</option>
-                                <option value="30">30 - frame-per-second</option>
-                                <option value="15">15 - frame-per-second</option>
-                                <option value="5">5 - frame-per-second</option>
+                                <option value="max">最大帧率</option>
+                                <option value="60">60 - 帧每秒</option>
+                                <option value="30">30 - 帧每秒</option>
+                                <option value="15">15 - 帧每秒</option>
+                                <option value="5">5 - 帧每秒</option>
                             </select>
                         </div>
                     </div>
@@ -512,12 +512,12 @@ access to use this app.
                     <div id="tabAudioDevices" class="tabcontent">
                         <button id="refreshAudioDevices" class="btn-custom">
                             <i class="fas fa-rotate"></i>
-                            <p>Refresh audio devices</p>
+                            <p>刷新音频设备</p>
                         </button>
                         <br /><br />
                         <div class="title">
                             <i class="fas fa-microphone"></i>
-                            <p>Microphone:</p>
+                            <p>麦克风：</p>
                         </div>
                         <select id="microphoneSelect" class="form-select text-light bg-dark"></select>
                         <br />
@@ -540,7 +540,7 @@ access to use this app.
                                     <td>
                                         <div class="title">
                                             <i class="fas fa-ear-listen"></i>
-                                            <p id="labelNoiseSuppression">Noise Suppression</p>
+                                            <p id="labelNoiseSuppression">降噪</p>
                                         </div>
                                     </td>
                                     <td>
@@ -560,12 +560,12 @@ access to use this app.
                             <hr />
                             <div class="title">
                                 <i class="fas fa-headphones"></i>
-                                <p>Speaker:</p>
+                                <p>扬声器：</p>
                             </div>
                             <select id="speakerSelect" class="form-select text-light bg-dark"></select>
                             <button id="speakerTestBtn" class="btn-custom">
                                 <i class="fa-solid fa-circle-play"></i>
-                                <p>Test speaker</p>
+                                <p>测试扬声器</p>
                             </button>
                             <br />
                         </div>
@@ -576,7 +576,7 @@ access to use this app.
                                     <td>
                                         <div class="title">
                                             <i class="fa-solid fa-eye"></i>
-                                            <p>Speaker Focus</p>
+                                            <p>发言人焦点</p>
                                         </div>
                                     </td>
                                     <td>
@@ -593,7 +593,7 @@ access to use this app.
                                     <td>
                                         <div class="title">
                                             <i class="fa-solid fa-hand-pointer"></i>
-                                            <p>Push to talk</p>
+                                            <p>按压说话</p>
                                         </div>
                                     </td>
                                     <td>
@@ -609,26 +609,26 @@ access to use this app.
                     </div>
 
                     <div id="tabNotifications" class="tabcontent">
-                        <span class="mod-title">Notifications mode</span>
+                        <span class="mod-title">通知模式</span>
                         <hr />
                         <div id="notificationsModeDiv">
                             <div class="title">
                                 <i class="fas fa-envelope"></i>
-                                <p>Email</p>
+                                <p>邮箱</p>
                             </div>
-                            <input type="text" id="notifyEmailInput" class="form-control" placeholder="Enter email" />
+                            <input type="text" id="notifyEmailInput" class="form-control" placeholder="输入邮箱" />
                         </div>
                         <br />
                         <div class="title">
                             <i class="fas fa-bell"></i>
-                            <p>Events:</p>
+                            <p>事件：</p>
                         </div>
                         <table class="settingsTable">
                             <tr id="notifyUserJoinBtn">
                                 <td>
                                     <div class="title">
                                         <i class="fas fa-user-plus"></i>
-                                        <p>First User Join</p>
+                                        <p>首用户加入</p>
                                     </div>
                                 </td>
                                 <td>
@@ -640,23 +640,23 @@ access to use this app.
                         </table>
                         <div class="buttons-container">
                             <button id="notifyEmailCleanBtn" class="btn-custom">
-                                <i class="fas fa-trash"></i> Clean
+                                <i class="fas fa-trash"></i> 清空
                             </button>
                             <button id="saveNotificationsBtn" class="btn-custom">
-                                <i class="fas fa-save"></i> Save Notifications
+                                <i class="fas fa-save"></i> 保存通知
                             </button>
                         </div>
                     </div>
 
                     <div id="tabModerator" class="tabcontent">
-                        <span class="mod-title">Moderator options for Everyone</span>
+                        <span class="mod-title">所有人的主持人选项</span>
                         <hr />
                         <table class="settingsTable">
                             <tr id="everyonePrivacyBtn">
                                 <td>
                                     <div class="title">
                                         <i class="fas fa-circle-user"></i>
-                                        <p>Start in Privacy Mode</p>
+                                        <p>开始时处于隐私模式</p>
                                     </div>
                                 </td>
                                 <td>
@@ -674,7 +674,7 @@ access to use this app.
                                 <td>
                                     <div class="title">
                                         <i class="fas fa-microphone-slash"></i>
-                                        <p>Join Muted</p>
+                                        <p>加入时静音</p>
                                     </div>
                                 </td>
                                 <td>
@@ -687,7 +687,7 @@ access to use this app.
                                 <td>
                                     <div class="title">
                                         <i class="fas fa-video-slash"></i>
-                                        <p>Join Hidden</p>
+                                        <p>加入时隐藏</p>
                                     </div>
                                 </td>
                                 <td>
@@ -709,7 +709,7 @@ access to use this app.
                                 <td>
                                     <div class="title">
                                         <i class="fas fa-microphone red"></i>
-                                        <p>Restrict Self-Unmute</p>
+                                        <p>限制自行取消静音</p>
                                     </div>
                                 </td>
                                 <td>
@@ -727,7 +727,7 @@ access to use this app.
                                 <td>
                                     <div class="title">
                                         <i class="fas fa-video red"></i>
-                                        <p>Restrict Self-Unhide</p>
+                                        <p>限制自行取消隐藏</p>
                                     </div>
                                 </td>
                                 <td>
@@ -745,7 +745,7 @@ access to use this app.
                                 <td>
                                     <div class="title">
                                         <i class="fas fa-display red"></i>
-                                        <p>Disable Screen Sharing</p>
+                                        <p>禁用屏幕共享</p>
                                     </div>
                                 </td>
                                 <td>
@@ -763,7 +763,7 @@ access to use this app.
                                 <td>
                                     <div class="title">
                                         <i class="fa-solid fa-comments red"></i>
-                                        <p>Disable Private Chat</p>
+                                        <p>禁用私聊</p>
                                     </div>
                                 </td>
                                 <td>
@@ -781,7 +781,7 @@ access to use this app.
                                 <td>
                                     <div class="title">
                                         <i class="fa-solid fa-robot red"></i>
-                                        <p>Disable ChatGPT Access</p>
+                                        <p>禁用 ChatGPT 访问</p>
                                     </div>
                                 </td>
                                 <td>
@@ -799,7 +799,7 @@ access to use this app.
                                 <td>
                                     <div class="title">
                                         <i class="fa-solid fa-robot red"></i>
-                                        <p>Disable DeepSeek Access</p>
+                                        <p>禁用 DeepSeek 访问</p>
                                     </div>
                                 </td>
                                 <td>
@@ -817,7 +817,7 @@ access to use this app.
                                 <td>
                                     <div class="title">
                                         <i class="fab fa-youtube red"></i>
-                                        <p>Disable Media Sharing</p>
+                                        <p>禁用媒体共享</p>
                                     </div>
                                 </td>
                                 <td>
@@ -835,7 +835,7 @@ access to use this app.
                                 <td>
                                     <div class="title">
                                         <i class="fas fa-users-slash red"></i>
-                                        <p>Disconnect all on Exit</p>
+                                        <p>离开时断开所有连接</p>
                                     </div>
                                 </td>
                                 <td>
@@ -860,7 +860,7 @@ access to use this app.
                                     <td>
                                         <div class="title">
                                             <i class="fa-solid fa-user-shield"></i>
-                                            <p>Only host</p>
+                                            <p>仅主持人</p>
                                         </div>
                                     </td>
                                     <td>
@@ -877,7 +877,7 @@ access to use this app.
                                     <td>
                                         <div class="title">
                                             <i class="fas fa-cloud-arrow-up"></i>
-                                            <p>Save on server</p>
+                                            <p>保存到服务器</p>
                                         </div>
                                     </td>
                                     <td>
@@ -894,11 +894,11 @@ access to use this app.
                         </div>
                         <button id="pauseRecButton" class="hidden btn-custom">
                             <i class="far fa-pause-circle"></i>
-                            <p>Pause recording</p>
+                            <p>暂停录制</p>
                         </button>
                         <button id="resumeRecButton" class="hidden btn-custom">
                             <i class="far fa-play-circle"></i>
-                            <p>Resume recording</p>
+                            <p>继续录制</p>
                         </button>
                         <div id="recordingTime" class="hidden">
                             <hr />
@@ -907,7 +907,7 @@ access to use this app.
                                     <td>
                                         <div class="title">
                                             <i class="fa-solid fa-circle pulsate cr"></i>
-                                            <p>REC time:</p>
+                                            <p>录制时间：</p>
                                         </div>
                                     </td>
                                     <td id="recordingStatus">0s</td>
@@ -917,7 +917,7 @@ access to use this app.
                         <div id="recordingMessage" class="hidden">
                             <div class="title">
                                 <i class="fa-solid fa-ban fa-2xl"></i>
-                                <p>The presenter has disabled meeting recording.</p>
+                                <p>主持人已禁用会议录制。</p>
                             </div>
                         </div>
                         <br />
@@ -933,7 +933,7 @@ access to use this app.
                                     <td>
                                         <div class="title">
                                             <i class="fa-solid fa-users-line"></i>
-                                            <p>Show free avatars</p>
+                                            <p>显示免费头像</p>
                                         </div>
                                     </td>
                                     <td>
@@ -953,24 +953,24 @@ access to use this app.
                                 <div id="avatarVideoAIcontainer"></div>
                                 <hr />
                                 <select id="avatarQuality" class="form-select text-light bg-dark">
-                                    <option value="low">Avatar Quality - Low</option>
-                                    <option value="medium" selected>Avatar Quality - Medium</option>
-                                    <option value="legacy_medium">Avatar Quality - Legacy medium</option>
-                                    <option value="high">Avatar Quality - High</option>
-                                    <option value="very_high" selected>Avatar Quality - Very high</option>
+                                    <option value="low">头像质量 - 低</option>
+                                    <option value="medium" selected>头像质量 - 中等</option>
+                                    <option value="legacy_medium">头像质量 - 旧版中等</option>
+                                    <option value="high">头像质量 - 高</option>
+                                    <option value="very_high" selected>头像质量 - 极高</option>
                                 </select>
                                 <select
                                     id="avatarVoiceIDs"
                                     name="avatarVoiceIDs"
                                     class="form-select text-light bg-dark"
                                 >
-                                    <option value="">Select Avatar Voice</option>
+                                    <option value="">选择头像语音</option>
                                 </select>
                                 <div id="audio-container">
                                     <audio id="avatarPreviewAudio" controls></audio>
                                 </div>
                                 <button id="avatarVideoAIStart" class="btn-custom">
-                                    <i class="fas fa-play"></i> Start Avatar Session
+                                    <i class="fas fa-play"></i> 启动头像会话
                                 </button>
                                 <hr />
                             </div>
@@ -980,12 +980,12 @@ access to use this app.
                     <div id="tabVideoShare" class="tabcontent">
                         <button id="videoShareButton" class="btn-custom">
                             <i class="fab fa-youtube"></i>
-                            <p>Share a Video or Audio</p>
+                            <p>分享视频或音频</p>
                         </button>
                         <br />
                         <button id="videoCloseBtn" class="hidden btn-custom">
                             <i class="fas fa-times"></i>
-                            <p>Close Video or Audio</p>
+                            <p>关闭视频或音频</p>
                         </button>
                     </div>
 
@@ -1006,7 +1006,7 @@ access to use this app.
                                     <thead>
                                         <tr>
                                             <th>
-                                                <i id="refreshVideoFiles" class="fa-solid fa-rotate"></i> Video Files:
+                                                <i id="refreshVideoFiles" class="fa-solid fa-rotate"></i> 视频文件：
                                             </th>
                                         </tr>
                                     </thead>
@@ -1017,15 +1017,15 @@ access to use this app.
                                 <div id="file-name"></div>
                                 <!-- <hr /> -->
                                 <button id="startRtmpButton" class="hidden btn-custom">
-                                    <i class="fa-solid fa-play"></i>&nbsp;Start RTMP File Streaming
+                                    <i class="fa-solid fa-play"></i>&nbsp;开始 RTMP 文件流
                                 </button>
                                 <button id="stopRtmpButton" class="hidden btn-custom">
-                                    <i class="fas fa-stop-circle"></i>&nbsp;Stop RTMP File Streaming
+                                    <i class="fas fa-stop-circle"></i>&nbsp;停止 RTMP 文件流
                                 </button>
                                 <hr />
                             </div>
                             <div id="rtmpFromUrl">
-                                <p>Stream from URL:</p>
+                                <p>从 URL 流式传输：</p>
                                 <input
                                     id="rtmpStreamURL"
                                     type="text"
@@ -1033,19 +1033,19 @@ access to use this app.
                                     placeholder="https://domain/path/file.mp4"
                                 />
                                 <button id="startRtmpURLButton" class="hidden btn-custom">
-                                    <i class="fa-solid fa-play"></i>&nbsp;Start RTMP URL Streaming
+                                    <i class="fa-solid fa-play"></i>&nbsp;开始 RTMP URL 流
                                 </button>
                                 <button id="stopRtmpURLButton" class="hidden btn-custom">
-                                    <i class="fas fa-stop-circle"></i>&nbsp;Stop RTMP URL Streaming
+                                    <i class="fas fa-stop-circle"></i>&nbsp;停止 RTMP URL 流
                                 </button>
                                 <hr />
                             </div>
                             <div id="rtmpFromStream">
                                 <p>
-                                    Select your desired video and audio sources from settings, then begin RTMP streaming
+                                    从设置中选择所需的视频和音频源，然后开始 RTMP 流
                                 </p>
                                 <button id="streamerRtmpButton" class="hidden btn-custom">
-                                    <i class="fa-solid fa-satellite-dish"></i>&nbsp;RTMP Streamer
+                                    <i class="fa-solid fa-satellite-dish"></i>&nbsp;RTMP 流媒体
                                 </button>
                                 <hr />
                             </div>
@@ -1059,7 +1059,7 @@ access to use this app.
                                 <td>
                                     <div class="title">
                                         <i class="fa-solid fa-user"></i>
-                                        <p>Username:</p>
+                                        <p>用户名：</p>
                                         <p id="userName">UserName</p>
                                     </div>
                                 </td>
@@ -1068,7 +1068,7 @@ access to use this app.
                                 <td>
                                     <div class="title">
                                         <i class="fa-solid fa-user-shield"></i>
-                                        <p>Presenter:</p>
+                                        <p>主持人：</p>
                                         <p id="isUserPresenter">true</p>
                                     </div>
                                 </td>
@@ -1077,7 +1077,7 @@ access to use this app.
                                 <td>
                                     <div class="title">
                                         <i class="fa-solid fa-circle-info"></i>
-                                        <p>Extra info:</p>
+                                        <p>额外信息：</p>
                                     </div>
                                 </td>
                             </tr>
@@ -1095,7 +1095,7 @@ access to use this app.
                                 <td>
                                     <div class="title">
                                         <i class="fa-solid fa-keyboard"></i>
-                                        <p>Shortcuts</p>
+                                        <p>快捷键</p>
                                     </div>
                                 </td>
                                 <td>
@@ -1109,91 +1109,91 @@ access to use this app.
                             <table id="shortcutsTable">
                                 <thead>
                                     <tr>
-                                        <th>Shortcut</th>
-                                        <th>Icon</th>
-                                        <th>Action</th>
+                                        <th>快捷键</th>
+                                        <th>图标</th>
+                                        <th>操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td><i class="fa-solid fa-a"></i></td>
                                         <td><i class="fas fa-microphone"></i></td>
-                                        <td><strong>Toggle</strong> microphone</td>
+                                        <td><strong>切换</strong> 麦克风</td>
                                     </tr>
                                     <tr>
                                         <td><i class="fa-solid fa-v"></i></td>
                                         <td><i class="fas fa-video"></i></td>
-                                        <td><strong>Toggle</strong> camera</td>
+                                        <td><strong>切换</strong> 相机</td>
                                     </tr>
                                     <tr>
                                         <td><i class="fa-solid fa-s"></i></td>
                                         <td><i class="fas fa-desktop"></i></td>
-                                        <td><strong>Toggle</strong> screen</td>
+                                        <td><strong>切换</strong> 屏幕</td>
                                     </tr>
                                     <tr>
                                         <td><i class="fa-solid fa-h"></i></td>
                                         <td><i class="fas fa-hand-paper"></i></td>
-                                        <td><strong>Toggle</strong> raise hand</td>
+                                        <td><strong>切换</strong> 举手</td>
                                     </tr>
                                     <tr>
                                         <td><i class="fa-solid fa-c"></i></td>
                                         <td><i class="fas fa-comments"></i></td>
-                                        <td><strong>Toggle</strong> chat</td>
+                                        <td><strong>切换</strong> 聊天</td>
                                     </tr>
                                     <tr>
                                         <td><i class="fa-solid fa-o"></i></td>
                                         <td><i class="fas fa-cogs"></i></td>
-                                        <td><strong>Toggle</strong> settings</td>
+                                        <td><strong>切换</strong> 设置</td>
                                     </tr>
                                     <tr>
                                         <td><i class="fa-solid fa-x"></i></td>
                                         <td><i class="fas fa-user"></i></td>
-                                        <td><strong>Toggle</strong> hide myself</td>
+                                        <td><strong>切换</strong> 隐藏自己</td>
                                     </tr>
                                     <tr>
                                         <td><i class="fa-solid fa-r"></i></td>
                                         <td><i class="fas fa-record-vinyl"></i></td>
-                                        <td><strong>Toggle</strong> recording</td>
+                                        <td><strong>切换</strong> 录制</td>
                                     </tr>
                                     <tr>
                                         <td><i class="fa-solid fa-j"></i></td>
                                         <td><i class="fas fa-face-smile"></i></td>
-                                        <td><strong>Toggle</strong> emoji</td>
+                                        <td><strong>切换</strong> 表情符号</td>
                                     </tr>
                                     <tr>
                                         <td><i class="fa-solid fa-k"></i></td>
                                         <td><i class="fas fa-closed-captioning"></i></td>
-                                        <td><strong>Toggle</strong> captions</td>
+                                        <td><strong>切换</strong> 字幕</td>
                                     </tr>
                                     <tr>
                                         <td><i class="fa-solid fa-p"></i></td>
                                         <td><i class="fas fa-square-poll-horizontal"></i></td>
-                                        <td><strong>Toggle</strong> polls</td>
+                                        <td><strong>切换</strong> 投票</td>
                                     </tr>
                                     <tr>
                                         <td><i class="fa-solid fa-e"></i></td>
                                         <td><i class="fas fa-pen-to-square"></i></td>
-                                        <td><strong>Toggle</strong> editor</td>
+                                        <td><strong>切换</strong> 编辑器</td>
                                     </tr>
                                     <tr>
                                         <td><i class="fa-solid fa-w"></i></td>
                                         <td><i class="fas fa-chalkboard-teacher"></i></td>
-                                        <td><strong>Toggle</strong> whiteboard</td>
+                                        <td><strong>切换</strong> 白板</td>
                                     </tr>
                                     <tr>
                                         <td><i class="fa-solid fa-d"></i></td>
                                         <td><i class="fas fa-images"></i></td>
-                                        <td><strong>Toggle</strong> document PIP</td>
+                                        <td><strong>切换</strong> 文档画中画</td>
                                     </tr>
                                     <tr>
                                         <td><i class="fa-solid fa-t"></i></td>
                                         <td><i class="fas fas fa-camera-retro"></i></td>
-                                        <td><strong>Snapshot</strong> screen/window/tab</td>
+                                        <td><strong>快照</strong> 屏幕/窗口/标签页</td>
                                     </tr>
                                     <tr>
                                         <td><i class="fa-solid fa-f"></i></td>
                                         <td><i class="fas fa-folder-open"></i></td>
-                                        <td><strong>Share</strong> the file</td>
+                                        <td><strong>分享</strong> 文件</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -1204,11 +1204,11 @@ access to use this app.
                         <br />
                         <div class="title">
                             <i class="fa-solid fa-tv"></i>
-                            <p>Aspect ratio:</p>
+                            <p>宽高比：</p>
                         </div>
                         <br />
-                        <select id="BtnAspectRatio" class="form-select text-light bg-dark">
-                            <option value="0">default</option>
+                        <select id="BtnAspectRatio" class="form-text text-light bg-dark">
+                            <option value="0">默认</option>
                             <option value="1">4:3</option>
                             <option value="2">16:9</option>
                             <option value="3">1:1</option>
@@ -1217,25 +1217,25 @@ access to use this app.
                         <br />
                         <div class="title">
                             <i class="fa-solid fa-film"></i>
-                            <p>Video Object fit:</p>
+                            <p>视频对象适应：</p>
                         </div>
                         <br />
-                        <select id="BtnVideoObjectFit" class="form-select text-light bg-dark">
-                            <option value="fill">fill</option>
-                            <option value="contain">contain</option>
-                            <option value="cover">cover</option>
-                            <option value="scale-down">scale-down</option>
-                            <option value="none">none</option>
+                        <select id="BtnVideoObjectFit" class="form-text text-light bg-dark">
+                            <option value="fill">填充</option>
+                            <option value="contain">包含</option>
+                            <option value="cover">覆盖</option>
+                            <option value="scale-down">缩放</option>
+                            <option value="none">无</option>
                         </select>
                         <br />
                         <div class="title">
                             <i class="fa-solid fa-circle-play"></i>
-                            <p>Video Controls:</p>
+                            <p>视频控件：</p>
                         </div>
                         <br />
                         <select id="BtnVideoControls" class="form-select text-light bg-dark">
-                            <option value="off">off</option>
-                            <option value="on">on</option>
+                            <option value="off">关闭</option>
+                            <option value="on">开启</option>
                         </select>
                         <br />
                     </div>
@@ -1244,25 +1244,25 @@ access to use this app.
                         <br />
                         <div class="title">
                             <i class="fa-solid fa-palette"></i>
-                            <p>Theme:</p>
+                            <p>主题：</p>
                         </div>
                         <br />
                         <select id="selectTheme" class="form-select text-light bg-dark">
-                            <option value="default">🔘 &nbsp;Default</option>
-                            <option value="dark">⚫ &nbsp;Dark</option>
-                            <option value="grey">⚪ &nbsp;Grey</option>
-                            <option value="green">🟢 &nbsp;Green</option>
-                            <option value="blue">🔵 &nbsp;Blue</option>
-                            <option value="red">🔴 &nbsp;Red</option>
-                            <option value="purple">🟣 &nbsp;Purple</option>
-                            <option value="orange">🟠 &nbsp;Orange</option>
-                            <option value="pink">🎀 &nbsp;Pink</option>
-                            <option value="yellow">🌕 &nbsp;Yellow</option>
+                            <option value="default">🔘 &nbsp;默认</option>
+                            <option value="dark">⚫ &nbsp;深色</option>
+                            <option value="grey">⚪ &nbsp;灰色</option>
+                            <option value="green">🟢 &nbsp;绿色</option>
+                            <option value="blue">🔵 &nbsp;蓝色</option>
+                            <option value="red">🔴 &nbsp;红色</option>
+                            <option value="purple">🟣 &nbsp;紫色</option>
+                            <option value="orange">🟠 &nbsp;橙色</option>
+                            <option value="pink">🎀 &nbsp;粉色</option>
+                            <option value="yellow">🌕 &nbsp;黄色</option>
                         </select>
                         <br />
                         <div class="title">
                             <i class="fas fa-fill-drip"></i>
-                            <p>Custom theme:</p>
+                            <p>自定义主题：</p>
                         </div>
                         <br />
                         <input id="themeColorPicker" class="theme-color-picker" type="text" />
@@ -1270,7 +1270,7 @@ access to use this app.
                         <div class="inline-check-box">
                             <div>
                                 <i class="fas fa-save"></i>
-                                <p>Keep custom</p>
+                                <p>保持自定义</p>
                             </div>
                             <div class="form-check form-switch form-switch-md title">
                                 <input id="keepCustomTheme" class="form-check-input" type="checkbox" />
@@ -1279,24 +1279,24 @@ access to use this app.
                         <br />
                         <div class="title">
                             <i class="fa-solid fa-up-down-left-right"></i>
-                            <p>Buttons bar:</p>
+                            <p>按钮栏：</p>
                         </div>
                         <br />
                         <select id="BtnsBarPosition" class="form-select text-light bg-dark">
-                            <option value="vertical">Vertical</option>
-                            <option value="horizontal">Horizontal</option>
+                            <option value="vertical">垂直</option>
+                            <option value="horizontal">水平</option>
                         </select>
                         <br />
                         <div id="pinUnpinGridDiv" class="hidden">
                             <div class="title">
                                 <i class="fa-solid fa-map-pin"></i>
-                                <p>Pin video position:</p>
+                                <p>固定视频位置：</p>
                             </div>
                             <br />
                             <select id="pinVideoPosition" class="form-select text-light bg-dark">
-                                <option value="vertical">Vertical</option>
-                                <option value="horizontal">Horizontal</option>
-                                <option value="top">Top</option>
+                                <option value="vertical">垂直</option>
+                                <option value="horizontal">水平</option>
+                                <option value="top">顶部</option>
                             </select>
                         </div>
                         <br />
@@ -1306,7 +1306,7 @@ access to use this app.
                         <br />
                         <div class="title">
                             <i class="fa-solid fa-language"></i>
-                            <p>Language:</p>
+                            <p>语言：</p>
                         </div>
                         <br />
                         <div id="google_translate_element"></div>
@@ -1328,7 +1328,7 @@ access to use this app.
             <div id="sendFileInfo"></div>
             <div id="sendFilePercentage"></div>
             <progress id="sendProgress" max="0" value="0"></progress>
-            <button id="sendAbortBtn"><i class="fas fa-stop-circle"></i>&nbsp; Abort</button>
+            <button id="sendAbortBtn"><i class="fas fa-stop-circle"></i>&nbsp; 终止</button>
         </div>
 
         <div id="receiveFileDiv" class="fadein center">
@@ -1341,8 +1341,8 @@ access to use this app.
             <div id="receiveFileInfo"></div>
             <div id="receiveFilePercentage"></div>
             <progress id="receiveProgress" max="0" value="0"></progress>
-            <button id="receiveHideBtn"><i class="fas fa-eye-slash"></i>&nbsp; Hide</button>
-            <button id="receiveAbortBtn"><i class="fas fa-stop-circle"></i>&nbsp; Abort</button>
+            <button id="receiveHideBtn"><i class="fas fa-eye-slash"></i>&nbsp; 隐藏</button>
+            <button id="receiveAbortBtn"><i class="fas fa-stop-circle"></i>&nbsp; 终止</button>
         </div>
 
         <section id="whiteboard" class="fadein center hidden">
@@ -1372,12 +1372,12 @@ access to use this app.
                             <i class="fas fa-bars"></i>
                         </button>
                         <div class="dropdown-menu text-start" aria-labelledby="whiteboardDropDownMenu">
-                            <button id="whiteboardImgFileBtn"><i class="far fa-image"></i> Add image file</button>
-                            <button id="whiteboardImgUrlBtn"><i class="fas fa-link"></i> Add image URL</button>
-                            <button id="whiteboardPdfFileBtn"><i class="far fa-file-pdf"></i> Add pdf file</button>
-                            <button id="whiteboardTextBtn"><i class="fas fa-spell-check"></i> Add text</button>
-                            <button id="whiteboardLineBtn"><i class="fas fa-slash"></i> Add line</button>
-                            <button id="whiteboardRectBtn"><i class="far fa-square"></i> Add rectangle</button>
+                            <button id="whiteboardImgFileBtn"><i class="far fa-image"></i> 添加图片文件</button>
+                            <button id="whiteboardImgUrlBtn"><i class="fas fa-link"></i> 添加图片链接</button>
+                            <button id="whiteboardPdfFileBtn"><i class="far fa-file-pdf"></i> 添加pdf文件</button>
+                            <button id="whiteboardTextBtn"><i class="fas fa-spell-check"></i> 添加文本</button>
+                            <button id="whiteboardLineBtn"><i class="fas fa-slash"></i> 添加直线</button>
+                            <button id="whiteboardRectBtn"><i class="far fa-square"></i> 添加矩形</button>
                             <button id="whiteboardTriangleBtn">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -1388,12 +1388,12 @@ access to use this app.
                                 >
                                     <path d="M12 5.887l8.468 14.113h-16.936l8.468-14.113zm0-3.887l-12 20h24l-12-20z" />
                                 </svg>
-                                Add triangle
+                                添加三角形
                             </button>
-                            <button id="whiteboardCircleBtn"><i class="far fa-circle"></i> Add circle</button>
-                            <button id="whiteboardSaveBtn"><i class="fas fa-save"></i> Save</button>
-                            <button id="whiteboardEraserBtn"><i class="fas fa-eraser"></i> Eraser</button>
-                            <button id="whiteboardCleanBtn"><i class="fas fa-trash"></i> Clean</button>
+                            <button id="whiteboardCircleBtn"><i class="far fa-circle"></i> 添加圆形</button>
+                            <button id="whiteboardSaveBtn"><i class="fas fa-save"></i> 保存</button>
+                            <button id="whiteboardEraserBtn"><i class="fas fa-eraser"></i> 橡皮擦</button>
+                            <button id="whiteboardCleanBtn"><i class="fas fa-trash"></i> 清空</button>
                         </div>
                     </div>
                 </div>
@@ -1411,7 +1411,7 @@ access to use this app.
                 <div id="plist" class="people-list">
                     <!-- CHAT LIST OPTIONS -->
                     <div>
-                        <button id="chatShareRoomBtn"><i class="fas fa-user-plus"></i> Invite user</button>
+                        <button id="chatShareRoomBtn"><i class="fas fa-user-plus"></i> 邀请用户</button>
                         <button id="chatHideParticipantsList" class="float-right">
                             <i class="fas fa-circle-arrow-left"></i>
                         </button>
@@ -1434,7 +1434,7 @@ access to use this app.
                             id="searchParticipantsFromList"
                             type="text"
                             class="form-control"
-                            placeholder="Search..."
+                            placeholder="搜索..."
                             maxlength="254"
                         />
                     </div>
@@ -1460,7 +1460,7 @@ access to use this app.
                                     <img src="../images/all.png" alt="avatar" />
                                 </a>
                                 <div class="chat-about">
-                                    <h6 class="mb-0">Public chat</h6>
+                                    <h6 class="mb-0">公共聊天室</h6>
                                 </div>
                             </div>
 
@@ -1514,17 +1514,17 @@ access to use this app.
                                         </li>
                                         <li>
                                             <button id="chatGhostButton" class="btn-sm">
-                                                <i class="fas fa-circle-half-stroke"></i> Toggle bg
+                                                <i class="fas fa-circle-half-stroke"></i> 切换背景
                                             </button>
                                         </li>
                                         <li>
                                             <button id="chatSaveButton" class="btn-sm">
-                                                <i class="fas fa-save"></i> Save messages
+                                                <i class="fas fa-save"></i> 保存消息
                                             </button>
                                         </li>
                                         <li>
                                             <button id="chatCleanButton" class="btn-sm">
-                                                <i class="fas fa-trash"></i> Clean messages
+                                                <i class="fas fa-trash"></i> 清空消息
                                             </button>
                                         </li>
                                     </ul>
@@ -1557,7 +1557,7 @@ access to use this app.
                                 <textarea
                                     id="chatMessage"
                                     class="form-control"
-                                    placeholder="Enter text here..."
+                                    placeholder="在此输入文本..."
                                     rows="1"
                                 ></textarea>
                                 <!-- <input 
@@ -1600,7 +1600,7 @@ access to use this app.
 
         <section id="pollRoom" class="pls-container fadein hidden">
             <div id="pollHeader" class="poll-header">
-                <h2 class="poll-h2">Polls</h2>
+                <h2 class="poll-h2">投票</h2>
                 <div class="poll-header-btns">
                     <button id="pollTogglePin" class="hidden">
                         <i class="fas fa-map-pin"></i>
@@ -1622,11 +1622,11 @@ access to use this app.
             <div id="pollForm" class="poll-creation">
                 <form id="pollCreateForm" class="form">
                     <div class="form-group">
-                        <label for="question">Question:</label>
+                        <label for="question">问题：</label>
                         <input type="text" id="question" name="question" required />
                     </div>
                     <div class="form-group">
-                        <label for="options">Options:</label>
+                        <label for="options">选项：</label>
                         <div id="optionsContainer">
                             <input type="text" name="option" class="option-input" required />
                         </div>
@@ -1639,7 +1639,7 @@ access to use this app.
                                 <i class="fas fa-minus"></i>
                             </button>
                             <button type="submit" id="addPollButton" class="poll-btn">
-                                <i class="fas fa-square-poll-horizontal"></i> Create Poll
+                                <i class="fas fa-square-poll-horizontal"></i> 创建投票
                             </button>
                         </div>
                     </div>
@@ -1705,19 +1705,19 @@ access to use this app.
                                 </li>
                                 <li>
                                     <button id="transcriptionGhostBtn">
-                                        <i class="fas fa-circle-half-stroke"></i>&nbsp;Toggle bg
+                                        <i class="fas fa-circle-half-stroke"></i>&nbsp;切换背景
                                     </button>
                                 </li>
                                 <li id="transcriptionAllLi" class="hidden">
                                     <button id="transcriptionAllBtn">
-                                        <i class="fas fa-play"></i>&nbsp;Start for all
+                                        <i class="fas fa-play"></i>&nbsp;全部开始
                                     </button>
                                 </li>
                                 <li>
-                                    <button id="transcriptionSaveBtn"><i class="fas fa-save"></i>&nbsp;Save</button>
+                                    <button id="transcriptionSaveBtn"><i class="fas fa-save"></i>&nbsp;保存</button>
                                 </li>
                                 <li>
-                                    <button id="transcriptionCleanBtn"><i class="fas fa-trash"></i>&nbsp;Clean</button>
+                                    <button id="transcriptionCleanBtn"><i class="fas fa-trash"></i>&nbsp;清除</button>
                                 </li>
                             </ul>
                         </div>
@@ -1738,7 +1738,7 @@ access to use this app.
 
         <section id="lobby" class="fadein center">
             <header id="lobbyHeader" class="lobby-header">
-                <div id="lobbyHeaderTitle" class="lobby-header-title">Lobby users</div>
+                <div id="lobbyHeaderTitle" class="lobby-header-title">大厅用户</div>
             </header>
             <main>
                 <div id="lobbyUsers">
@@ -1751,7 +1751,7 @@ access to use this app.
                         </tr>
                         <tr id="lobbyAll">
                             <td>&nbsp;<i class="fas fa-users fa-lg"></i></td>
-                            <td>All</td>
+                            <td>全部</td>
                             <td><button id="lobbyAcceptAllBtn" class="fas fa-check"></button></td>
                             <td><button id="lobbyRejectAllBtn" class="fas fa-times"></button></td>
                         </tr>

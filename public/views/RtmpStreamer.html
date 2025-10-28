@@ -6,7 +6,7 @@
 
         <!-- Title and Icon -->
 
-        <title id="title">MiroTalk RTMP Streamer</title>
+        <title id="title">MiroTalk RTMP流媒体</title>
         <link id="icon" rel="shortcut icon" href="../images/logo.svg" />
         <link id="appleTouchIcon" rel="apple-touch-icon" href="../images/logo.svg" />
 
@@ -19,12 +19,12 @@
         <meta
             id="description"
             name="description"
-            content="MiroTalk SFU powered by WebRTC and mediasoup, Real-time Simple Secure Fast video calls, messaging and screen sharing capabilities in the browser."
+            content="MiroTalk SFU 由 WebRTC 和 mediasoup 提供动力，支持浏览器中的实时简单安全快速视频通话、消息传递和屏幕共享功能。"
         />
         <meta
             id="keywords"
             name="keywords"
-            content="webrtc, miro, mediasoup, mediasoup-client, self hosted, voip, sip, real-time communications, chat, messaging, meet, webrtc stun, webrtc turn, webrtc p2p, webrtc sfu, video meeting, video chat, video conference, multi video chat, multi video conference, peer to peer, p2p, sfu, rtc, alternative to, zoom, microsoft teams, google meet, jitsi, meeting"
+            content="webrtc, miro, mediasoup, mediasoup-client, 自托管, voip, sip, 实时通信, 聊天, 消息传递, 会议, webrtc stun, webrtc turn, webrtc p2p, webrtc sfu, 视频会议, 视频聊天, 视频会议, 多视频聊天, 多视频会议, 点对点, p2p, sfu, rtc, 替代方案, zoom, 微软teams, 谷歌会议, jitsi, 会议"
         />
 
         <!-- StyleSheet -->
@@ -53,7 +53,7 @@
             <button id="closePopup"><i class="fas fa-close"></i></button>
         </div>
         <div class="container fadein">
-            <h1>RTMP Streamer</h1>
+            <h1>RTMP流媒体</h1>
             <div class="input-group-inline">
                 <input
                     id="apiSecret"
@@ -70,27 +70,27 @@
                     value=""
                     placeholder="rtmp://server:port/app/streamKey"
                     readonly
-                    title="This is your RTMP live URL. It cannot be edited."
+                    title="这是您的RTMP直播URL。无法编辑。"
                 />
-                <button id="copy" title="Click to copy the RTMP URL"><i class="fas fa-paste"></i>&nbsp;Copy</button>
+                <button id="copy" title="点击复制RTMP URL"><i class="fas fa-paste"></i>&nbsp;复制</button>
             </div>
 
             <video id="video" width="640" height="480"></video>
 
             <div class="button-group">
-                <button id="startCamera" title="Click to start camera streaming">
-                    <i class="fas fa-video"></i>&nbsp;Start Streaming
+                <button id="startCamera" title="点击开始摄像头流式传输">
+                    <i class="fas fa-video"></i>&nbsp;开始流式传输
                 </button>
-                <button id="startScreen" title="Click to start screen streaming">
-                    <i class="fas fa-desktop"></i>&nbsp;Start Streaming
+                <button id="startScreen" title="点击开始屏幕流式传输">
+                    <i class="fas fa-desktop"></i>&nbsp;开始流式传输
                 </button>
-                <button id="stop" disabled title="Click to stop streaming">
-                    <i class="fas fa-stop-circle"></i>&nbsp;Stop Streaming
+                <button id="stop" disabled title="点击停止流式传输">
+                    <i class="fas fa-stop-circle"></i>&nbsp;停止流式传输
                 </button>
             </div>
         </div>
         <footer id="footer">
-            <p>&copy; 2025 MiroTalk SFU, all rights reserved</p>
+            <p>&copy; 2025 MiroTalk SFU，版权所有</p>
         </footer>
     </body>
 </html>
