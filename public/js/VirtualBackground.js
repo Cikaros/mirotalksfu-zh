@@ -50,7 +50,7 @@ class VirtualBackground {
 
         try {
             this.segmentation = new SelfieSegmentation({
-                locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${file}`,
+                locateFile: (file) => `https://s4.zstatic.net/npm/@mediapipe/selfie_segmentation/${file}`,
             });
 
             this.segmentation.setOptions({
