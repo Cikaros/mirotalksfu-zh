@@ -353,7 +353,7 @@ function initClient() {
         );
         setTippy('lobbyAcceptAllBtn', '接受', 'top');
         setTippy('lobbyRejectAllBtn', '拒绝', 'top');
-setTippy(
+        setTippy(
             'switchBroadcasting',
             '广播是向大量受众传播音频或视频内容（一对一）',
             'right'
