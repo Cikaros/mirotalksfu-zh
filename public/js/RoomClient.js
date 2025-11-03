@@ -9,7 +9,7 @@
  * @license 用于商业或封闭源代码，请联系我们 license.mirotalk@gmail.com 或直接通过CodeCanyon购买
  * @license CodeCanyon: https://codecanyon.net/item/mirotalk-sfu-webrtc-realtime-video-conferences/40769970
  * @author  Miroslav Pejic - miroslav.pejic.85@gmail.com
- * @version 1.9.91
+ * @version 1.9.97
  *
  */
 
@@ -908,10 +908,10 @@ class RoomClient {
         });
 
         this.producerTransport.on('icegatheringstatechange', (state) => {
-            console.warn('Producer ICE gathering change state', {
-                state: state,
-                id: this.producerTransport.id,
-            });
+            const normalStates = new Set(['new', 'gathering', 'complete']);
+            normalStates.has(state)
+                ? console.log('Producer ICE gathering state', { state, id: this.producerTransport.id })
+                : console.warn('Unexpected Producer ICE gathering state', { state, id: this.producerTransport.id });
         });
 
         this.producerTransport.on('icecandidateerror', (error) => {
@@ -986,10 +986,10 @@ class RoomClient {
         });
 
         this.consumerTransport.on('icegatheringstatechange', (state) => {
-            console.warn('Consumer ICE gathering change state', {
-                state: state,
-                id: this.consumerTransport.id,
-            });
+            const normalStates = new Set(['new', 'gathering', 'complete']);
+            normalStates.has(state)
+                ? console.log('Consumer ICE gathering state', { state, id: this.consumerTransport.id })
+                : console.warn('Unexpected Consumer ICE gathering state', { state, id: this.consumerTransport.id });
         });
 
         this.consumerTransport.on('icecandidateerror', (error) => {
@@ -2217,10 +2217,18 @@ class RoomClient {
     // ####################################################
 
     getAudioConstraints(deviceId) {
-        const audioConstraints = deviceId ? { deviceId: { exact: deviceId } } : true;
+        const audioConstraints = {
+            echoCancellation: true,
+            autoGainControl: true,
+            noiseSuppression: false,
+            sampleRate: 48000,
+            channelCount: 1,
+        };
+
+        if (deviceId) audioConstraints.deviceId = { exact: deviceId };
+
         return {
             audio: audioConstraints,
-            video: false,
         };
     }
 
@@ -2573,7 +2581,7 @@ class RoomClient {
     }
 
     async handleProducer(id, type, stream) {
-        let elem, vb, vp, ts, d, p, i, au, pip, fs, pm, pb, pn, pv, mv;
+        let elem, vb, vp, ts, d, p, i, au, pip, ha, fs, pm, pb, pn, pv, mv;
         switch (type) {
             case mediaType.video:
             case mediaType.screen:
@@ -2601,6 +2609,7 @@ class RoomClient {
                 vb.className = 'videoMenuBar hidden';
 
                 pip = this.createButton(id + '__pictureInPicture', html.pip);
+                ha = this.createButton(id + '__hideALL', html.hideALL + ' focusMode');
                 fs = this.createButton(id + '__fullScreen', html.fullScreen);
                 ts = this.createButton(id + '__snapshot', html.snapshot);
                 mv = this.createButton(id + '__mirror', html.mirror);
@@ -2646,6 +2655,7 @@ class RoomClient {
                     vb.appendChild(pip);
                 BUTTONS.producerVideo.videoMirrorButton && vb.appendChild(mv);
                 BUTTONS.producerVideo.fullScreenButton && this.isVideoFullScreenSupported && vb.appendChild(fs);
+                BUTTONS.producerVideo.focusVideoButton && vb.appendChild(ha);
 
                 if (!this.isMobileDevice) vb.appendChild(pn);
 
@@ -2683,6 +2693,7 @@ class RoomClient {
                 this.handleDD(elem.id, this.peer_id, true);
                 this.handleTS(elem.id, ts.id);
                 this.handleMV(elem.id, mv.id);
+                this.handleHA(ha.id, d.id);
                 this.handlePN(elem.id, pn.id, d.id, isScreen);
                 this.handleZV(elem.id, d.id, this.peer_id);
                 this.handlePV(id + '___' + pv.id);
@@ -2702,6 +2713,7 @@ class RoomClient {
 
                 if (!this.isMobileDevice) {
                     this.setTippy(pn.id, '切换固定', 'bottom');
+                    this.setTippy(ha.id, '切换专注模式', 'bottom');
                     this.setTippy(mv.id, '切换镜像', 'bottom');
                     this.setTippy(pip.id, '切换画中画', 'bottom');
                     this.setTippy(ts.id, '快照', 'bottom');
@@ -3634,8 +3646,12 @@ class RoomClient {
     }
 
     runOnNextUserActivation(callback) {
+        let fired = false;
+
         const fire = (e) => {
-            cleanup();
+            if (fired) return; // Prevent duplicate calls
+            fired = true;
+
             try {
                 // Call synchronously to keep the user-activation
                 callback(e);
@@ -3643,6 +3659,7 @@ class RoomClient {
                 console.error('runOnNextUserActivation callback error:', err);
             }
         };
+
         const cleanup = () => {
             window.removeEventListener('pointerdown', fire, true);
             window.removeEventListener('click', fire, true);
@@ -3650,12 +3667,17 @@ class RoomClient {
             window.removeEventListener('touchstart', fire, true);
             window.removeEventListener('keydown', fire, true);
         };
+
+        // Note: 'once: true' auto-removes listeners, but we return cleanup for manual removal if needed
         const opts = { capture: true, once: true, passive: true };
         window.addEventListener('pointerdown', fire, opts);
         window.addEventListener('click', fire, opts);
         window.addEventListener('mousedown', fire, opts);
         window.addEventListener('touchstart', fire, opts);
         window.addEventListener('keydown', fire, opts);
+
+        // Return cleanup function for manual removal if needed (e.g., component unmount)
+        return cleanup;
     }
 
     async changeAudioDestination(audioElement = false) {
@@ -3666,10 +3688,15 @@ class RoomClient {
         if (!this.hasUserActivation()) {
             this.pendingSinkId = sinkId;
             console.warn('Click once to apply the selected speaker');
-            this.runOnNextUserActivation(() => {
+            this.runOnNextUserActivation(async () => {
                 const els = audioElement ? [audioElement] : this.remoteAudioEl.querySelectorAll('audio');
-                els.forEach((el) => this.attachSinkId(el, this.pendingSinkId));
-                this.pendingSinkId = null;
+                for (const el of els) {
+                    await this.attachSinkId(el, this.pendingSinkId);
+                }
+                // Clear only if all succeeded or if pendingSinkId wasn't changed
+                if (this.pendingSinkId === sinkId) {
+                    this.pendingSinkId = null;
+                }
             });
             return;
         }
@@ -3690,7 +3717,13 @@ class RoomClient {
 
         return elem
             .setSinkId(sinkId)
-            .then(() => console.log(`Success, audio output device attached: ${sinkId}`))
+            .then(() => {
+                console.log(`Success, audio output device attached: ${sinkId}`);
+                // Clear pending sink id after successful attachment
+                if (this.pendingSinkId === sinkId) {
+                    this.pendingSinkId = null;
+                }
+            })
             .catch((err) => {
                 console.error('Attach SinkId error: ', err);
                 const speakerSel = this.getId('speakerSelect');
@@ -3702,7 +3735,12 @@ class RoomClient {
                     // Retry on next user gesture
                     this.userLog('info', '点击以允许更换发言人', 'top-end', 4000);
                     this.pendingSinkId = sinkId;
-                    this.runOnNextUserActivation(() => this.attachSinkId(elem, this.pendingSinkId));
+                    this.runOnNextUserActivation(() => {
+                        // Check if pendingSinkId is still set before retrying
+                        if (this.pendingSinkId === sinkId) {
+                            this.attachSinkId(elem, this.pendingSinkId);
+                        }
+                    });
                 } else {
                     this.userLog('warning', 'Attach SinkId 错误', err, 'top-end', 6000);
                 }

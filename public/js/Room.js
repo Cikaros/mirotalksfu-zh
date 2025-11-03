@@ -11,7 +11,7 @@ if (location.href.substr(0, 5) !== 'https') location.href = 'https' + location.h
  * @license For commercial or closed source, contact us at license.mirotalk@gmail.com or purchase directly via CodeCanyon
  * @license CodeCanyon: https://codecanyon.net/item/mirotalk-sfu-webrtc-realtime-video-conferences/40769970
  * @author  Miroslav Pejic - miroslav.pejic.85@gmail.com
- * @version 1.9.91
+ * @version 1.9.97
  *
  */
 
@@ -1738,6 +1738,7 @@ function roomIsReady() {
     loadSettingsFromLocalStorage();
     startSessionTimer();
     handleButtonsBar();
+    handleDropdownHover();
     checkButtonsBar();
     if (room_password) {
         lockRoomButton.click();
@@ -3904,6 +3905,46 @@ function handleButtonsBar() {
         : document.body.addEventListener('touchstart', showButtonsHandler);
 }
 
+function handleDropdownHover(dropdownElement = null) {
+    const supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (!supportsHover) return;
+
+    const dropdowns = dropdownElement ? dropdownElement : document.querySelectorAll('.dropdown');
+    console.log(`Dropdown found: ${dropdowns.length}`);
+
+    dropdowns.forEach((dropdown) => {
+        const toggle = dropdown.querySelector('.dropdown-toggle');
+        const menu = dropdown.querySelector('.dropdown-menu');
+
+        if (!toggle || !menu) return;
+
+        let timeoutId;
+
+        dropdown.addEventListener('mouseenter', () => {
+            clearTimeout(timeoutId);
+            const bsDropdown = bootstrap.Dropdown.getInstance(toggle) || new bootstrap.Dropdown(toggle);
+            bsDropdown.show();
+        });
+
+        dropdown.addEventListener('mouseleave', () => {
+            timeoutId = setTimeout(() => {
+                const bsDropdown = bootstrap.Dropdown.getInstance(toggle);
+                if (bsDropdown) {
+                    bsDropdown.hide();
+                }
+            }, 200);
+        });
+
+        menu.addEventListener('mouseenter', () => {
+            clearTimeout(timeoutId);
+        });
+
+        toggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    });
+}
+
 function showButtons() {
     if (
         isButtonsBarOver ||
@@ -4726,6 +4767,7 @@ async function getRoomParticipants() {
     const lists = getParticipantsList(peers);
     participantsCount = peers.size;
     participantsList.innerHTML = lists;
+    handleDropdownHover(participantsList.querySelectorAll('.dropdown'));
     refreshParticipantsCount(participantsCount, false);
     setParticipantsTippy(peers);
     console.log('*** Refresh Chat participant lists ***');
@@ -4806,7 +4848,7 @@ function getParticipantsList(peers) {
     // ONLY PRESENTER CAN EXECUTE THIS CMD
     if (!isRulesActive || isPresenter) {
         li += `
-        <div style="class="dropdown">
+        <div class="dropdown">
             <button 
                 class="dropdown-toggle" 
                 type="button" 
@@ -4891,7 +4933,7 @@ function getParticipantsList(peers) {
                         <div class="status"> <i class="fa fa-circle online"></i> online <i id="${peer_id}-unread-msg" class="fas fa-comments hidden"></i> </div>
                     </div>
 
-                    <div style="class="dropdown">
+                    <div class="dropdown">
                         <button 
                             class="dropdown-toggle" 
                             type="button" 
@@ -4970,7 +5012,7 @@ function getParticipantsList(peers) {
                 // NO ROOM BROADCASTING
                 if (!isBroadcastingEnabled) {
                     li += `
-                    <div style="class="dropdown">
+                    <div class="dropdown">
                         <button 
                             class="dropdown-toggle" 
                             type="button" 
@@ -5722,7 +5764,7 @@ function showAbout() {
         position: 'center',
         imageUrl: BRAND.about?.imageUrl && BRAND.about.imageUrl.trim() !== '' ? BRAND.about.imageUrl : image.about,
         customClass: { image: 'img-about' },
-        title: BRAND.about?.title && BRAND.about.title.trim() !== '' ? BRAND.about.title : 'WebRTC SFU v1.9.91',
+        title: BRAND.about?.title && BRAND.about.title.trim() !== '' ? BRAND.about.title : 'WebRTC SFU v1.9.97',
         html: `
             <br />
             <div id="about">
